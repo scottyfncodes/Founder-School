@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ARCH, ARCH_EDGES, LAYERS } from '../content/architecture'
+import { ARCH, LAYERS, neighbors } from '../content/architecture'
 import { lessonById } from '../content/curriculum'
 import { href } from '../lib/router'
 import { useProgress } from '../lib/store'
@@ -12,16 +12,6 @@ interface Props {
   /** Called when the learner has opened N distinct components. */
   onExplored?: (count: number) => void
   initial?: string
-}
-
-export function neighbors(id: string) {
-  const ins: string[] = []
-  const outs: string[] = []
-  for (const [a, b] of ARCH_EDGES) {
-    if (b === id) ins.push(a)
-    if (a === id) outs.push(b)
-  }
-  return { ins, outs }
 }
 
 /**

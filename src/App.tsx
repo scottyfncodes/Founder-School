@@ -60,7 +60,7 @@ export default function App() {
       title = 'Architecture map · Founder School'
       break
     case 'glossary':
-      page = <GlossaryPage openId={id} />
+      page = <GlossaryPage key={id ?? ''} openId={id} />
       title = 'Glossary · Founder School'
       break
     case 'scenarios':

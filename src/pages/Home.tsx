@@ -4,7 +4,8 @@ import { ARCH } from '../content/architecture'
 import { useProgress } from '../lib/store'
 import { LEVELS, overall } from '../lib/levels'
 import { href } from '../lib/router'
-import { Meter, Ring, inkOn } from '../components/bits'
+import { Meter, Ring } from '../components/bits'
+import { inkOn } from '../lib/theme'
 
 export function Home() {
   const p = useProgress()

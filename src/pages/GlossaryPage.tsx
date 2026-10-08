@@ -9,13 +9,6 @@ export function GlossaryPage({ openId }: { openId?: string }) {
   const openRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
-    if (openId) {
-      setOpen(openId)
-      setQ('')
-    }
-  }, [openId])
-
-  useEffect(() => {
     if (openId) openRef.current?.scrollIntoView({ block: 'center' })
   }, [openId])
 

@@ -18,6 +18,7 @@
   --good: #2b8a3e;
   --good-soft: #e1f3e4;
   --bad: #c92a2a;
+  --bad-ink: #ffffff;
   --bad-soft: #fbe4e4;
   --warn: #c76a00;
   --warn-soft: #fcefd9;
@@ -62,6 +63,7 @@
     --good: #51cf66;
     --good-soft: #17301d;
     --bad: #ff6b6b;
+    --bad-ink: #1f0a0a;
     --bad-soft: #3a1b1d;
     --warn: #ffa94d;
     --warn-soft: #3a2a16;
@@ -432,7 +434,7 @@ strong {
 .btn.danger {
   background: var(--bad);
   border-color: var(--bad);
-  color: #fff;
+  color: var(--bad-ink);
 }
 
 .btn.ghost {

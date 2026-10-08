@@ -5,7 +5,8 @@ import { href } from '../lib/router'
 import { ARCH } from '../content/architecture'
 import { LESSONS, conceptName } from '../content/curriculum'
 import { Quiz } from './Quiz'
-import { LevelDot, worldStyle } from './bits'
+import { LevelDot } from './bits'
+import { worldStyle } from '../lib/theme'
 
 interface Props {
   lesson: Lesson

@@ -81,7 +81,8 @@ export function FlowSim({ nodes, scenarios, required, onDone }: Props) {
       }
       setStates((st) => ({ ...st, [hop.at]: hop.status ?? 'active' }))
       if (hop.say) setBubble({ at: hop.at, say: hop.say, tone: hop.tone })
-      setLog((l) => [...l, { from: prev ?? '', to: hop.at, say: hop.say, tone: hop.tone }])
+      const entry = { from: prev ?? '', to: hop.at, say: hop.say, tone: hop.tone }
+      setLog((l) => [...l, entry])
       await wait(hop.hold ?? 900)
       if (runId.current !== my) return
       if (!hop.status) setStates((st) => ({ ...st, [hop.at]: 'ok' }))

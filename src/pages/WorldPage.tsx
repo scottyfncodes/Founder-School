@@ -2,7 +2,8 @@ import type { World } from '../lib/types'
 import { WORLDS } from '../content/curriculum'
 import { useProgress } from '../lib/store'
 import { href } from '../lib/router'
-import { BackLink, LevelDot, worldStyle } from '../components/bits'
+import { BackLink, LevelDot } from '../components/bits'
+import { worldStyle } from '../lib/theme'
 
 export function WorldPage({ world }: { world: World }) {
   const p = useProgress()
