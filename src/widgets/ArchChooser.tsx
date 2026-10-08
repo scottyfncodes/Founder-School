@@ -242,7 +242,7 @@ export function ArchScenarios({ onDone }: { onDone?: () => void }) {
               <div key={o} className="stack sm">
                 <button
                   type="button"
-                  className={`chip ${isPicked ? (v.tone === 'bad' ? 'bad' : 'good') : reveal && o === bestId ? 'good' : ''}`}
+                  className={`chip ${isPicked ? (v.tone === 'good' ? 'good' : v.tone === 'bad' ? 'bad' : 'on') : reveal && o === bestId ? 'good' : ''}`}
                   onClick={() => choose(o)}
                 >
                   {STYLES[o].emoji} {STYLES[o].name}

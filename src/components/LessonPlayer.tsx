@@ -30,14 +30,6 @@ export function LessonPlayer({ lesson, world }: Props) {
   const step = lesson.steps[i]
   const total = lesson.steps.length
 
-  // a fresh lesson (navigating between lessons) starts at step 0
-  useEffect(() => {
-    setI(0)
-    setReady(new Set())
-    setFirstTry({})
-    setFinished(false)
-  }, [lesson.id])
-
   useEffect(() => {
     topRef.current?.scrollIntoView({ block: 'start' })
     window.scrollTo({ top: 0 })

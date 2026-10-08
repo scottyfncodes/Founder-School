@@ -18,7 +18,11 @@ interface BillLine {
 }
 
 /** Slider position 0–100 → 100 … 1,000,000 users (log scale). */
-const toUsers = (p: number) => Math.round(10 ** (2 + (p / 100) * 4) / 10) * 10
+const toUsers = (p: number) => {
+  const raw = 10 ** (2 + (p / 100) * 4)
+  const mag = 10 ** (Math.floor(Math.log10(raw)) - 1)
+  return Math.round(raw / mag) * mag
+}
 const fromUsers = (u: number) => ((Math.log10(u) - 2) / 4) * 100
 
 function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
