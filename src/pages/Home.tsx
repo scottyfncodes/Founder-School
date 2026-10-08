@@ -5,6 +5,7 @@ import { useProgress } from '../lib/store'
 import { LEVELS, overall } from '../lib/levels'
 import { href } from '../lib/router'
 import { Meter, Ring } from '../components/bits'
+import { inkOn } from '../lib/theme'
 
 export function Home() {
   const p = useProgress()
@@ -82,10 +83,10 @@ export function Home() {
                 textDecoration: 'none',
                 background: nextWorld.color,
                 borderColor: nextWorld.color,
-                color: '#fff',
+                color: inkOn(nextWorld.color),
               }}
             >
-              <div className="kicker" style={{ color: 'rgb(255 255 255 / 80%)' }}>
+              <div className="kicker" style={{ color: 'inherit', opacity: 0.8 }}>
                 {lessonsDone === 0 ? 'Start here' : 'Next lesson'} · World {nextWorld.num}
               </div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, lineHeight: 1.15, fontWeight: 600 }}>
@@ -93,7 +94,7 @@ export function Home() {
               </div>
               <div style={{ opacity: 0.9 }}>{next.subtitle}</div>
               <div className="row between" style={{ marginTop: 'auto' }}>
-                <span className="pill" style={{ background: 'rgb(255 255 255 / 20%)', color: '#fff' }}>
+                <span className="pill" style={{ background: 'color-mix(in srgb, currentColor 18%, transparent)', color: 'inherit' }}>
                   ⏱ {next.minutes} min
                 </span>
                 <span style={{ fontWeight: 700 }}>Start →</span>

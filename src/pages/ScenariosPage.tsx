@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import type { Scenario } from '../lib/types'
 import { SCENARIOS } from '../content/scenarios'
 import { lessonById } from '../content/curriculum'
@@ -53,7 +53,7 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
   const [i, setI] = useState(0)
   const [solved, setSolved] = useState(false)
   const [done, setDone] = useState(false)
-  const allFirst = useRef(true)
+  const [allFirst, setAllFirst] = useState(true)
   const idx = SCENARIOS.indexOf(s)
   const nextS = SCENARIOS[idx + 1]
   const step = s.steps[i]
@@ -64,7 +64,7 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
       setSolved(false)
       window.scrollTo({ top: 0 })
     } else {
-      recordScenario(s.id, allFirst.current)
+      recordScenario(s.id, allFirst)
       setDone(true)
       window.scrollTo({ top: 0 })
     }
@@ -98,7 +98,7 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
               context={step.context}
               options={step.options}
               onFirstAnswer={(ok) => {
-                if (!ok) allFirst.current = false
+                if (!ok) setAllFirst(false)
               }}
               onSolved={() => setSolved(true)}
             />
@@ -110,8 +110,8 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
           </div>
         ) : (
           <div className="stack pop">
-            <div className={`callout ${allFirst.current ? 'good' : 'info'}`}>
-              {allFirst.current ? '🏆 Every call right on the first try.' : '✓ Scenario complete. Replay it any time to nail it first try.'}
+            <div className={`callout ${allFirst ? 'good' : 'info'}`}>
+              {allFirst ? '🏆 Every call right on the first try.' : '✓ Scenario complete. Replay it any time to nail it first try.'}
             </div>
             <div className="card stack sm">
               <div className="kicker">Remember this</div>

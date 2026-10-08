@@ -6,6 +6,7 @@ import { ARCH } from '../content/architecture'
 import { LESSONS, conceptName } from '../content/curriculum'
 import { Quiz } from './Quiz'
 import { LevelDot } from './bits'
+import { worldStyle } from '../lib/theme'
 
 interface Props {
   lesson: Lesson
@@ -30,14 +31,6 @@ export function LessonPlayer({ lesson, world }: Props) {
   const step = lesson.steps[i]
   const total = lesson.steps.length
 
-  // a fresh lesson (navigating between lessons) starts at step 0
-  useEffect(() => {
-    setI(0)
-    setReady(new Set())
-    setFirstTry({})
-    setFinished(false)
-  }, [lesson.id])
-
   useEffect(() => {
     topRef.current?.scrollIntoView({ block: 'start' })
     window.scrollTo({ top: 0 })
@@ -59,14 +52,14 @@ export function LessonPlayer({ lesson, world }: Props) {
     return LESSONS[idx + 1]
   }, [lesson.id])
 
-  const style = { '--accent': world.color, '--accent-soft': `color-mix(in srgb, ${world.color} 14%, var(--surface))` } as React.CSSProperties
+  const style = worldStyle(world.color)
 
   if (finished) {
     const quizzes = lesson.steps.filter((s) => s.kind === 'quiz')
     const right = quizzes.filter((q) => firstTry[q.id]).length
     const unlocked = ARCH.filter((c) => lesson.unlocks?.includes(c.id))
     return (
-      <div className="page" style={style} ref={topRef}>
+      <div className="page" data-world style={style} ref={topRef}>
         <div className="stack lg pop">
           <div className="center stack sm" style={{ paddingTop: 24 }}>
             <div style={{ fontSize: 56 }} aria-hidden="true">
@@ -147,7 +140,7 @@ export function LessonPlayer({ lesson, world }: Props) {
   }
 
   return (
-    <div style={style} ref={topRef}>
+    <div data-world style={style} ref={topRef}>
       <header
         className="lesson-top"
         style={{

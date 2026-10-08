@@ -1,0 +1,60 @@
+/* Capstone-only styles. Scoped under .cap so nothing leaks into the rest of the app. */
+
+.cap .cap-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+}
+
+.cap .cap-stats .stat {
+  padding: 10px;
+}
+
+.cap .cap-stats .stat .v {
+  font-size: 18px;
+}
+
+.cap .cap-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.cap .cap-track > span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cap .cap-track > span.done {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.cap .cap-track > span.now {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.cap .cap-opt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 12px 14px;
+}
+
+.cap .cap-opt .e {
+  font-size: 24px;
+  line-height: 1.1;
+  flex: none;
+}
+
+.cap .cap-hero {
+  background: linear-gradient(160deg, var(--accent-soft), var(--surface) 70%);
+}

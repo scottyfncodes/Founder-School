@@ -3,6 +3,7 @@ import { WORLDS } from '../content/curriculum'
 import { useProgress } from '../lib/store'
 import { href } from '../lib/router'
 import { BackLink, LevelDot } from '../components/bits'
+import { worldStyle } from '../lib/theme'
 
 export function WorldPage({ world }: { world: World }) {
   const p = useProgress()
@@ -12,14 +13,14 @@ export function WorldPage({ world }: { world: World }) {
   const next = WORLDS[idx + 1]
 
   return (
-    <main className="page" style={{ '--accent': world.color } as React.CSSProperties}>
+    <main className="page" data-world style={worldStyle(world.color)}>
       <div className="stack lg">
         <BackLink to="/" label="All worlds" />
         <header className="stack sm">
           <div style={{ fontSize: 48, lineHeight: 1 }} aria-hidden="true">
             {world.emoji}
           </div>
-          <div className="kicker" style={{ color: world.color }}>
+          <div className="kicker" style={{ color: 'var(--accent)' }}>
             World {world.num}
           </div>
           <h1>{world.title}</h1>
@@ -38,7 +39,7 @@ export function WorldPage({ world }: { world: World }) {
                 style={{
                   textDecoration: 'none',
                   gap: 14,
-                  borderColor: isNext ? world.color : undefined,
+                  borderColor: isNext ? 'var(--accent)' : undefined,
                 }}
               >
                 <span
@@ -51,8 +52,8 @@ export function WorldPage({ world }: { world: World }) {
                     display: 'grid',
                     placeItems: 'center',
                     fontWeight: 700,
-                    background: done ? world.color : 'var(--surface-2)',
-                    color: done ? '#fff' : 'var(--ink-2)',
+                    background: done ? 'var(--accent)' : 'var(--surface-2)',
+                    color: done ? 'var(--accent-ink)' : 'var(--ink-2)',
                   }}
                 >
                   {done ? '✓' : k + 1}

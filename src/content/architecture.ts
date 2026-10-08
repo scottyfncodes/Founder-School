@@ -368,3 +368,13 @@ export const LAYERS: { id: ArchComponent['layer']; label: string }[] = [
   { id: 'services', label: 'Other companies’ services' },
   { id: 'ops', label: 'How it’s built, shipped & watched' },
 ]
+
+export function neighbors(id: string) {
+  const ins: string[] = []
+  const outs: string[] = []
+  for (const [a, b] of ARCH_EDGES) {
+    if (b === id) ins.push(a)
+    if (a === id) outs.push(b)
+  }
+  return { ins, outs }
+}

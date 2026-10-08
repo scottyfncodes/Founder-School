@@ -18,6 +18,7 @@
   --good: #2b8a3e;
   --good-soft: #e1f3e4;
   --bad: #c92a2a;
+  --bad-ink: #ffffff;
   --bad-soft: #fbe4e4;
   --warn: #c76a00;
   --warn-soft: #fcefd9;
@@ -62,6 +63,7 @@
     --good: #51cf66;
     --good-soft: #17301d;
     --bad: #ff6b6b;
+    --bad-ink: #1f0a0a;
     --bad-soft: #3a1b1d;
     --warn: #ffa94d;
     --warn-soft: #3a2a16;
@@ -432,7 +434,7 @@ strong {
 .btn.danger {
   background: var(--bad);
   border-color: var(--bad);
-  color: #fff;
+  color: var(--bad-ink);
 }
 
 .btn.ghost {
@@ -872,4 +874,20 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+/* ---------- per-world theming (see worldStyle in components/bits.tsx) ---------- */
+
+[data-world] {
+  --accent: var(--world);
+  --accent-ink: var(--world-ink);
+  --accent-soft: color-mix(in srgb, var(--world) 14%, var(--surface));
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-world] {
+    --accent: color-mix(in srgb, var(--world) 68%, #ffffff);
+    --accent-ink: #111215;
+    --accent-soft: color-mix(in srgb, var(--world) 26%, var(--surface));
+  }
 }

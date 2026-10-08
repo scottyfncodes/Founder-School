@@ -50,7 +50,7 @@ export default function App() {
     case 'lesson': {
       const l = id ? lessonById(id) : undefined
       const w = id ? worldOfLesson(id) : undefined
-      page = l && w ? <LessonPlayer lesson={l} world={w} /> : <NotFound />
+      page = l && w ? <LessonPlayer key={l.id} lesson={l} world={w} /> : <NotFound />
       immersive = !!l
       if (l) title = `${l.title} · Founder School`
       break
@@ -60,7 +60,7 @@ export default function App() {
       title = 'Architecture map · Founder School'
       break
     case 'glossary':
-      page = <GlossaryPage openId={id} />
+      page = <GlossaryPage key={id ?? ''} openId={id} />
       title = 'Glossary · Founder School'
       break
     case 'scenarios':
