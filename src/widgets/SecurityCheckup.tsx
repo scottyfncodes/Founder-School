@@ -67,7 +67,9 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
         label: `👤 ${p.who.split(' · ')[0]}`,
         open: !people[p.id],
         how: people[p.id]
-          ? 'Their old login no longer has admin powers.'
+          ? p.id === 'jordan'
+            ? 'Access removed — the stolen laptop opens nothing.'
+            : 'Sam clicked the phishing link, but read-only access can’t change anything.'
           : p.id === 'jordan'
             ? 'Jordan’s old laptop was stolen — still logged in as Admin.'
             : 'Sam clicked a phishing link. Sam had Admin, so the attacker does too.',
@@ -114,7 +116,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
               {a.emoji} {a.label}
             </span>
             <span className="row nowrap" style={{ gap: 8 }}>
-              <span className={`tiny ${mfa[a.id] ? 'good-text' : 'bad-text'}`}>{mfa[a.id] ? '2FA on' : 'password only'}</span>
+              <span className={`tiny ${mfa[a.id] ? 'good-text' : 'bad-text'}`} style={{ whiteSpace: 'nowrap' }}>{mfa[a.id] ? '2FA on' : 'password only'}</span>
               <button
                 type="button"
                 role="switch"

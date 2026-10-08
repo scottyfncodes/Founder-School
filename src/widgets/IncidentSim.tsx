@@ -187,7 +187,6 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
   const [history, setHistory] = useState<Choice[]>([])
   const [status, setStatus] = useState<Status>('ok')
   const [errors, setErrors] = useState(40)
-  const [runs, setRuns] = useState(0)
   const fired = useRef(false)
 
   const decision = DECISIONS[step]
@@ -210,7 +209,6 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
     const n = step + 1
     setStep(n)
     if (n >= DECISIONS.length) {
-      setRuns((r) => r + 1)
       if (!fired.current) {
         fired.current = true
         onDone?.()
@@ -230,7 +228,7 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
 
   return (
     <div className="stack">
-      <div className="grid3">
+      <div className="grid3" style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 6 }}>
         <div className="stat">
           <span className={`v ${errors > 5 ? 'bad-text' : 'good-text'}`}>{errors}%</span>
           <span className="l">login errors</span>
@@ -303,7 +301,7 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
             {bestCount < DECISIONS.length ? ' Replay and see how the numbers change.' : ' Textbook incident handling.'}
           </div>
           <button type="button" className="btn block" onClick={replay}>
-            ↻ Replay the incident{runs > 1 ? ` (run ${runs + 1})` : ''}
+            ↻ Replay the incident
           </button>
         </div>
       )}
