@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 /**
  * Shared shell for the Security Attack Lab. Every vulnerability is played in
@@ -52,14 +52,15 @@ export function VulnCase({ emoji, name, intended, happened, fixName, fixText, bl
     setLast(r)
     if (r === 'normal' && stage === 0) setStage(1)
     if (r === 'breach' && stage < 2) setStage(2)
-    if (r === 'blocked' && stage >= 2) {
-      setStage(3)
-      if (!fired.current) {
-        fired.current = true
-        onDone?.()
-      }
-    }
+    if (r === 'blocked' && stage >= 2) setStage(3)
   }
+
+  useEffect(() => {
+    if (stage === 3 && !fired.current) {
+      fired.current = true
+      onDone?.()
+    }
+  }, [stage, onDone])
 
   const api: VulnApi = { stage, fixOn, busy, setBusy, report, last }
   const hint =

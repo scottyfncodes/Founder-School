@@ -18,11 +18,11 @@ interface PricePoint {
   who: string
 }
 
-export const TICKET_COST = 8
-export const INFRA_PER_CUSTOMER = 3
+const TICKET_COST = 8
+const INFRA_PER_CUSTOMER = 3
 
 /** A plausible demand curve: same marketing, different prices. */
-export const PRICES: PricePoint[] = [
+const PRICES: PricePoint[] = [
   { price: 9, customers: 1400, tickets: 0.5, touch: 0, churn: 0.09, expect: 'Self-serve help docs', who: 'Solo practitioners trying it out; many never fully set it up.' },
   { price: 29, customers: 700, tickets: 0.6, touch: 0, churn: 0.06, expect: 'Email reply within 48h', who: 'Small clinics who use it a few days a week.' },
   { price: 99, customers: 260, tickets: 0.8, touch: 0, churn: 0.035, expect: 'Email reply within 24h', who: 'Busy clinics that run their whole week on it.' },
@@ -30,7 +30,7 @@ export const PRICES: PricePoint[] = [
   { price: 499, customers: 40, tickets: 1.5, touch: 40, churn: 0.02, expect: 'Named contact, onboarding calls, 4h response', who: 'Clinic groups who need contracts, invoices and a security review.' },
 ]
 
-export function economics(p: PricePoint) {
+function economics(p: PricePoint) {
   const revenue = p.price * p.customers
   const tickets = p.tickets * p.customers
   const support = tickets * TICKET_COST + p.touch * p.customers

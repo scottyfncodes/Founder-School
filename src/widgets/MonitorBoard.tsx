@@ -18,7 +18,7 @@ const STEP = 5
 const FRAMES = 32 // 9:00 → 11:40
 const BREAK_AT = 9 * 60 + 5
 const THRESHOLD = 2 // % error rate that triggers an alert
-const ALERT_AFTER = 2 // consecutive bad buckets
+const ALERT_AFTER = 3 // consecutive bad 5-minute buckets
 
 function errorRate(frame: number, fixed: boolean) {
   const t = START + frame * STEP
@@ -60,13 +60,14 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
   const [traced, setTraced] = useState<string | null>(null)
   const [rolledBack, setRolledBack] = useState(false)
   const fired = useRef(false)
+  const tracedErr = !!traced && LOGS.find((l) => l.id === traced)?.lvl === 'ERROR'
 
   useEffect(() => {
-    if (!fired.current && didOff && didOn && traced) {
+    if (!fired.current && didOff && didOn && tracedErr) {
       fired.current = true
       onDone?.()
     }
-  }, [didOff, didOn, traced, onDone])
+  }, [didOff, didOn, tracedErr, onDone])
 
   async function run() {
     const m = mode
@@ -154,8 +155,8 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
             </text>
             <line x1={0} x2={W} y1={H} y2={H} stroke="var(--line)" />
             {shown.map((v, f) => {
-              const bad = v > THRESHOLD
               const fixedV = rolledBack && outcome && START + f * STEP > outcome.at ? errorRate(f, true) : v
+              const bad = fixedV > THRESHOLD
               return (
                 <rect
                   key={f}
@@ -250,7 +251,10 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
                   <div className="callout info small">
                     One request ID, followed through every box. The cause: the 9:02 deploy forgot a setting, so the payments call fails.
                   </div>
-                  <button type="button" className="btn small block" disabled={rolledBack} onClick={() => setRolledBack(true)}>
+                  <button type="button" className="btn small block" disabled={rolledBack} onClick={() => {
+                      setRolledBack(true)
+                      setFrame((f) => Math.min(FRAMES, f + 5))
+                    }}>
                     {rolledBack ? '✓ Rolled back to v56 — errors back to normal' : '↩︎ Roll back to v56'}
                   </button>
                 </>
@@ -265,7 +269,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
       <div className="row" style={{ gap: 6 }}>
         <span className="pill" style={{ color: didOff ? 'var(--good)' : undefined }}>{didOff ? '✓' : '○'} No monitoring</span>
         <span className="pill" style={{ color: didOn ? 'var(--good)' : undefined }}>{didOn ? '✓' : '○'} With alerts</span>
-        <span className="pill" style={{ color: traced ? 'var(--good)' : undefined }}>{traced && LOGS.find((l) => l.id === traced)?.lvl === 'ERROR' ? '✓' : '○'} Trace a failure</span>
+        <span className="pill" style={{ color: tracedErr ? 'var(--good)' : undefined }}>{tracedErr ? '✓' : '○'} Trace a failure</span>
       </div>
     </div>
   )

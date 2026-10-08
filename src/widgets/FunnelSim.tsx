@@ -12,7 +12,7 @@ const PRICE = 49
 
 type Rates = { signup: number; activate: number; pay: number }
 
-export function funnel(r: Rates) {
+function funnel(r: Rates) {
   const signups = VISITORS * r.signup
   const activated = signups * r.activate
   const paid = activated * r.pay

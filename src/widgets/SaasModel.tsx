@@ -3,7 +3,7 @@ import { money, num } from '../lib/util'
 import { BizLineChart } from './BizLineChart'
 import { BizSlider } from './BizSlider'
 
-export interface SaasInputs {
+interface SaasInputs {
   price: number
   newPerMonth: number
   /** Monthly churn as a fraction, e.g. 0.08 */
@@ -13,10 +13,10 @@ export interface SaasInputs {
   cac: number
 }
 
-export const FIXED_COSTS = 6000
+const FIXED_COSTS = 6000
 const MONTHS = 24
 
-export function simulate(inp: SaasInputs) {
+function simulate(inp: SaasInputs) {
   let customers = 0
   let cumulative = 0
   const monthly: number[] = []
@@ -35,7 +35,7 @@ export function simulate(inp: SaasInputs) {
 }
 
 /** Unit economics: the standard simple formulas. */
-export function unitEconomics(inp: SaasInputs) {
+function unitEconomics(inp: SaasInputs) {
   const arpu = inp.price
   const margin = (inp.price - inp.infra) / inp.price
   const grossProfitPerCustomer = arpu * margin // = price - infra
