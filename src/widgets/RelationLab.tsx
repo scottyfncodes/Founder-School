@@ -46,7 +46,7 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
     <div className="stack">
       <div className="stack sm">
         <div className="kicker">Tap a contact ({Math.min(seen.size, 3)}/3)</div>
-        <div className="row" style={{ gap: 6 }}>
+        <div className="grid2" style={{ gap: 6 }}>
           {CONTACTS.rows.map((r) => (
             <button
               key={r[0] as number}
@@ -54,9 +54,12 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
               className={`chip small ${seen.has(r[0] as number) && sel !== r[0] ? 'good' : ''}`}
               aria-pressed={sel === r[0]}
               onClick={() => pick(r[0] as number)}
-              style={{ padding: '6px 10px', fontSize: 13 }}
+              style={{ padding: '6px 10px', fontSize: 13, lineHeight: 1.25 }}
             >
-              {r[1]} <span className="muted">· {r[3]}</span>
+              {r[1]}
+              <span className="tiny muted" style={{ display: 'block' }}>
+                {r[3]}
+              </span>
             </button>
           ))}
         </div>
@@ -79,15 +82,15 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
 
       <div className="stack sm">
         <div className="kicker">📝 NOTES — each note points to one contact</div>
-        <DbTable table={NOTES} caption="Notes" cellStyle={mine('contact_id')} />
+        <DbTable compact table={NOTES} caption="Notes" cellStyle={mine('contact_id')} />
       </div>
       <div className="stack sm">
         <div className="kicker">📄 DOCUMENTS</div>
-        <DbTable table={DOCUMENTS} caption="Documents" cellStyle={mine('contact_id')} />
+        <DbTable compact table={DOCUMENTS} caption="Documents" cellStyle={mine('contact_id')} />
       </div>
       <div className="stack sm">
         <div className="kicker">🔗 AIRCRAFT_OWNERS — links contacts and planes</div>
-        <DbTable table={OWNERS} caption="Aircraft owners" cellStyle={(c, r) => (sel === null ? undefined : r[0] !== sel ? dim : c === 'contact_id' ? fk : undefined)} />
+        <DbTable compact table={OWNERS} caption="Aircraft owners" cellStyle={(c, r) => (sel === null ? undefined : r[0] !== sel ? dim : c === 'contact_id' ? fk : undefined)} />
       </div>
 
       <div aria-live="polite" className="stack sm">
@@ -179,15 +182,15 @@ export function DeleteRules({ onDone }: { onDone?: () => void }) {
         🗑 Delete Maria Lopez (id 101)
       </button>
 
-      <DbTable
+      <DbTable compact
         table={CONTACTS}
         rows={CONTACTS.rows.slice(0, 3)}
         caption="Contacts"
         rowClass={(r) => (r[0] === ID ? (contactGone ? 'hl-bad' : 'hl') : '')}
         cellStyle={(_, r) => (r[0] === ID && contactGone ? { textDecoration: 'line-through', opacity: 0.6 } : r[0] !== ID ? dim : undefined)}
       />
-      <DbTable table={NOTES} rows={NOTES.rows.slice(0, 4)} caption="Notes" rowClass={rowCls} cellStyle={child} />
-      <DbTable table={DOCUMENTS} rows={DOCUMENTS.rows.slice(0, 3)} caption="Documents" rowClass={rowCls} cellStyle={child} />
+      <DbTable compact table={NOTES} rows={NOTES.rows.slice(0, 4)} caption="Notes" rowClass={rowCls} cellStyle={child} />
+      <DbTable compact table={DOCUMENTS} rows={DOCUMENTS.rows.slice(0, 3)} caption="Documents" rowClass={rowCls} cellStyle={child} />
 
       <div aria-live="polite">
         {ran === 'none' && (

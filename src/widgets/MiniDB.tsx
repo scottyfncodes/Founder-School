@@ -15,6 +15,7 @@ export function DbTable({
   selectedCol,
   caption,
   rows,
+  compact,
 }: {
   table: Table
   rowClass?: (r: Cell[], i: number) => string
@@ -24,6 +25,8 @@ export function DbTable({
   selectedCol?: string | null
   caption?: string
   rows?: Cell[][]
+  /** Tighter cells for narrow screens. */
+  compact?: boolean
 }) {
   const data = rows ?? table.rows
   return (
@@ -33,7 +36,13 @@ export function DbTable({
         <thead>
           <tr>
             {table.columns.map((c) => (
-              <th key={c} style={selectedCol === c ? { background: 'var(--accent-soft)', color: 'var(--ink)' } : undefined}>
+              <th
+                key={c}
+                style={{
+                  ...(compact ? { padding: '8px 6px' } : undefined),
+                  ...(selectedCol === c ? { background: 'var(--accent-soft)', color: 'var(--ink)' } : undefined),
+                }}
+              >
                 {onHeader ? (
                   <button
                     type="button"
@@ -85,6 +94,7 @@ export function DbTable({
                   key={c}
                   className={c.endsWith('id') ? 'mono' : undefined}
                   style={{
+                    ...(compact ? { padding: '7px 6px' } : undefined),
                     ...(selectedCol === c ? { background: 'var(--accent-soft)' } : undefined),
                     ...cellStyle?.(c, r),
                   }}
@@ -153,7 +163,7 @@ export function TableBrowser({ onDone }: { onDone?: () => void }) {
           </button>
         ))}
       </div>
-      <DbTable
+      <DbTable compact
         table={t}
         caption={t.name}
         selectedCol={col}
@@ -214,7 +224,7 @@ export function TwoMarias({ onDone }: { onDone?: () => void }) {
       <div className="well small">
         📨 <b>Support ticket:</b> “Please delete my contact record — Maria Lopez, Lopez Ag Services, Boston.”
       </div>
-      <DbTable
+      <DbTable compact
         table={CONTACTS}
         rows={rows}
         caption="Contacts"

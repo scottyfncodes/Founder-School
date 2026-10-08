@@ -3,8 +3,8 @@ import { wait } from '../lib/motion'
 
 interface Settings {
   far: boolean
-  bigImage: boolean
-  chatty: boolean
+  compress: boolean
+  combine: boolean
   cdn: boolean
   cached: boolean
 }
@@ -36,10 +36,10 @@ function model(s: Settings) {
   // 3. JS + image in parallel
   const jsT = s.cached ? 0.005 : rttS + 0.4 / BW
   bars.push({ id: 'js', label: s.cached ? 'App code (from cache)' : 'App code (400 KB)', start: t, wait: s.cached ? 0 : rttS, dl: s.cached ? 0.005 : 0.4 / BW, kind: 'static' })
-  const imgMB = s.bigImage ? 6 : 0.25
+  const imgMB = s.compress ? 0.25 : 6
   bars.push({
     id: 'img',
-    label: s.cached ? 'Hero image (from cache)' : `Hero image (${s.bigImage ? '6 MB' : '250 KB'})`,
+    label: s.cached ? 'Hero image (from cache)' : `Hero image (${s.compress ? '250 KB' : '6 MB'})`,
     start: t,
     wait: s.cached ? 0 : rttS,
     dl: s.cached ? 0.005 : imgMB / BW,
@@ -52,12 +52,12 @@ function model(s: Settings) {
     bars.push({ id: 'apiconn', label: 'Connect to your server', start: t, wait: 2 * rttO, dl: 0, kind: 'api' })
     t += 2 * rttO
   }
-  const calls = s.chatty ? 6 : 1
+  const calls = s.combine ? 1 : 6
   for (let i = 0; i < calls; i++) {
-    const think = s.chatty ? 0.04 : 0.1
+    const think = s.combine ? 0.1 : 0.04
     bars.push({
       id: `api${i}`,
-      label: s.chatty ? `Data request ${i + 1} of 6` : 'Data request (all at once)',
+      label: s.combine ? 'Data request (all at once)' : `Data request ${i + 1} of 6`,
       start: t,
       wait: rttO,
       dl: think,
@@ -74,7 +74,7 @@ function model(s: Settings) {
 const fmt = (s: number) => (s < 0.1 ? `${Math.round(s * 1000)} ms` : `${s.toFixed(2)} s`)
 
 export function SpeedLab({ onDone }: { onDone?: () => void }) {
-  const [s, setS] = useState<Settings>({ far: true, bigImage: true, chatty: true, cdn: false, cached: false })
+  const [s, setS] = useState<Settings>({ far: true, compress: false, combine: false, cdn: false, cached: false })
   const [run, setRun] = useState<ReturnType<typeof model> | null>(null)
   const [clock, setClock] = useState(0)
   const [busy, setBusy] = useState(false)
@@ -110,8 +110,8 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
   }
 
   const toggles: { k: keyof Settings; label: string; on: string; off: string }[] = [
-    { k: 'bigImage', label: '🖼️ Hero image', on: 'Huge original (6 MB)', off: 'Compressed (250 KB)' },
-    { k: 'chatty', label: '🔁 Data requests', on: '6, one after another', off: '1 combined request' },
+    { k: 'compress', label: '🖼️ Compress the hero image', on: '250 KB', off: 'Huge original (6 MB)' },
+    { k: 'combine', label: '🔁 Combine data requests', on: '1 request with everything', off: '6 requests, one after another' },
     { k: 'cdn', label: '🛰️ CDN for files', on: 'On — copies near the visitor', off: 'Off — all from your server' },
     { k: 'cached', label: '⚡ Repeat visit (cache)', on: 'Files already on the device', off: 'First visit' },
   ]
@@ -139,14 +139,13 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
       <div className="stack sm">
         {toggles.map((t) => {
           const v = s[t.k]
-          const good = t.k === 'bigImage' || t.k === 'chatty' ? !v : v
           return (
             <div key={t.k} className="row nowrap between" style={{ gap: 10 }}>
               <div className="grow">
                 <div className="small" style={{ fontWeight: 600 }}>
                   {t.label}
                 </div>
-                <div className={`tiny ${good ? 'good-text' : 'muted'}`}>{v ? t.on : t.off}</div>
+                <div className={`tiny ${v && t.k !== 'cached' ? 'good-text' : 'muted'}`}>{v ? t.on : t.off}</div>
               </div>
               <button type="button" role="switch" aria-checked={v} aria-label={t.label} className="switch" disabled={busy} onClick={() => set(t.k, !v)} />
             </div>
@@ -201,7 +200,7 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
                         width: `${(dlPart / scale) * 100}%`,
                         top: 0,
                         bottom: 0,
-                        background: b.kind === 'api' ? 'var(--info)' : 'var(--accent)',
+                        background: b.kind === 'api' ? 'var(--good)' : 'var(--accent)',
                         borderRadius: 4,
                       }}
                     />
@@ -218,7 +217,7 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
               <span style={{ color: 'var(--accent)' }}>■</span> downloading
             </span>
             <span>
-              <span style={{ color: 'var(--info)' }}>■</span> server working
+              <span style={{ color: 'var(--good)' }}>■</span> server working
             </span>
           </div>
         </div>
@@ -253,8 +252,8 @@ function Verdict({ s, total, done, runs, best }: { s: Settings; total: number; d
       </div>
     )
   const hints: string[] = []
-  if (s.bigImage) hints.push('that 6 MB image takes ~5 s to download on mobile')
-  if (s.chatty) hints.push('6 requests in a row means paying the Sydney round trip 6 times')
+  if (!s.compress) hints.push('that 6 MB image takes ~5 s to download on mobile')
+  if (!s.combine) hints.push('6 requests in a row means paying the Sydney round trip 6 times')
   if (!s.cdn) hints.push('every file crosses the ocean')
   return (
     <div className="callout warn pop">

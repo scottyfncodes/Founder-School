@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DbTable } from './MiniDB'
 import { CONTACTS, OWNERS } from './miniDbData'
-import type { Cell } from './miniDbData'
+import type { Cell, Table } from './miniDbData'
 
 type City = 'any' | 'Denver' | 'Austin' | 'Boston'
 type Owner = 'any' | 1 | 2
@@ -15,6 +15,14 @@ const CHALLENGES: { ask: string; want: number[]; win: string }[] = [
 ]
 
 const owns = (id: Cell) => OWNERS.rows.some((o) => o[0] === id)
+
+/** A narrow view of CONTACTS showing exactly the columns the filters use. */
+const VIEW: Table = {
+  ...CONTACTS,
+  columns: ['id', 'name', 'city', 'owner_id', 'plane'],
+  rows: [],
+}
+const toView = (r: Cell[]): Cell[] => [r[0], r[1], r[3], r[4], owns(r[0]) ? '✈️ yes' : 'no']
 
 interface Filters {
   city: City
@@ -165,12 +173,14 @@ export function QueryBuilder({ onDone }: { onDone?: () => void }) {
         </span>
       </div>
       <DbTable
-        table={CONTACTS}
-        rows={rows}
+        table={VIEW}
+        compact
+        rows={rows.map(toView)}
         caption="Query result"
-        rowClass={(r) => (match(r) ? 'hl-good' : '')}
-        cellStyle={(_, r) => (match(r) ? undefined : { opacity: 0.3 })}
+        rowClass={(_, i) => (match(rows[i]) ? 'hl-good' : '')}
+        cellStyle={(_, v) => (match(rows.find((r) => r[0] === v[0])!) ? undefined : { opacity: 0.3 })}
       />
+      <p className="tiny muted">“plane” is worked out from the AIRCRAFT_OWNERS table — it isn’t stored on the contact.</p>
     </div>
   )
 }

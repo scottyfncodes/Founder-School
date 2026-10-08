@@ -145,7 +145,7 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
             }}
           />
           <button type="button" className="btn primary small" onClick={save}>
-            Save note
+            Save note {did.has('save') ? '✓' : ''}
           </button>
         </div>
       </div>
@@ -176,11 +176,8 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
         <button type="button" className="btn small" onClick={switchDevice}>
           {device === 'phone' ? '💻 Open on laptop' : '📱 Back to phone'} {did.has('laptop') ? '✓' : ''}
         </button>
-        <button type="button" className="btn small" onClick={clearData} disabled={device === 'laptop'}>
+        <button type="button" className="btn small" onClick={clearData} disabled={device === 'laptop'} style={{ gridColumn: '1 / -1' }}>
           🧹 Clear browser data
-        </button>
-        <button type="button" className="btn small" onClick={save}>
-          ☁️ Save {did.has('save') ? '✓' : ''}
         </button>
       </div>
 

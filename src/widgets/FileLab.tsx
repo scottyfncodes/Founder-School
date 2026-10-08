@@ -184,7 +184,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
             </button>
           </div>
           <p className="tiny muted">
-            Try the stranger with the bucket public <b>{tried.has('pub') ? '✓' : ''}</b> and private <b>{tried.has('priv') ? '✓' : ''}</b>.
+            Try the stranger both ways: public {tried.has('pub') ? '✅' : '⬜'} · private {tried.has('priv') ? '✅' : '⬜'}
           </p>
           {rows.includes(latest.id) && (
             <button

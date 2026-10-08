@@ -244,7 +244,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
           </button>
         ) : (
           <div className="stack sm">
-            <div className="callout bad small">Domain expired. Look it up again to see what customers get.</div>
+            {!result && <div className="callout bad small">Domain expired. Look it up again to see what customers get.</div>}
             <button
               type="button"
               className="btn primary small"
