@@ -873,3 +873,19 @@ details > summary {
 details > summary::-webkit-details-marker {
   display: none;
 }
+
+/* ---------- per-world theming (see worldStyle in components/bits.tsx) ---------- */
+
+[data-world] {
+  --accent: var(--world);
+  --accent-ink: var(--world-ink);
+  --accent-soft: color-mix(in srgb, var(--world) 14%, var(--surface));
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-world] {
+    --accent: color-mix(in srgb, var(--world) 68%, #ffffff);
+    --accent-ink: #111215;
+    --accent-soft: color-mix(in srgb, var(--world) 26%, var(--surface));
+  }
+}

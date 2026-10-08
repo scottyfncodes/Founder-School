@@ -12,7 +12,7 @@ const world: World = {
   title: 'Running a Software Company',
   tagline: 'Keys, trust, scale and the day someone wants to buy you.',
   emoji: '🏛️',
-  color: '#495057',
+  color: '#5f6b7a',
   skill: 'business',
   concepts: [
     { id: 'key-ownership', name: 'Company account ownership' },

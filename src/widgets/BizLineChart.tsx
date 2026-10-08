@@ -36,7 +36,7 @@ function niceTicks(lo: number, hi: number, count = 4) {
   if (lo === hi) hi = lo + 1
   const raw = (hi - lo) / count
   const mag = Math.pow(10, Math.floor(Math.log10(raw)))
-  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw) ?? raw
+  const step = [1, 2, 2.5, 3, 5, 10].map((m) => m * mag).find((s) => s >= raw) ?? raw
   const start = Math.floor(lo / step) * step
   const end = Math.ceil(hi / step) * step
   const out: number[] = []

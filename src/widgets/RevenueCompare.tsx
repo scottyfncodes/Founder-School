@@ -157,7 +157,7 @@ const TESTS: Test[] = [
     emoji: '📉',
     label: 'A normal 5% churn month',
     a: { head: '−50 customers, −$500', text: 'Smooth and predictable. You can forecast it almost to the dollar.', tone: 'warn' },
-    b: { head: '−$0 or −$1,000+', text: '5% of 10 is half a customer — so really you lose one or none. Revenue is lumpy and hard to forecast.', tone: 'bad' },
+    b: { head: '$0 or −$1,000', text: '5% of 10 is half a customer — so really you lose one or none. Revenue is lumpy and hard to forecast.', tone: 'bad' },
     lesson: 'With few customers, churn arrives in big, unpredictable chunks.',
   },
 ]
