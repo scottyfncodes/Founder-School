@@ -134,9 +134,9 @@ export function WebhookSim({ onDone }: Props) {
         <div className="kicker">Timeline</div>
         {lines.length === 0 && <p className="small muted">Press a button above to run a checkout.</p>}
         {lines.map((l, i) => (
-          <div key={i} className="row nowrap pop" style={{ alignItems: 'flex-start', gap: 8 }}>
-            <span className="tiny" style={{ fontWeight: 700, minWidth: 92, flex: 'none' }}>{l.who}</span>
-            <span className={`bubble ${l.tone === 'info' ? '' : l.tone}`} style={{ fontSize: 13 }}>
+          <div key={i} className="stack pop" style={{ gap: 2, alignItems: 'flex-start' }}>
+            <span className="tiny" style={{ fontWeight: 700 }}>{l.who}</span>
+            <span className={`bubble ${l.tone === 'info' ? '' : l.tone}`} style={{ fontSize: 13, background: l.tone === 'info' ? 'var(--surface)' : undefined }}>
               {l.text}
             </span>
           </div>
