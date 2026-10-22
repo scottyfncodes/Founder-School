@@ -103,7 +103,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
       if (!(await walk('code', 'live', my))) return
       setVersion((v) => v + 1)
       if (id === 'happy') {
-        setPanel({ tone: 'good', title: 'Shipped ✓', text: 'Every gate passed. Customers got the change minutes after it was written — and it was checked on the way.' })
+        setPanel({ tone: 'good', title: 'Shipped ✓', text: 'Every gate passed. Customers got the change minutes after it was written, and it was checked on the way.' })
       } else {
         setNow('Customers start using the new version…')
         await wait(900)
@@ -113,8 +113,8 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
         setNow('')
         setPanel({
           tone: 'bad',
-          title: '💥 Checkout is broken in production',
-          text: 'Tests passed, review passed — but tax is now added twice for customers outside the US. Orders are failing right now. Fixing the code could take an hour.',
+          title: 'Checkout is broken in production',
+          text: 'Tests passed, review passed, but tax is now added twice for customers outside the US. Orders are failing right now. Fixing the code could take an hour.',
           action: 'rollback',
         })
       }
@@ -123,8 +123,8 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
       await fail('ci', my)
       setPanel({
         tone: 'bad',
-        title: '❌ 1 of 214 tests failed',
-        text: '“Order total includes tax” expected $108 but got $100. The pull request is blocked from merging — nothing reached customers.',
+        title: '1 of 214 tests failed',
+        text: '“Order total includes tax” expected $108 but got $100. The pull request is blocked from merging, nothing reached customers.',
         action: 'fix-tests',
       })
     } else if (id === 'conflict') {
@@ -133,8 +133,8 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
       setSt((x) => ({ ...x, merge: 'warn' }))
       setPanel({
         tone: 'warn',
-        title: '🧩 Merge conflict',
-        text: 'While you worked, a teammate changed the SAME line on main. Git can’t guess which version is right — a human has to choose.',
+        title: 'Merge conflict',
+        text: 'While you worked, a teammate changed the SAME line on main. Git can’t guess which version is right: a human has to choose.',
         action: 'resolve',
       })
     } else if (id === 'deploy') {
@@ -142,7 +142,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
       await fail('deploy', my)
       setPanel({
         tone: 'bad',
-        title: '🚀 Deploy failed',
+        title: 'Deploy failed',
         text: 'The new version wouldn’t start: “missing setting TAX_API_KEY”. The hosting platform kept the OLD version running, so customers noticed nothing.',
         action: 'fix-deploy',
       })
@@ -176,7 +176,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
     setBusy(false)
     setPanel({
       tone: 'good',
-      title: '⏪ Rolled back in 40 seconds',
+      title: 'Rolled back in 40 seconds',
       text: 'Customers are on the last good version again. Now the team can fix the bug calmly, add a test for it, and ship again.',
     })
     markSolved('bad')
@@ -184,7 +184,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
 
   const CONFLICT = [
     { id: 'yours', label: 'Keep yours: Pro plan $29/mo', ok: false, why: 'That would quietly undo your teammate’s change. Last week the team agreed the new price is $39.' },
-    { id: 'theirs', label: 'Keep theirs: Pro plan $39/mo', ok: true, why: 'Right — the agreed new price. You checked what the other change was for before choosing.' },
+    { id: 'theirs', label: 'Keep theirs: Pro plan $39/mo', ok: true, why: 'Right. The agreed new price. You checked what the other change was for before choosing.' },
   ]
 
   return (
@@ -240,7 +240,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
                   continueFrom('commit', 'tests', 'The developer fixed the tax calculation and pushed a new commit. CI re-ran, everything passed, and it merged. The test did its job: the bug never reached a customer.')
                 }
               >
-                🔧 Fix the bug & push again
+                Fix the bug & push again
               </button>
             )}
             {panel.action === 'resolve' && (
@@ -273,7 +273,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
                       continueFrom('merge', 'conflict', 'Conflict resolved by a human who understood both changes, then merged and shipped. Small, frequent pull requests make conflicts rarer and easier.')
                     }
                   >
-                    ✅ Save resolution & merge
+                    Save resolution & merge
                   </button>
                 )}
               </div>
@@ -286,12 +286,12 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
                   continueFrom('deploy', 'deploy', 'Someone added TAX_API_KEY to the hosting settings and redeployed. It started, passed its health check, and only then took over from the old version.')
                 }
               >
-                🔧 Add the missing setting & redeploy
+                Add the missing setting & redeploy
               </button>
             )}
             {panel.action === 'rollback' && (
               <button type="button" className="btn small danger" onClick={rollback}>
-                ⏪ Roll back to v{version - 1}
+                Roll back to v{version - 1}
               </button>
             )}
           </div>
@@ -305,7 +305,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
             <span className="pill">v{version}</span>
           </div>
           <div style={{ fontWeight: 600 }} className={liveOk ? '' : 'bad-text'}>
-            {liveOk ? '🛒 Checkout working' : '💥 Checkout failing — orders: 0/min'}
+            {liveOk ? '🛒 Checkout working' : '💥 Checkout failing: orders: 0/min'}
           </div>
         </div>
       </div>

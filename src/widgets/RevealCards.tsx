@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 export interface RevealCard {
   id: string
-  emoji: string
   title: string
   /** Revealed on tap. */
   body: string
@@ -48,7 +47,6 @@ export function RevealCards({ cards, columns = 2, onDone }: Props) {
                 borderRadius: 'var(--r)',
               }}
             >
-              <div style={{ fontSize: 26, lineHeight: 1 }}>{c.emoji}</div>
               <div style={{ fontWeight: 700, fontSize: 15 }}>{c.title}</div>
               {isOpen ? (
                 <div className="small ink2 pop">{c.body}</div>

@@ -21,7 +21,7 @@ const NODES: { id: NodeId; emoji: string; label: string; note: string }[] = [
 
 const LOAD: Hop[] = [
   { at: 'app', tone: 'req', plain: 'Scott opens Contacts. The app asks: “Please send Scott’s contacts. Here’s his pass.”', tech: 'GET /api/contacts\nAuthorization: Bearer eyJhbGci…' },
-  { at: 'api', tone: 'req', plain: 'API checks the pass — yes, this is Scott — and asks the database.', tech: 'token valid → user_id = 7' },
+  { at: 'api', tone: 'req', plain: 'API checks the pass (yes, this is Scott) and asks the database.', tech: 'token valid → user_id = 7' },
   { at: 'db', tone: 'res', plain: 'Database finds the 3 contacts that belong to Scott.', tech: 'SELECT id, name FROM contacts\nWHERE owner_id = 7  → 3 rows' },
   { at: 'api', tone: 'res', plain: 'API packs them up neatly and sends them back.', tech: '200 OK\n[{"id":482,"name":"Maria Lopez"}, …]' },
   { at: 'app', tone: 'res', plain: 'App draws the list. Round trip: 0.2 seconds.', tech: 'render(contacts) · 212 ms' },
@@ -29,7 +29,7 @@ const LOAD: Hop[] = [
 
 const FAIL: Hop[] = [
   { at: 'app', tone: 'req', plain: 'Scott opens Contacts. The app asks for his contacts again.', tech: 'GET /api/contacts\nAuthorization: Bearer eyJhbGci…' },
-  { at: 'api', tone: 'req', plain: 'API checks the pass — fine — and asks the database.', tech: 'token valid → user_id = 7' },
+  { at: 'api', tone: 'req', plain: 'API checks the pass (fine) and asks the database.', tech: 'token valid → user_id = 7' },
   { at: 'db', tone: 'err', fail: true, plain: 'No answer. The database is down (overloaded, or mid-maintenance).', tech: 'connect ECONNREFUSED 10.0.3.12:5432\n(timed out after 5 s)' },
   { at: 'api', tone: 'err', warn: true, plain: 'API can’t get the contacts. It tells the app honestly: “Not available right now.”', tech: '503 Service Unavailable\n{"error":"database_unavailable"}' },
   { at: 'app', tone: 'err', warn: true, plain: 'The app received an error instead of contacts. Now it has to decide what to show.', tech: 'response.ok === false' },
@@ -42,7 +42,7 @@ const CHOICES: { id: Choice; label: string; correct?: boolean; why: string; tone
   { id: 'A', label: 'Crash', tone: 'bad', why: 'A blank or frozen screen tells the user nothing and loses whatever they were doing. It also looks like the app is broken forever, not for a minute.' },
   { id: 'B', label: 'Show an error + Retry', correct: true, tone: 'good', why: 'Honest, calm and recoverable. The user knows their data is safe, and can try again when the database is back. This is what good apps do.' },
   { id: 'C', label: 'Pretend: show an empty list', tone: 'bad', why: '“You have no contacts” is a lie that causes panic. Users think their data was deleted, re-enter it (creating duplicates), and you never hear about the outage.' },
-  { id: 'D', label: 'Delete the account and start fresh', tone: 'bad', why: 'Turns a one-minute outage into permanent data loss. Sounds absurd — but “if loading fails, create a fresh profile” code really gets written. Read error paths carefully.' },
+  { id: 'D', label: 'Delete the account and start fresh', tone: 'bad', why: 'Turns a one-minute outage into permanent data loss. Sounds absurd, but “if loading fails, create a fresh profile” code really gets written. Read error paths carefully.' },
 ]
 
 export function ApiLab({ onDone }: { onDone?: () => void }) {
@@ -124,7 +124,7 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           ▶ Load my contacts {phase !== 'start' ? '✓' : ''}
         </button>
         <button type="button" className="btn danger small" onClick={breakIt} disabled={running || phase === 'start'}>
-          ⚠️ Database unavailable
+          Database unavailable
         </button>
       </div>
       {phase === 'start' && !running && <p className="tiny muted">Start with “Load my contacts”.</p>}
@@ -207,7 +207,7 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           {screen === 'B' && (
             <div className="stack sm pop">
               <div className="small" style={{ fontWeight: 700 }}>⚠️ Couldn’t load your contacts</div>
-              <div className="tiny ink2">Your data is safe. This is on our side — please try again in a moment.</div>
+              <div className="tiny ink2">Your data is safe. This is on our side: please try again in a moment.</div>
               <button type="button" className="btn primary small" onClick={retry} disabled={running}>
                 ↻ Try again
               </button>
@@ -256,12 +256,12 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           <div className={`callout ${picked.tone} pop`} key={picked.id}>
             <b>{picked.correct ? 'Yes. ' : 'No. '}</b>
             {picked.why}
-            {picked.correct ? <b> Now tap “Try again” in the phone — the database is back.</b> : <span className="muted"> Try another.</span>}
+            {picked.correct ? <b> Now tap “Try again” in the phone: the database is back.</b> : <span className="muted"> Try another.</span>}
           </div>
         )}
         {phase === 'recovered' && (
           <div className="callout good pop">
-            Recovered. The database came back, Retry worked, and nobody lost anything. Every API call can fail — good apps plan
+            Recovered. The database came back, Retry worked, and nobody lost anything. Every API call can fail: good apps plan
             the failure screen, not just the happy path.
           </div>
         )}

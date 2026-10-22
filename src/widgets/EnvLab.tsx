@@ -5,7 +5,6 @@ type EnvId = 'dev' | 'staging' | 'prod'
 const ENVS: Record<
   EnvId,
   {
-    emoji: string
     name: string
     who: string
     vars: { k: string; v: string }[]
@@ -13,7 +12,6 @@ const ENVS: Record<
   }
 > = {
   dev: {
-    emoji: '💻',
     name: 'Development',
     who: 'One developer’s laptop. Fake data, break anything.',
     vars: [
@@ -25,7 +23,6 @@ const ENVS: Record<
     email: { tone: 'good', text: 'Landed in a fake inbox on the laptop. Nobody was bothered. This is what dev is for.' },
   },
   staging: {
-    emoji: '🧪',
     name: 'Staging',
     who: 'A full copy of production for final checks. The team and testers use it.',
     vars: [
@@ -37,7 +34,6 @@ const ENVS: Record<
     email: { tone: 'warn', text: 'Went to the 6 people on the team. Mildly embarrassing, completely harmless.' },
   },
   prod: {
-    emoji: '🌍',
     name: 'Production',
     who: 'The real thing. Real customers, real data, real money.',
     vars: [
@@ -48,7 +44,7 @@ const ENVS: Record<
     ],
     email: {
       tone: 'bad',
-      text: '1,240 paying customers just got an email saying “test test pls ignore”. Same code, same button — the environment decided the consequences.',
+      text: '1,240 paying customers just got an email saying “test test pls ignore”. Same code, same button: the environment decided the consequences.',
     },
   },
 }
@@ -82,7 +78,6 @@ export function EnvSwitcher({ onDone }: { onDone?: () => void }) {
             onClick={() => setEnv(id)}
             style={{ textAlign: 'center', padding: '8px 4px' }}
           >
-            <div aria-hidden="true">{ENVS[id].emoji}</div>
             <div className="tiny" style={{ fontWeight: 650 }}>
               {ENVS[id].name} {tried.has(id) ? '✓' : ''}
             </div>
@@ -93,7 +88,7 @@ export function EnvSwitcher({ onDone }: { onDone?: () => void }) {
       <div className="card tight flat stack sm" style={env === 'prod' ? { borderColor: 'var(--bad)' } : undefined} role="tabpanel">
         <p className="small">{e.who}</p>
         <div className="code" style={{ fontSize: 12 }}>
-          <span className="muted">{'// the code — identical everywhere\n'}</span>
+          <span className="muted">{'// the code: identical everywhere\n'}</span>
           {'db = connect(env.DATABASE_URL)\n'}
           {'pay = stripe(env.STRIPE_KEY)'}
         </div>
@@ -111,7 +106,7 @@ export function EnvSwitcher({ onDone }: { onDone?: () => void }) {
       </div>
 
       <button type="button" className={`btn ${env === 'prod' ? 'danger' : ''}`} onClick={send}>
-        📧 Send “test test pls ignore” to all users
+        Send “test test pls ignore” to all users
       </button>
 
       {tried.has(env) && (
@@ -150,7 +145,7 @@ const CODE: CodeLine[] = [
     id: 'e',
     text: 'const db = connect("postgres://admin:Tr0ub4dor@db.acme.io/prod")',
     fixed: 'const db = connect(env.DATABASE_URL)',
-    secret: 'The production database password, inside the address. Whoever reads this line can read — or delete — every customer’s data.',
+    secret: 'The production database password, inside the address. Whoever reads this line can read (or delete) every customer’s data.',
   },
   { id: 'f', text: 'const SUPPORT = "help@acme.co"', ok: 'A public email address. Not a secret.' },
 ]
@@ -169,7 +164,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="row between">
-        <span className="kicker">📄 payments.ts — tap anything secret</span>
+        <span className="kicker">payments.ts: tap anything secret</span>
         <span className={`pill ${found === SECRETS ? 'good-text' : ''}`}>
           {found}/{SECRETS} found
         </span>
@@ -220,7 +215,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
 
       {found === SECRETS && !moved && (
         <button type="button" className="btn primary pop" onClick={() => setMoved(true)}>
-          🔐 Move secrets into environment variables
+          Move secrets into environment variables
         </button>
       )}
 
@@ -228,7 +223,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
         <div className="stack sm pop">
           <div className="callout good small">
             The code now just says <span className="mono">env.STRIPE_SECRET_KEY</span>. The real values live in the hosting
-            platform’s secret settings — different per environment, never in Git.
+            platform’s secret settings: different per environment, never in Git.
           </div>
           <div className="kicker">But that old commit is still in Git history. Now what?</div>
           <button
@@ -236,7 +231,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
             className={`chip ${answer === 'ignore' ? 'bad' : ''}`}
             onClick={() => setAnswer('ignore')}
           >
-            Nothing — it’s removed from the code now
+            Nothing: it’s removed from the code now
           </button>
           <button
             type="button"
@@ -253,7 +248,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
           </button>
           {answer === 'ignore' && (
             <div className="callout bad small">
-              Git remembers every version. Anyone with a copy of the repo — or a bot scanning GitHub — can still find the old
+              Git remembers every version. Anyone with a copy of the repo (or a bot scanning GitHub) can still find the old
               key. Removing it from today’s code doesn’t un-leak it.
             </div>
           )}

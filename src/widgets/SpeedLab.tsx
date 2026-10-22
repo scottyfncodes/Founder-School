@@ -110,10 +110,10 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
   }
 
   const toggles: { k: keyof Settings; label: string; on: string; off: string }[] = [
-    { k: 'compress', label: '🖼️ Compress the hero image', on: '250 KB', off: 'Huge original (6 MB)' },
-    { k: 'combine', label: '🔁 Combine data requests', on: '1 request with everything', off: '6 requests, one after another' },
-    { k: 'cdn', label: '🛰️ CDN for files', on: 'On — copies near the visitor', off: 'Off — all from your server' },
-    { k: 'cached', label: '⚡ Repeat visit (cache)', on: 'Files already on the device', off: 'First visit' },
+    { k: 'compress', label: 'Compress the hero image', on: '250 KB', off: 'Huge original (6 MB)' },
+    { k: 'combine', label: 'Combine data requests', on: '1 request with everything', off: '6 requests, one after another' },
+    { k: 'cdn', label: 'CDN for files', on: 'On: copies near the visitor', off: 'Off: all from your server' },
+    { k: 'cached', label: 'Repeat visit (cache)', on: 'Files already on the device', off: 'First visit' },
   ]
 
   const scale = run ? Math.max(run.total, 0.5) : 1
@@ -121,17 +121,17 @@ export function SpeedLab({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="callout info small">
-        🎯 <b>Goal:</b> a first-time visitor in Sydney (your server is in Virginia) should see the full page in under {GOAL} s.
+        <b>Goal:</b> a first-time visitor in Sydney (your server is in Virginia) should see the full page in under {GOAL} s.
       </div>
 
       <div className="stack sm">
         <div className="kicker">Visitor location</div>
         <div className="grid2">
           <button type="button" className="chip small" aria-pressed={!s.far} disabled={busy} onClick={() => set('far', false)}>
-            🏙️ Next door to the server
+            Next door to the server
           </button>
           <button type="button" className="chip small" aria-pressed={s.far} disabled={busy} onClick={() => set('far', true)}>
-            🦘 Sydney (far away)
+            Sydney (far away)
           </button>
         </div>
       </div>
@@ -234,21 +234,21 @@ function Verdict({ s, total, done, runs, best }: { s: Settings; total: number; d
   if (done && s.far && !s.cached && total <= GOAL)
     return (
       <div className="callout good pop">
-        🎉 {fmt(total)} from Sydney. You didn’t buy a faster server — you sent less, asked fewer times, and moved files closer.
+        🎉 {fmt(total)} from Sydney. You didn’t buy a faster server: you sent less, asked fewer times, and moved files closer.
         Those are the real speed levers.
       </div>
     )
   if (s.cached)
     return (
       <div className="callout info pop">
-        Repeat visits are fast because files come from the device’s cache. Nice — but the goal is a <b>first</b> visit. Turn the cache
+        Repeat visits are fast because files come from the device’s cache. Nice, but the goal is a <b>first</b> visit. Turn the cache
         off.
       </div>
     )
   if (!s.far)
     return (
       <div className="callout info pop">
-        Next door, everything feels fast — which is why apps feel fine to the founder and slow to faraway customers. Switch to Sydney.
+        Next door, everything feels fast, which is why apps feel fine to the founder and slow to faraway customers. Switch to Sydney.
       </div>
     )
   const hints: string[] = []

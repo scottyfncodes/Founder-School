@@ -94,7 +94,7 @@ export function FlawHunt({ claim, lines, onDone }: Props) {
           <div className={`callout ${lastLine.flaw ? 'bad' : 'info'} pop`} key={last}>
             {lastLine.flaw ? (
               <>
-                <b>🚩 {lastLine.flaw.name}.</b> {lastLine.flaw.why}
+                <b>{lastLine.flaw.name}.</b> {lastLine.flaw.why}
               </>
             ) : (
               <>✅ {lastLine.fine ?? 'This line is fine. Keep looking.'}</>

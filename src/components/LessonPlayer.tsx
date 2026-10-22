@@ -62,9 +62,6 @@ export function LessonPlayer({ lesson, world }: Props) {
       <div className="page" data-world style={style} ref={topRef}>
         <div className="stack lg pop">
           <div className="center stack sm" style={{ paddingTop: 24 }}>
-            <div style={{ fontSize: 56 }} aria-hidden="true">
-              {right === quizzes.length ? '🏆' : '✅'}
-            </div>
             <div className="kicker">Lesson complete</div>
             <h1 style={{ fontSize: 30 }}>{lesson.title}</h1>
           </div>
@@ -102,7 +99,7 @@ export function LessonPlayer({ lesson, world }: Props) {
               <div className="row">
                 {unlocked.map((c) => (
                   <span key={c.id} className="pill">
-                    {c.emoji} {c.name}
+                    {c.name}
                   </span>
                 ))}
               </div>
@@ -160,7 +157,7 @@ export function LessonPlayer({ lesson, world }: Props) {
           </a>
           <div className="grow stack" style={{ gap: 4 }}>
             <div className="tiny muted" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {world.emoji} {lesson.title}
+              {lesson.title}
             </div>
             <div
               className="row nowrap"
@@ -260,11 +257,6 @@ function StepView({
     case 'concept':
       return (
         <div className="stack lg">
-          {step.emoji && (
-            <div style={{ fontSize: 52, lineHeight: 1 }} aria-hidden="true">
-              {step.emoji}
-            </div>
-          )}
           <h2>{step.title}</h2>
           <div className="card stack sm">
             <div className="kicker">What is it?</div>
@@ -282,7 +274,7 @@ function StepView({
       return (
         <div className="stack">
           <h2>{step.title}</h2>
-          <p className="ink2">👉 {step.instruction}</p>
+          <p className="ink2">{step.instruction}</p>
           <div className="card">{step.render({ done: onReady })}</div>
         </div>
       )
@@ -306,9 +298,8 @@ function StepView({
           <h2>Why should a founder care?</h2>
           <div className="stack sm">
             {step.points.map((p, k) => (
-              <div key={k} className="callout info row nowrap" style={{ alignItems: 'flex-start', gap: 10 }}>
-                <span aria-hidden="true">🧭</span>
-                <span>{p}</span>
+              <div key={k} className="callout info">
+                {p}
               </div>
             ))}
           </div>

@@ -2,12 +2,12 @@ import { ALL_CONCEPTS, SKILLS, conceptsBySkill } from '../content/curriculum'
 import type { Progress } from './store'
 import type { Level, Skill } from './types'
 
-export const LEVELS: { level: Level; name: string; emoji: string; color: string; claim: string }[] = [
-  { level: 0, name: 'Unseen', emoji: '⚪', color: 'var(--surface-3)', claim: 'Not met yet.' },
-  { level: 1, name: 'Novice', emoji: '🟢', color: 'var(--lv1)', claim: 'I recognize the term.' },
-  { level: 2, name: 'Literate', emoji: '🔵', color: 'var(--lv2)', claim: 'I can explain the concept.' },
-  { level: 3, name: 'Founder', emoji: '🟣', color: 'var(--lv3)', claim: 'I can make decisions involving the concept.' },
-  { level: 4, name: 'Advanced', emoji: '🟠', color: 'var(--lv4)', claim: 'I can discuss tradeoffs with an experienced engineer.' },
+export const LEVELS: { level: Level; name: string; color: string; claim: string }[] = [
+  { level: 0, name: 'Unseen', color: 'var(--surface-3)', claim: 'Not met yet.' },
+  { level: 1, name: 'Novice', color: 'var(--lv1)', claim: 'I recognize the term.' },
+  { level: 2, name: 'Literate', color: 'var(--lv2)', claim: 'I can explain the concept.' },
+  { level: 3, name: 'Founder', color: 'var(--lv3)', claim: 'I can make decisions involving the concept.' },
+  { level: 4, name: 'Advanced', color: 'var(--lv4)', claim: 'I can discuss tradeoffs with an experienced engineer.' },
 ]
 
 export const levelInfo = (l: Level) => LEVELS[l]

@@ -49,12 +49,11 @@ export function SqlInjectionCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="💉"
       name="SQL injection"
       intended="A search box finds customers by name. The app pastes whatever you type into a question for the database."
       happened="The quote mark ended the name early, and the rest was read as part of the COMMAND: “…or 1=1” is always true, and “--” means “ignore the rest”. So the database returned every customer."
       fixName="Parameterized queries"
-      fixText="Send the command and the user’s text separately. The database treats the text purely as a value to look for — never as instructions."
+      fixText="Send the command and the user’s text separately. The database treats the text purely as a value to look for: never as instructions."
       blocked="The database looked for a customer literally named “' OR 1=1 --”. There isn’t one, so: 0 rows. Nothing leaked."
       url={() => `kitedesk.example/customers?search=${encodeURIComponent(ran?.text ?? '')}`}
       onDone={onDone}
@@ -204,12 +203,11 @@ export function XssCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="📝"
       name="Cross-site scripting (XSS)"
       intended="Customers leave comments on a shared board. Everyone, including admins, can read them."
-      happened="The app dropped the comment straight into the page, so the browser treated it as CODE, not text. It runs for every person who views the board — including your admin."
+      happened="The app dropped the comment straight into the page, so the browser treated it as CODE, not text. It runs for every person who views the board, including your admin."
       fixName="Escape output (treat it as text)"
-      fixText="Display user content as plain text, so “<” is shown as a character, never obeyed. Modern frameworks do this by default — unless someone switches it off."
+      fixText="Display user content as plain text, so “<” is shown as a character, never obeyed. Modern frameworks do this by default, unless someone switches it off."
       blocked="The comment shows up looking odd, but harmless. Text stays text."
       url={() => 'kitedesk.example/board'}
       onDone={onDone}
@@ -223,7 +221,7 @@ export function XssCase({ onDone }: CaseProps) {
                   <div className="tiny muted">💬 Comment</div>
                   {ran ? (
                     <div className="small bad-text" style={{ fontStyle: 'italic' }}>
-                      (looks empty — the browser ran it instead of showing it)
+                      (looks empty: the browser ran it instead of showing it)
                     </div>
                   ) : (
                     <div className={`small ${p.text === EVIL ? 'mono' : ''}`} style={{ overflowWrap: 'anywhere' }}>
@@ -294,10 +292,9 @@ export function PermissionsCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🎟️"
       name="Excessive permissions"
       intended="A small reporting bot emails you weekly sales. It only needs to READ one table."
-      happened="The bot was given an admin key “because it was easier”. The bot did nothing wrong — but when its key leaked, the key could do everything an admin can, including wiping customers."
+      happened="The bot was given an admin key “because it was easier”. The bot did nothing wrong, but when its key leaked, the key could do everything an admin can, including wiping customers."
       fixName="Least privilege"
       fixText="Give the bot its own key that can only read sales numbers. Nothing else."
       blocked="The report still works, and the leaked key can’t delete anything. The damage a mistake can do is capped by what the key is allowed to do."
@@ -336,10 +333,10 @@ export function PermissionsCase({ onDone }: CaseProps) {
           >
             Run the weekly sales report
           </button>
-          {report && <LogLine tone="good">✓ Sales this week: $12,480 — emailed to you.</LogLine>}
+          {report && <LogLine tone="good">✓ Sales this week: $12,480. Emailed to you.</LogLine>}
           {api.stage >= 1 && (
             <button type="button" className="btn small danger block" disabled={api.busy} onClick={() => void misuse(api)}>
-              🔓 Misuse the bot’s key
+              Misuse the bot’s key
             </button>
           )}
           {log.map((l, i) => (
@@ -401,12 +398,11 @@ export function RateLimitCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🚦"
       name="No rate limiting"
       intended="The login page lets people try their password. If they mistype, they can try again."
       happened="Nothing limited how fast or how often someone could try. A bot made tens of thousands of guesses in seconds and eventually found Maya’s password."
       fixName="Rate limit logins"
-      fixText="Allow 5 tries per account per 15 minutes, then slow down or lock — and alert on floods."
+      fixText="Allow 5 tries per account per 15 minutes, then slow down or lock, and alert on floods."
       blocked="After 5 guesses, everything else got “429 Too Many Requests”. At 5 tries per 15 minutes, reaching guess 48,312 would take over 3 months of nonstop trying."
       url={() => 'kitedesk.example/login'}
       onDone={onDone}
@@ -432,7 +428,7 @@ export function RateLimitCase({ onDone }: CaseProps) {
             <>
               <div className="divider" />
               <button type="button" className="btn small danger block" disabled={api.busy} onClick={() => void bot(api)}>
-                🤖 Start the guessing bot
+                Start the guessing bot
               </button>
               <div className="grid2">
                 <div className="stat">
@@ -452,7 +448,7 @@ export function RateLimitCase({ onDone }: CaseProps) {
                   }}
                 />
               </div>
-              {result === 'in' && <LogLine tone="bad">✓ MATCH on guess #{num(MATCH_AT)} — Maya’s account taken over.</LogLine>}
+              {result === 'in' && <LogLine tone="bad">✓ MATCH on guess #{num(MATCH_AT)}: Maya’s account taken over.</LogLine>}
               {result === 'stopped' && <LogLine tone="good">Locked after {LIMIT} wrong tries. Alert sent: “Login flood on maya@…”</LogLine>}
             </>
           )}

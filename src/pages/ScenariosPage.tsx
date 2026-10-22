@@ -19,7 +19,7 @@ export function ScenariosPage({ playId }: { playId?: string }) {
         <header className="stack sm">
           <div className="kicker">Founder reality checks</div>
           <h1>What would you do?</h1>
-          <p className="lead">Situations real founders face. No trick questions — just the decisions that matter.</p>
+          <p className="lead">Situations real founders face. No trick questions, just the decisions that matter.</p>
         </header>
         <ol className="stack sm" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {SCENARIOS.map((s, i) => {
@@ -27,9 +27,6 @@ export function ScenariosPage({ playId }: { playId?: string }) {
             return (
               <li key={s.id}>
                 <a href={href(`/scenarios/${s.id}`)} className="card tight row nowrap" style={{ textDecoration: 'none', gap: 14 }}>
-                  <span style={{ fontSize: 30 }} aria-hidden="true">
-                    {s.emoji}
-                  </span>
                   <div className="grow">
                     <div className="tiny muted" style={{ fontWeight: 650 }}>
                       Scenario {i + 1}
@@ -37,7 +34,7 @@ export function ScenariosPage({ playId }: { playId?: string }) {
                     <div style={{ fontWeight: 700, lineHeight: 1.25 }}>{s.title}</div>
                   </div>
                   <span className="pill" style={{ flex: 'none' }}>
-                    {res ? (res.correct ? '🏆 Nailed it' : '✓ Done') : 'Play'}
+                    {res ? (res.correct ? 'Nailed it' : '✓ Done') : 'Play'}
                   </span>
                 </a>
               </li>
@@ -75,9 +72,6 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
       <div className="stack lg">
         <BackLink to="/scenarios" label="All scenarios" />
         <header className="stack sm">
-          <div style={{ fontSize: 44 }} aria-hidden="true">
-            {s.emoji}
-          </div>
           <div className="kicker">
             Reality check {idx + 1} of {SCENARIOS.length}
           </div>
@@ -111,7 +105,7 @@ function ScenarioPlayer({ s }: { s: Scenario }) {
         ) : (
           <div className="stack pop">
             <div className={`callout ${allFirst ? 'good' : 'info'}`}>
-              {allFirst ? '🏆 Every call right on the first try.' : '✓ Scenario complete. Replay it any time to nail it first try.'}
+              {allFirst ? 'Every call right on the first try.' : '✓ Scenario complete. Replay it any time to nail it first try.'}
             </div>
             <div className="card stack sm">
               <div className="kicker">Remember this</div>

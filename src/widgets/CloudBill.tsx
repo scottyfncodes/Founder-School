@@ -10,7 +10,6 @@ interface Inputs {
 
 interface BillLine {
   id: string
-  emoji: string
   label: string
   cost: number
   what: string
@@ -33,7 +32,6 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
   return [
     {
       id: 'compute',
-      emoji: '🖥️',
       label: 'Compute (servers)',
       cost: Math.max(20, Math.ceil(users / 8_000) * 45),
       what: 'The computers running your backend code, rented by the hour or by the request.',
@@ -41,7 +39,6 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'db',
-      emoji: '🗄️',
       label: 'Database',
       cost: dbTier,
       what: 'A managed database: storage, memory, backups and someone else keeping it running.',
@@ -49,15 +46,13 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'storage',
-      emoji: '🗂️',
       label: 'File storage',
       cost: storageGb * 0.023,
-      what: 'Uploaded files — photos, PDFs, documents — kept in a storage bucket.',
+      what: 'Uploaded files (photos, PDFs, documents) kept in a storage bucket.',
       grows: 'Total gigabytes stored. Cheap per GB, but it never shrinks unless you delete things.',
     },
     {
       id: 'bandwidth',
-      emoji: '📡',
       label: 'Bandwidth',
       cost: Math.max(0, bandwidthGb - 100) * 0.08,
       what: 'Data sent out of the cloud to users: pages, images, file downloads.',
@@ -65,7 +60,6 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'email',
-      emoji: '📧',
       label: 'Email provider',
       cost: Math.max(0, emailCount - 3_000) * 0.0008,
       what: 'A third-party service that actually delivers your app’s emails.',
@@ -73,7 +67,6 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'ai',
-      emoji: '🤖',
       label: 'AI API calls',
       cost: users * ai * 0.004,
       what: 'Paying an AI provider each time a feature calls a model (summaries, chat, drafting).',
@@ -81,7 +74,6 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'auth',
-      emoji: '🔑',
       label: 'Auth provider',
       cost: Math.max(0, users - 10_000) * 0.02,
       what: 'The login service: passwords, 2FA, “Sign in with Google”.',
@@ -89,19 +81,18 @@ function bill({ users, mb, emails, ai }: Inputs): BillLine[] {
     },
     {
       id: 'tools',
-      emoji: '📊',
       label: 'Monitoring & tools',
       cost: users < 10_000 ? 30 : 180,
-      what: 'Error tracking, logs, uptime checks — the dashboards that tell you what’s broken.',
+      what: 'Error tracking, logs, uptime checks: the dashboards that tell you what’s broken.',
       grows: 'Mostly flat, stepping up with plan size and log volume.',
     },
   ]
 }
 
 const PRESETS: { label: string; v: Inputs }[] = [
-  { label: '🌱 Launch', v: { users: 500, mb: 20, emails: 4, ai: 0 } },
-  { label: '📈 Growing', v: { users: 20_000, mb: 50, emails: 6, ai: 10 } },
-  { label: '🦄 Big', v: { users: 500_000, mb: 80, emails: 8, ai: 20 } },
+  { label: 'Launch', v: { users: 500, mb: 20, emails: 4, ai: 0 } },
+  { label: 'Growing', v: { users: 20_000, mb: 50, emails: 6, ai: 10 } },
+  { label: 'Big', v: { users: 500_000, mb: 80, emails: 8, ai: 20 } },
 ]
 
 /** Drag the usage sliders; watch each line of the cloud bill — and tap a line to see what it is. */
@@ -209,7 +200,7 @@ export function CloudBill({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="stack sm">
-        <span className="kicker">Your bill — tap a line</span>
+        <span className="kicker">Your bill: tap a line</span>
         {lines.map((l) => (
           <div key={l.id}>
             <button
@@ -221,7 +212,7 @@ export function CloudBill({ onDone }: { onDone?: () => void }) {
             >
               <span className="row nowrap between small">
                 <span>
-                  {l.emoji} {l.label} {seen.has(l.id) ? '✓' : ''}
+                  {l.label} {seen.has(l.id) ? '✓' : ''}
                 </span>
                 <b className="mono">{money(l.cost)}</b>
               </span>
@@ -242,7 +233,7 @@ export function CloudBill({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="callout info small">
-        Biggest line right now: <b>{biggest.label}</b>. Watch how it changes as you move the sliders — most bills are
+        Biggest line right now: <b>{biggest.label}</b>. Watch how it changes as you move the sliders: most bills are
         dominated by one or two lines.
       </div>
       <p className="tiny muted">

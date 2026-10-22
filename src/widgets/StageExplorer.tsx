@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 export interface Stage {
   id: string
-  emoji: string
   label: string
   /** What happens at this stage. */
   what: string
@@ -43,7 +42,6 @@ export function StageExplorer({ stages, onDone }: Props) {
               aria-expanded={isOpen}
               onClick={() => open(s.id)}
             >
-              <span className="emoji">{s.emoji}</span>
               <span className="grow">{s.label}</span>
               <span className="tiny muted">{seen.has(s.id) ? '✓' : 'tap'}</span>
             </button>
@@ -61,7 +59,7 @@ export function StageExplorer({ stages, onDone }: Props) {
                       setFailView(n)
                     }}
                   >
-                    {showFail ? '← Back to normal' : '💥 What can go wrong here?'}
+                    {showFail ? '← Back to normal' : 'What can go wrong here?'}
                   </button>
                 )}
               </div>

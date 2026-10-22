@@ -19,34 +19,30 @@ function useAlive() {
 
 type TierId = 'live' | 'nightly' | 'offsite' | 'immutable'
 
-const TIERS: { id: TierId; emoji: string; label: string; meta: string; what: string }[] = [
+const TIERS: { id: TierId; label: string; meta: string; what: string }[] = [
   {
     id: 'live',
-    emoji: '🗄️',
     label: 'Live database',
     meta: 'changes every second',
-    what: 'Where your app reads and writes right now. It is not a backup of anything — it is the thing you’re protecting.',
+    what: 'Where your app reads and writes right now. It is not a backup of anything: it is the thing you’re protecting.',
   },
   {
     id: 'nightly',
-    emoji: '🌙',
     label: 'Nightly backup',
     meta: 'same cloud account · kept 7 days',
-    what: 'A full copy every night, plus a change log for point-in-time recovery. Fast to restore — but it lives next to the live database, and copies older than 7 days are deleted (retention).',
+    what: 'A full copy every night, plus a change log for point-in-time recovery. Fast to restore, but it lives next to the live database, and copies older than 7 days are deleted (retention).',
   },
   {
     id: 'offsite',
-    emoji: '🌍',
     label: 'Offsite backup',
     meta: 'another region · weekly · kept 12 weeks',
-    what: 'A copy far away — another region or provider. Survives a fire, flood or outage where your main servers live. Slower to restore.',
+    what: 'A copy far away: another region or provider. Survives a fire, flood or outage where your main servers live. Slower to restore.',
   },
   {
     id: 'immutable',
-    emoji: '🧊',
     label: 'Immutable backup',
     meta: 'write-once lock · daily · 30 days',
-    what: 'A copy that nobody can change or delete until its lock expires — not you, not an admin, not an attacker with your passwords.',
+    what: 'A copy that nobody can change or delete until its lock expires, not you, not an admin, not an attacker with your passwords.',
   },
 ]
 
@@ -54,14 +50,12 @@ type Fate = 'ok' | 'fail' | 'warn'
 
 const DISASTERS: {
   id: string
-  emoji: string
   label: string
   fates: Record<TierId, { fate: Fate; note: string }>
   result: string
 }[] = [
   {
     id: 'delete',
-    emoji: '🧹',
     label: 'A script deletes the customers table',
     fates: {
       live: { fate: 'fail', note: 'customers table gone' },
@@ -73,8 +67,7 @@ const DISASTERS: {
   },
   {
     id: 'silent',
-    emoji: '🐛',
-    label: 'A bug quietly corrupts data — noticed 10 days later',
+    label: 'A bug quietly corrupts data: noticed 10 days later',
     fates: {
       live: { fate: 'fail', note: 'corrupted for 10 days' },
       nightly: { fate: 'fail', note: 'all 7 copies already corrupted' },
@@ -85,11 +78,10 @@ const DISASTERS: {
   },
   {
     id: 'region',
-    emoji: '🌩️',
     label: 'The whole cloud region goes down',
     fates: {
       live: { fate: 'fail', note: 'unreachable' },
-      nightly: { fate: 'fail', note: 'same region — unreachable' },
+      nightly: { fate: 'fail', note: 'same region: unreachable' },
       offsite: { fate: 'ok', note: 'different region ✓' },
       immutable: { fate: 'ok', note: 'stored in a third region ✓' },
     },
@@ -97,15 +89,14 @@ const DISASTERS: {
   },
   {
     id: 'ransom',
-    emoji: '🦠',
     label: 'Ransomware: attacker steals your admin keys',
     fates: {
-      live: { fate: 'fail', note: 'encrypted — “pay to unlock”' },
+      live: { fate: 'fail', note: 'encrypted: “pay to unlock”' },
       nightly: { fate: 'fail', note: 'deleted with your admin keys' },
-      offsite: { fate: 'fail', note: 'same keys could reach it — deleted' },
-      immutable: { fate: 'ok', note: 'locked — delete refused ✓' },
+      offsite: { fate: 'fail', note: 'same keys could reach it: deleted' },
+      immutable: { fate: 'ok', note: 'locked: delete refused ✓' },
     },
-    result: 'Attackers go after your backups first. Anything your stolen keys can delete, they will. Only the immutable copy survives — so you can restore instead of paying.',
+    result: 'Attackers go after your backups first. Anything your stolen keys can delete, they will. Only the immutable copy survives, so you can restore instead of paying.',
   },
 ]
 
@@ -150,7 +141,6 @@ export function BackupChain({ onDone }: { onDone?: () => void }) {
           return (
             <div key={t.id}>
               <button type="button" className={`node ${cls}`} aria-expanded={openTier === t.id} onClick={() => setOpenTier(openTier === t.id ? null : t.id)} disabled={!!running}>
-                <span className="emoji">{t.emoji}</span>
                 <span className="grow">
                   <span style={{ display: 'block' }}>{t.label}</span>
                   <span className="tiny muted" style={{ display: 'block', fontWeight: 500 }}>
@@ -172,7 +162,7 @@ export function BackupChain({ onDone }: { onDone?: () => void }) {
         <div className="kicker">Unleash a disaster ({ran.size}/{DISASTERS.length})</div>
         {DISASTERS.map((d) => (
           <button key={d.id} type="button" className="btn small danger block" style={{ justifyContent: 'flex-start', textAlign: 'left' }} disabled={!!running} onClick={() => void run(d)}>
-            {d.emoji} {d.label}
+            {d.label}
             {ran.has(d.id) ? ' ✓' : ''}
           </button>
         ))}
@@ -215,7 +205,6 @@ function dur(mins: number) {
 
 interface Source {
   id: string
-  emoji: string
   label: string
   note: string
   /** Available restore points (minutes); empty = continuous. */
@@ -226,14 +215,14 @@ interface Source {
 }
 
 const SOURCES: Source[] = [
-  { id: 'pitr', emoji: '⏪', label: 'Point-in-time recovery', note: 'Any minute in the last 7 days · restore ≈ 45 min', points: [], range: [0, NOW], restoreMins: 45 },
-  { id: 'nightly', emoji: '🌙', label: 'Nightly backup', note: 'Snapshots at 2:00 AM · restore ≈ 20 min', points: [120, 1440 + 120], restoreMins: 20 },
-  { id: 'immutable', emoji: '🧊', label: 'Immutable backup', note: 'Daily at 1:00 AM · restore ≈ 70 min', points: [60, 1440 + 60], restoreMins: 70 },
-  { id: 'offsite', emoji: '🌍', label: 'Offsite backup', note: 'Weekly, Sunday 3:00 AM · restore ≈ 3 h', points: [-3 * 1440 + 180], restoreMins: 180 },
+  { id: 'pitr', label: 'Point-in-time recovery', note: 'Any minute in the last 7 days · restore ≈ 45 min', points: [], range: [0, NOW], restoreMins: 45 },
+  { id: 'nightly', label: 'Nightly backup', note: 'Snapshots at 2:00 AM · restore ≈ 20 min', points: [120, 1440 + 120], restoreMins: 20 },
+  { id: 'immutable', label: 'Immutable backup', note: 'Daily at 1:00 AM · restore ≈ 70 min', points: [60, 1440 + 60], restoreMins: 70 },
+  { id: 'offsite', label: 'Offsite backup', note: 'Weekly, Sunday 3:00 AM · restore ≈ 3 h', points: [-3 * 1440 + 180], restoreMins: 180 },
 ]
 
 const NOW_CHOICES = [
-  { id: 'restart', text: 'Restart the server — maybe the data comes back', right: false, why: 'Restarting reloads the app, not the data. The rows were deleted from the database itself.' },
+  { id: 'restart', text: 'Restart the server: maybe the data comes back', right: false, why: 'Restarting reloads the app, not the data. The rows were deleted from the database itself.' },
   { id: 'restore', text: 'Stop writes and restore from a backup', right: true, why: 'Right. Pause the app so nothing new lands on the broken database, then restore a known-good copy.' },
   { id: 'wait', text: 'Wait and see if it fixes itself', right: false, why: 'Deleted data never comes back on its own. Every minute you wait is downtime.' },
 ]
@@ -344,7 +333,6 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
           <div className="kicker">Step 1 · Pick a backup source</div>
           {SOURCES.map((s) => (
             <button key={s.id} type="button" className="node" onClick={() => chooseSource(s)}>
-              <span className="emoji">{s.emoji}</span>
               <span className="grow">
                 <span style={{ display: 'block' }}>{s.label}</span>
                 <span className="tiny muted" style={{ display: 'block', fontWeight: 500 }}>
@@ -361,7 +349,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
           <div className="row between">
             <span className="kicker">Step 2 · Choose a restore point</span>
             <span className="pill">
-              {src.emoji} {src.label}
+              {src.label}
             </span>
           </div>
 
@@ -478,7 +466,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
               <div className="kicker">Step 4 · Verify before you reopen</div>
               {!verify && (
                 <button type="button" className="btn primary block" onClick={runVerify}>
-                  🔎 Run verification checks
+                  Run verification checks
                 </button>
               )}
               {verify && !verify.ok && (
@@ -546,7 +534,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
             </table>
           </div>
           <div className="callout info small">
-            <b>A backup that has never been restored is a theory.</b> You just turned it into a fact — with real numbers for data lost and time down.
+            <b>A backup that has never been restored is a theory.</b> You just turned it into a fact, with real numbers for data lost and time down.
           </div>
         </div>
       )}

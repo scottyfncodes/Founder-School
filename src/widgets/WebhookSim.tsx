@@ -16,41 +16,41 @@ interface Props {
 const SCRIPTS: Record<RunId, { lines: (Line & { set?: Partial<Ledger> })[]; result: { tone: 'good' | 'bad'; text: string } }> = {
   happy: {
     lines: [
-      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro — $29/mo”', tone: 'req' },
+      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro: $29/mo”', tone: 'req' },
       { who: '🖥️ Your app', text: 'Sends her to the provider’s checkout page. Your app never sees her card.', tone: 'req' },
       { who: '💳 Provider', text: 'Charges the card: $29 ✓', tone: 'res', set: { charged: true } },
-      { who: '💳 Provider', text: 'Sends a webhook to your server: “checkout.completed — user 42 paid”', tone: 'req' },
-      { who: '⚙️ Your server', text: 'Checks the webhook’s signature — it really came from the provider', tone: 'info' },
+      { who: '💳 Provider', text: 'Sends a webhook to your server: “checkout.completed: user 42 paid”', tone: 'req' },
+      { who: '⚙️ Your server', text: 'Checks the webhook’s signature: it really came from the provider', tone: 'info' },
       { who: '🗄️ Database', text: 'Sets user 42 → plan = Pro', tone: 'res', set: { pro: true } },
-      { who: '⚙️ Your server', text: 'Replies “200 OK — got it” to the provider', tone: 'res' },
+      { who: '⚙️ Your server', text: 'Replies “200 OK: got it” to the provider', tone: 'res' },
       { who: '🧑 Maya', text: 'Sees the Pro badge. Happy customer.', tone: 'res' },
     ],
     result: { tone: 'good', text: 'Money and access stay in sync because the webhook arrived and your server recorded it.' },
   },
   missed: {
     lines: [
-      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro — $29/mo”', tone: 'req' },
+      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro: $29/mo”', tone: 'req' },
       { who: '🖥️ Your app', text: 'Sends her to the provider’s checkout page', tone: 'req' },
       { who: '💳 Provider', text: 'Charges the card: $29 ✓', tone: 'res', set: { charged: true } },
       { who: '💳 Provider', text: 'Sends the “paid” webhook to your server…', tone: 'req' },
-      { who: '⚙️ Your server', text: 'Mid-deploy — returns 503. The webhook is lost.', tone: 'err' },
+      { who: '⚙️ Your server', text: 'Mid-deploy: returns 503. The webhook is lost.', tone: 'err' },
       { who: '🗄️ Database', text: 'Still says user 42 → plan = Free', tone: 'err' },
       { who: '🧑 Maya', text: 'Charged $29, still on Free. Emails support: “Did you just take my money?”', tone: 'err' },
     ],
-    result: { tone: 'bad', text: 'Charged but not upgraded. The provider and your database now disagree — and nobody noticed except an angry customer.' },
+    result: { tone: 'bad', text: 'Charged but not upgraded. The provider and your database now disagree, and nobody noticed except an angry customer.' },
   },
   safe: {
     lines: [
-      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro — $29/mo”', tone: 'req' },
+      { who: '🧑 Maya', text: 'Taps “Upgrade to Pro: $29/mo”', tone: 'req' },
       { who: '💳 Provider', text: 'Charges the card: $29 ✓', tone: 'res', set: { charged: true } },
       { who: '💳 Provider', text: 'Sends the “paid” webhook…', tone: 'req' },
-      { who: '⚙️ Your server', text: 'Mid-deploy — returns 503', tone: 'err' },
+      { who: '⚙️ Your server', text: 'Mid-deploy: returns 503', tone: 'err' },
       { who: '💳 Provider', text: 'No “200 OK” came back, so it retries in 5 minutes', tone: 'info' },
       { who: '⚙️ Your server', text: 'Back up. Verifies signature, checks it hasn’t processed this event already', tone: 'info' },
       { who: '🗄️ Database', text: 'Sets user 42 → plan = Pro', tone: 'res', set: { pro: true } },
       { who: '🔎 Nightly check', text: 'Compares provider’s paid list vs. database: 0 mismatches', tone: 'res' },
     ],
-    result: { tone: 'good', text: 'Same outage, no harm. Retries plus a reconciliation check mean a missed webhook gets caught — by your system, not your customer.' },
+    result: { tone: 'good', text: 'Same outage, no harm. Retries plus a reconciliation check mean a missed webhook gets caught: by your system, not your customer.' },
   },
 }
 
@@ -110,7 +110,7 @@ export function WebhookSim({ onDone }: Props) {
           ▶ Normal upgrade{ran.has('happy') ? ' ✓' : ''}
         </button>
         <button type="button" className="btn small danger" disabled={running} onClick={() => run('missed')}>
-          ⚠️ Server down when webhook arrives{ran.has('missed') ? ' ✓' : ''}
+          Server down when webhook arrives{ran.has('missed') ? ' ✓' : ''}
         </button>
       </div>
 

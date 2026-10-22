@@ -14,7 +14,6 @@ export interface Concept {
 export interface ConceptStep {
   kind: 'concept'
   title: string
-  emoji?: string
   what: string
   why: string
 }
@@ -92,7 +91,6 @@ export interface World {
   num: number
   title: string
   tagline: string
-  emoji: string
   /** Accent color (hex). */
   color: string
   skill: Skill
@@ -103,7 +101,6 @@ export interface World {
 export interface ArchComponent {
   id: string
   name: string
-  emoji: string
   /** Layer used for grouping in the map. */
   layer: 'people' | 'client' | 'network' | 'app' | 'data' | 'services' | 'ops'
   what: string
@@ -128,7 +125,6 @@ export interface GlossaryTerm {
 export interface Scenario {
   id: string
   title: string
-  emoji: string
   /** The situation, 1–3 sentences. */
   setup: string
   /** One or more decisions, played in order. */

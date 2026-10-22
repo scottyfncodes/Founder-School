@@ -64,7 +64,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
 
   function jump() {
     setDay(day + 8)
-    setMsg({ tone: 'info', text: 'Eight days pass. Nothing visible changes yet — reload the page to see what the server thinks.' })
+    setMsg({ tone: 'info', text: 'Eight days pass. Nothing visible changes yet: reload the page to see what the server thinks.' })
   }
 
   function login() {
@@ -73,7 +73,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
     setCookie(s.id)
     setStolen(null)
     setAttackerIn(false)
-    setMsg({ tone: 'good', text: `Password (and 2FA) accepted. New session ${s.id} — valid for ${EXPIRY_DAYS} days.` })
+    setMsg({ tone: 'good', text: `Password (and 2FA) accepted. New session ${s.id}: valid for ${EXPIRY_DAYS} days.` })
   }
 
   function steal() {
@@ -85,7 +85,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
   function attackerTry() {
     if (valid(stolen)) {
       setAttackerIn(true)
-      setMsg({ tone: 'bad', text: 'The attacker is in your account — no password, no 2FA. The server only sees a valid wristband. That’s why stolen sessions are so dangerous.' })
+      setMsg({ tone: 'bad', text: 'The attacker is in your account: no password, no 2FA. The server only sees a valid wristband. That’s why stolen sessions are so dangerous.' })
     } else {
       setAttackerIn(false)
       setMsg({ tone: 'good', text: 'Rejected. The stolen cookie points to a session the server has killed. A copied wristband is worthless once it’s cut.' })
@@ -100,7 +100,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
     if (!session) return
     setSession({ ...session, revoked: true })
     setCookie(null)
-    setMsg({ tone: 'good', text: 'The server deleted the session. Your browser is logged out — and so is every copy of that cookie. Now let the attacker try again.' })
+    setMsg({ tone: 'good', text: 'The server deleted the session. Your browser is logged out, and so is every copy of that cookie. Now let the attacker try again.' })
   }
 
   return (
@@ -117,7 +117,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat stack sm">
-        <div className="kicker">🍪 Cookie in your browser</div>
+        <div className="kicker">Cookie in your browser</div>
         <div className="mono small">{cookie ? `session=${cookie}` : '(none)'}</div>
         <div className="kicker" style={{ marginTop: 6 }}>
           🗄️ Server’s session list
@@ -145,25 +145,25 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
         <div className="kicker">You</div>
         <div className="grid2">
           <button type="button" className="btn small" onClick={reload}>
-            🔄 Reload page
+            Reload page
           </button>
           <button type="button" className="btn small" onClick={jump}>
-            ⏩ Skip 8 days
+            Skip 8 days
           </button>
           <button type="button" className="btn small" onClick={login} disabled={youIn}>
-            🔑 Log in
+            Log in
           </button>
           <button type="button" className="btn small" onClick={logoutEverywhere} disabled={!session || session.revoked}>
-            🚪 Log out everywhere
+            Log out everywhere
           </button>
         </div>
         <div className="kicker">Attacker</div>
         <div className="grid2">
           <button type="button" className="btn small danger" onClick={steal} disabled={!youIn}>
-            🦹 Steal cookie
+            Steal cookie
           </button>
           <button type="button" className="btn small" onClick={attackerTry} disabled={!stolen}>
-            🦹 Use stolen cookie
+            Use stolen cookie
           </button>
         </div>
         {attackerIn && <div className="tiny bad-text">🦹 Attacker is browsing your account right now.</div>}

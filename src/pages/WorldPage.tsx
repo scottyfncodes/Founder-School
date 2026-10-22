@@ -17,9 +17,6 @@ export function WorldPage({ world }: { world: World }) {
       <div className="stack lg">
         <BackLink to="/" label="All worlds" />
         <header className="stack sm">
-          <div style={{ fontSize: 48, lineHeight: 1 }} aria-hidden="true">
-            {world.emoji}
-          </div>
           <div className="kicker" style={{ color: 'var(--accent)' }}>
             World {world.num}
           </div>
@@ -90,14 +87,14 @@ export function WorldPage({ world }: { world: World }) {
         <nav className="row between" aria-label="Other worlds">
           {prev ? (
             <a className="btn small" href={href(`/world/${prev.id}`)}>
-              ← {prev.emoji} World {prev.num}
+              ← World {prev.num}
             </a>
           ) : (
             <span />
           )}
           {next && (
             <a className="btn small" href={href(`/world/${next.id}`)}>
-              World {next.num} {next.emoji} →
+              World {next.num} →
             </a>
           )}
         </nav>

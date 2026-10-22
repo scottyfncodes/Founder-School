@@ -36,10 +36,10 @@ export const CONTACTS: Table = {
   what: 'Customers and leads your team keeps track of.',
   columns: ['id', 'name', 'company', 'city', 'owner_id'],
   colInfo: {
-    name: 'The contact’s name. Not unique — two people can share a name.',
+    name: 'The contact’s name. Not unique: two people can share a name.',
     company: 'Where they work.',
     city: 'Where they’re based.',
-    owner_id: 'Which USER looks after this contact. It holds a user’s id — a foreign key.',
+    owner_id: 'Which USER looks after this contact. It holds a user’s id: a foreign key.',
   },
   rows: [
     [101, 'Maria Lopez', 'SkyWays Charter', 'Denver', 1],
@@ -78,8 +78,8 @@ export const NOTES: Table = {
   what: 'What your team wrote down about each contact.',
   columns: ['id', 'contact_id', 'author_id', 'text'],
   colInfo: {
-    contact_id: 'Which CONTACT this note is about — a foreign key.',
-    author_id: 'Which USER wrote it — another foreign key.',
+    contact_id: 'Which CONTACT this note is about: a foreign key.',
+    author_id: 'Which USER wrote it: another foreign key.',
     text: 'The note itself.',
   },
   rows: [
@@ -97,11 +97,11 @@ export const DOCUMENTS: Table = {
   id: 'documents',
   name: 'DOCUMENTS',
   emoji: '📄',
-  what: 'Files attached to contacts — registrations, insurance, logbooks.',
+  what: 'Files attached to contacts: registrations, insurance, logbooks.',
   columns: ['id', 'contact_id', 'aircraft_id', 'filename'],
   colInfo: {
-    contact_id: 'Which CONTACT the file belongs to — a foreign key.',
-    aircraft_id: 'Which AIRCRAFT it’s about — another foreign key.',
+    contact_id: 'Which CONTACT the file belongs to: a foreign key.',
+    aircraft_id: 'Which AIRCRAFT it’s about: another foreign key.',
     filename: 'The file’s name. The file itself lives in file storage, not here.',
   },
   rows: [

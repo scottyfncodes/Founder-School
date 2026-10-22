@@ -63,7 +63,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
         <div className="stack" style={{ gap: 6 }}>
           {FILES.map((x) => (
             <button key={x.id} type="button" className="chip" aria-pressed={pick === x.id} disabled={stage === 'api' || stage === 'split'} onClick={() => setPick(x.id)}>
-              {x.emoji} <span className="mono small">{x.name}</span> <span className="tiny muted">· {x.mb} MB</span>
+              <span className="mono small">{x.name}</span> <span className="tiny muted">· {x.mb} MB</span>
             </button>
           ))}
         </div>
@@ -103,7 +103,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
 
       {uploaded.length > 0 && (
         <div className="stack sm pop">
-          <div className="kicker">🗂️ Bucket “acme-docs” ({publicBucket ? 'public' : 'private'})</div>
+          <div className="kicker">Bucket “acme-docs” ({publicBucket ? 'public' : 'private'})</div>
           <div className="well stack sm">
             {uploaded.map((id) => {
               const x = FILES.find((y) => y.id === id)!
@@ -118,7 +118,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
               )
             })}
           </div>
-          <div className="kicker">🗄️ DOCUMENTS table</div>
+          <div className="kicker">DOCUMENTS table</div>
           <div className="tbl-wrap">
             <table className="tbl">
               <thead>
@@ -177,10 +177,10 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
           </div>
           <div className="grid2">
             <button type="button" className="btn small" onClick={() => open('stranger')}>
-              🕵️ A stranger opens the link
+              A stranger opens the link
             </button>
             <button type="button" className="btn small" onClick={() => open('maria')}>
-              👩 Maria opens it in the app
+              Maria opens it in the app
             </button>
           </div>
           <p className="tiny muted">
@@ -210,12 +210,12 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
                   {view.who === 'maria' && !view.pub ? `${vf.key}?signature=…&expires=10min` : `acme-docs.storage.example/${vf.key}`}
                 </div>
                 {view.who === 'stranger' && !view.pub ? (
-                  <div style={{ fontWeight: 700 }}>⛔ 403 — Access denied</div>
+                  <div style={{ fontWeight: 700 }}>⛔ 403. Access denied</div>
                 ) : view.who === 'maria' && view.orphan ? (
                   <div style={{ fontWeight: 700 }}>🤷 Document not found</div>
                 ) : (
                   <div style={{ fontWeight: 700 }}>
-                    {vf.emoji} {vf.name} {vf.sensitive ? '— passport photo visible' : '— visible'}
+                    {vf.name}: {vf.sensitive ? 'passport photo visible' : 'visible'}
                   </div>
                 )}
               </div>
@@ -237,11 +237,11 @@ function calloutTone(v: { who: Who; pub: boolean; orphan?: boolean }, sensitive:
 function explain(v: { who: Who; pub: boolean; orphan?: boolean }, sensitive: boolean) {
   if (v.who === 'stranger' && v.pub) {
     return v.orphan
-      ? 'The database row is gone, but the file isn’t — it’s still sitting in a public bucket, still reachable, still on your storage bill. Delete files and rows together.'
-      : `Public bucket: anyone with the link sees ${sensitive ? 'Maria’s passport' : 'the file'}. Links leak — forwarded emails, browser history, logs, search engines. This is one of the most common real-world data leaks.`
+      ? 'The database row is gone, but the file isn’t: it’s still sitting in a public bucket, still reachable, still on your storage bill. Delete files and rows together.'
+      : `Public bucket: anyone with the link sees ${sensitive ? 'Maria’s passport' : 'the file'}. Links leak: forwarded emails, browser history, logs, search engines. This is one of the most common real-world data leaks.`
   }
-  if (v.who === 'stranger') return 'Private bucket: the link alone isn’t enough. No permission, no file — even if the link leaks.'
-  if (v.orphan) return 'The app can’t find it: the pointer row is gone, so as far as the app knows the document doesn’t exist. The file is still in the bucket, costing money — an “orphan”.'
-  if (v.pub) return 'It works for Maria — but it would work exactly the same for anyone. A public bucket can’t tell the difference.'
+  if (v.who === 'stranger') return 'Private bucket: the link alone isn’t enough. No permission, no file, even if the link leaks.'
+  if (v.orphan) return 'The app can’t find it: the pointer row is gone, so as far as the app knows the document doesn’t exist. The file is still in the bucket, costing money: an “orphan”.'
+  if (v.pub) return 'It works for Maria, but it would work exactly the same for anyone. A public bucket can’t tell the difference.'
   return 'The app checks Maria is logged in and allowed, then hands her a signed link that expires in 10 minutes. That’s the safe pattern.'
 }

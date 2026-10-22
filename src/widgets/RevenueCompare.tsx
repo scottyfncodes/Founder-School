@@ -17,7 +17,7 @@ interface Item {
 
 const ITEMS: Item[] = [
   { id: 'basic', emoji: '🙂', label: 'Basic · $10/mo', customers: 1, mrr: 10, cash: 10, explain: 'A monthly subscriber adds exactly their monthly price to MRR.' },
-  { id: 'pro', emoji: '💼', label: 'Pro · $50/mo', customers: 1, mrr: 50, cash: 50, explain: 'A pricier plan raises MRR faster — and pulls ARPU (average revenue per customer) up.' },
+  { id: 'pro', emoji: '💼', label: 'Pro · $50/mo', customers: 1, mrr: 50, cash: 50, explain: 'A pricier plan raises MRR faster, and pulls ARPU (average revenue per customer) up.' },
   { id: 'team', emoji: '🏢', label: 'Team · $200/mo', customers: 1, mrr: 200, cash: 200, explain: 'One Team customer is worth 20 Basic customers in MRR.' },
   {
     id: 'annual',
@@ -26,7 +26,7 @@ const ITEMS: Item[] = [
     customers: 1,
     mrr: 100,
     cash: 1200,
-    explain: 'You collect $1,200 today, but MRR only rises by $100 — the yearly price spread over 12 months. Cash ≠ MRR.',
+    explain: 'You collect $1,200 today, but MRR only rises by $100: the yearly price spread over 12 months. Cash ≠ MRR.',
   },
   {
     id: 'setup',
@@ -69,7 +69,7 @@ export function MrrBuilder({ onDone }: { onDone?: () => void }) {
           <span className="l">ARR · MRR × 12</span>
         </div>
         <div className="stat">
-          <span className="v">{customers ? `$${arpu.toFixed(2)}` : '—'}</span>
+          <span className="v">{customers ? `$${arpu.toFixed(2)}` : '-'}</span>
           <span className="l">ARPU · MRR ÷ customers ({num(customers)})</span>
         </div>
         <div className="stat">
@@ -82,7 +82,7 @@ export function MrrBuilder({ onDone }: { onDone?: () => void }) {
         {ITEMS.map((it) => (
           <button key={it.id} type="button" className="chip row between nowrap" onClick={() => add(it)} style={{ display: 'flex' }}>
             <span>
-              {it.emoji} {it.label}
+              {it.label}
             </span>
             <span className="pill">×{counts[it.id] ?? 0}</span>
           </button>
@@ -141,7 +141,7 @@ const TESTS: Test[] = [
     emoji: '🎧',
     label: 'A month of support',
     a: { head: '~250 tickets', text: 'Lots of small “how do I…?” questions. You need help docs and automation, fast.', tone: 'warn' },
-    b: { head: '~15 tickets', text: 'Few tickets — but each one expects a reply within hours and a named person.', tone: 'warn' },
+    b: { head: '~15 tickets', text: 'Few tickets, but each one expects a reply within hours and a named person.', tone: 'warn' },
     lesson: 'Many small customers = volume. Few big ones = high expectations per customer.',
   },
   {
@@ -157,7 +157,7 @@ const TESTS: Test[] = [
     emoji: '📉',
     label: 'A normal 5% churn month',
     a: { head: '−50 customers, −$500', text: 'Smooth and predictable. You can forecast it almost to the dollar.', tone: 'warn' },
-    b: { head: '$0 or −$1,000', text: '5% of 10 is half a customer — so really you lose one or none. Revenue is lumpy and hard to forecast.', tone: 'bad' },
+    b: { head: '$0 or −$1,000', text: '5% of 10 is half a customer, so really you lose one or none. Revenue is lumpy and hard to forecast.', tone: 'bad' },
     lesson: 'With few customers, churn arrives in big, unpredictable chunks.',
   },
 ]
@@ -212,7 +212,7 @@ export function RevenueCompare({ onDone }: { onDone?: () => void }) {
             aria-pressed={cur?.id === t.id}
             onClick={() => go(t)}
           >
-            {t.emoji} {t.label} {run.has(t.id) && <span className="muted">✓</span>}
+            {t.label} {run.has(t.id) && <span className="muted">✓</span>}
           </button>
         ))}
       </div>

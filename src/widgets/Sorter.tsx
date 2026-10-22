@@ -4,7 +4,6 @@ import { shuffle } from '../lib/util'
 export interface SortItem {
   id: string
   label: string
-  emoji?: string
 }
 
 interface Props {
@@ -111,7 +110,6 @@ export function Sorter({ items, explain, topLabel = 'First', bottomLabel = 'Last
               <span className="tiny muted" style={{ width: 16, flex: 'none' }}>
                 {i + 1}
               </span>
-              {it.emoji && <span className="emoji">{it.emoji}</span>}
               <span className="grow small" style={{ fontWeight: 600 }}>
                 {it.label}
               </span>

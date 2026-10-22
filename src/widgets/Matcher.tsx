@@ -33,7 +33,7 @@ export function Matcher({ pairs, leftTitle = 'Term', rightTitle = 'Meaning', onD
       if (next.size === pairs.length) onDone?.()
     } else {
       setMiss({ l, r })
-      setMsg('Not a match — try another pairing.')
+      setMsg('Not a match: try another pairing.')
       setTimeout(() => setMiss(null), 500)
     }
     setPickL(null)

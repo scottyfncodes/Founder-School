@@ -43,7 +43,7 @@ export function FrontBackLab({ onDone }: Props) {
         charged: typed,
         tone: edited ? 'bad' : 'info',
         lesson: edited
-          ? `You just sold a $${PRICE} plan for $${typed}. The price lived in code on the customer’s device — and the customer can change anything on their device.`
+          ? `You just sold a $${PRICE} plan for $${typed}. The price lived in code on the customer’s device, and the customer can change anything on their device.`
           : 'Works fine for honest customers. Now change the price in the page and pay again.',
       }
     } else {
@@ -107,7 +107,7 @@ export function FrontBackLab({ onDone }: Props) {
           <div className="tiny muted">acme.app/checkout</div>
           <div style={{ fontWeight: 700 }}>Pro plan · 1 year</div>
           <label className="stack sm small">
-            <span className="muted tiny">Price shown in the page (editable — like browser dev tools)</span>
+            <span className="muted tiny">Price shown in the page (editable, like browser dev tools)</span>
             <span className="row nowrap" style={{ gap: 6 }}>
               <span style={{ fontWeight: 700, fontSize: 20 }}>$</span>
               <input

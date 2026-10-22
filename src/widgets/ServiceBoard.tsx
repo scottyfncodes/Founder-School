@@ -3,22 +3,21 @@ import { Quiz } from '../components/Quiz'
 
 type SvcId = 'db' | 'email' | 'files' | 'pay' | 'auth' | 'analytics' | 'ai' | 'sms' | 'push'
 
-const SERVICES: { id: SvcId; label: string; emoji: string; vendor: string }[] = [
-  { id: 'db', label: 'Database', emoji: '🗄️', vendor: 'Managed database host' },
-  { id: 'auth', label: 'Auth', emoji: '🔐', vendor: 'Login provider' },
-  { id: 'email', label: 'Email', emoji: '✉️', vendor: 'Email sending service' },
-  { id: 'files', label: 'File storage', emoji: '🗂️', vendor: 'Storage bucket' },
-  { id: 'pay', label: 'Payments', emoji: '💳', vendor: 'Payment provider' },
-  { id: 'analytics', label: 'Analytics', emoji: '📊', vendor: 'Analytics tool' },
-  { id: 'ai', label: 'AI', emoji: '✨', vendor: 'AI model API' },
-  { id: 'sms', label: 'SMS', emoji: '💬', vendor: 'Text message API' },
-  { id: 'push', label: 'Push', emoji: '🔔', vendor: 'Apple / Google push' },
+const SERVICES: { id: SvcId; label: string; vendor: string }[] = [
+  { id: 'db', label: 'Database', vendor: 'Managed database host' },
+  { id: 'auth', label: 'Auth', vendor: 'Login provider' },
+  { id: 'email', label: 'Email', vendor: 'Email sending service' },
+  { id: 'files', label: 'File storage', vendor: 'Storage bucket' },
+  { id: 'pay', label: 'Payments', vendor: 'Payment provider' },
+  { id: 'analytics', label: 'Analytics', vendor: 'Analytics tool' },
+  { id: 'ai', label: 'AI', vendor: 'AI model API' },
+  { id: 'sms', label: 'SMS', vendor: 'Text message API' },
+  { id: 'push', label: 'Push', vendor: 'Apple / Google push' },
 ]
 
 interface Feature {
   id: string
   label: string
-  emoji: string
   /** Breaks completely without these. */
   needs: SvcId[]
   /** Still works, but worse, without these. */
@@ -30,15 +29,15 @@ interface Feature {
 }
 
 const FEATURES: Feature[] = [
-  { id: 'login', label: 'Log in', emoji: '🔑', needs: ['auth', 'db'], nice: ['analytics'], degraded: 'Works. You just stop seeing login stats.', broken: 'Nobody can get in. Total outage.' },
-  { id: 'signup', label: 'Sign up', emoji: '🆕', needs: ['auth', 'db'], nice: ['email'], degraded: 'Account created, but the welcome email never arrives.', broken: 'New users can’t create accounts.' },
-  { id: 'reset', label: 'Reset password', emoji: '🔁', needs: ['email', 'auth', 'db'], broken: 'Reset emails never arrive. Users are locked out.' },
-  { id: 'upload', label: 'Upload a photo', emoji: '🖼️', needs: ['files', 'db'], broken: 'Uploads spin forever, then fail.' },
-  { id: 'upgrade', label: 'Upgrade to Pro', emoji: '⭐', needs: ['pay', 'db'], nice: ['email'], degraded: 'Upgrade works, but no receipt email.', broken: 'Nobody can pay you. Revenue stops.' },
-  { id: 'summary', label: 'AI summary', emoji: '✨', needs: ['ai', 'db'], broken: '“Summarize” button errors out.' },
-  { id: '2fa', label: 'Login code by text', emoji: '📲', needs: ['sms'], broken: 'Users with 2FA can’t finish logging in.' },
-  { id: 'remind', label: 'Phone reminders', emoji: '⏰', needs: ['push'], nice: ['email'], degraded: 'Push works; email backup reminders don’t.', broken: 'Reminders silently stop. Nobody notices for days.' },
-  { id: 'growth', label: 'Your growth dashboard', emoji: '📈', needs: ['analytics'], broken: 'You’re flying blind — but customers don’t notice.' },
+  { id: 'login', label: 'Log in', needs: ['auth', 'db'], nice: ['analytics'], degraded: 'Works. You just stop seeing login stats.', broken: 'Nobody can get in. Total outage.' },
+  { id: 'signup', label: 'Sign up', needs: ['auth', 'db'], nice: ['email'], degraded: 'Account created, but the welcome email never arrives.', broken: 'New users can’t create accounts.' },
+  { id: 'reset', label: 'Reset password', needs: ['email', 'auth', 'db'], broken: 'Reset emails never arrive. Users are locked out.' },
+  { id: 'upload', label: 'Upload a photo', needs: ['files', 'db'], broken: 'Uploads spin forever, then fail.' },
+  { id: 'upgrade', label: 'Upgrade to Pro', needs: ['pay', 'db'], nice: ['email'], degraded: 'Upgrade works, but no receipt email.', broken: 'Nobody can pay you. Revenue stops.' },
+  { id: 'summary', label: 'AI summary', needs: ['ai', 'db'], broken: '“Summarize” button errors out.' },
+  { id: '2fa', label: 'Login code by text', needs: ['sms'], broken: 'Users with 2FA can’t finish logging in.' },
+  { id: 'remind', label: 'Phone reminders', needs: ['push'], nice: ['email'], degraded: 'Push works; email backup reminders don’t.', broken: 'Reminders silently stop. Nobody notices for days.' },
+  { id: 'growth', label: 'Your growth dashboard', needs: ['analytics'], broken: 'You’re flying blind, but customers don’t notice.' },
 ]
 
 type Status = 'ok' | 'degraded' | 'broken' | 'delayed'
@@ -47,22 +46,19 @@ const FALLBACKS = [
   {
     id: 'queue',
     label: 'Queue & retry',
-    emoji: '📬',
     effect: 'Emails wait in a queue and send automatically when the provider recovers. Resets arrive late instead of never.',
     tradeoff: 'Cheap and simple. But a reset email that arrives 2 hours late still frustrates people.',
   },
   {
     id: 'second',
     label: 'Second provider',
-    emoji: '🔀',
     effect: 'The app notices failures and switches to a backup email provider. Users barely notice.',
     tradeoff: 'Most resilient, but you set up, pay for and maintain two providers.',
   },
   {
     id: 'graceful',
     label: 'Graceful degradation',
-    emoji: '🪂',
-    effect: 'The app says “Email is delayed — use a login code by text instead.” Core features keep working.',
+    effect: 'The app says “Email is delayed: use a login code by text instead.” Core features keep working.',
     tradeoff: 'Honest and calm. Needs an alternative path (like SMS) and a clear message designed in advance.',
   },
 ] as const
@@ -105,10 +101,10 @@ export function ServiceBoard({ onDone }: Props) {
   }
 
   function describe(f: Feature, st: Status) {
-    if (st === 'ok') return drill && fallback === 'second' && (f.needs.includes('email') || f.nice?.includes('email')) ? 'Works — sent through the backup provider.' : 'Working normally.'
-    if (st === 'delayed') return 'Works, but emails go out late — they’re waiting in the queue.'
+    if (st === 'ok') return drill && fallback === 'second' && (f.needs.includes('email') || f.nice?.includes('email')) ? 'Works: sent through the backup provider.' : 'Working normally.'
+    if (st === 'delayed') return 'Works, but emails go out late: they’re waiting in the queue.'
     if (st === 'degraded') {
-      if (drill && fallback === 'graceful' && f.needs.includes('email')) return 'Shows “Email is delayed — get a code by text instead.” Users still get in.'
+      if (drill && fallback === 'graceful' && f.needs.includes('email')) return 'Shows “Email is delayed: get a code by text instead.” Users still get in.'
       return f.degraded ?? 'Works, but worse.'
     }
     return f.broken
@@ -170,9 +166,6 @@ export function ServiceBoard({ onDone }: Props) {
               disabled={drill}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, padding: '8px 4px', textAlign: 'center', opacity: 1 }}
             >
-              <span aria-hidden="true" style={{ fontSize: 20, lineHeight: 1, filter: up[s.id] ? 'none' : 'grayscale(1)' }}>
-                {s.emoji}
-              </span>
               <span className="tiny" style={{ fontWeight: 650 }}>{s.label}</span>
               <span className={`tiny ${up[s.id] ? 'good-text' : 'bad-text'}`} style={{ fontWeight: 700 }}>
                 {up[s.id] ? 'UP' : 'DOWN'}
@@ -209,7 +202,6 @@ export function ServiceBoard({ onDone }: Props) {
             onClick={() => setFocus(focus === f.id ? null : f.id)}
             style={{ alignItems: 'flex-start' }}
           >
-            <span className="emoji">{f.emoji}</span>
             <span className="grow stack" style={{ gap: 2 }}>
               <span>{f.label}</span>
               {(st !== 'ok' || focus === f.id) && <span className="tiny ink2" style={{ fontWeight: 500 }}>{describe(f, st)}</span>}
@@ -228,22 +220,22 @@ export function ServiceBoard({ onDone }: Props) {
 
       {!drill ? (
         <button type="button" className="btn danger block" onClick={startDrill}>
-          💥 Drill: EMAIL PROVIDER DOWN
+          Drill: EMAIL PROVIDER DOWN
         </button>
       ) : (
         <div className="stack pop">
           <div className="callout bad">
-            <b>💥 Your email provider is having an outage.</b> Everything else is up. Look at the feature list above.
+            <b>Your email provider is having an outage.</b> Everything else is up. Look at the feature list above.
           </div>
           <div className="card tight flat">
             <Quiz
               kicker="Incident drill"
               prompt="What happens to the application?"
               options={[
-                { text: 'The whole app goes down', why: 'Login, uploads, payments and AI don’t touch email — they keep working. One provider down rarely means everything is down.' },
-                { text: 'Nothing — email is a nice-to-have', why: 'Look at “Reset password”: it can’t work without email. Anyone who forgot their password is locked out.' },
+                { text: 'The whole app goes down', why: 'Login, uploads, payments and AI don’t touch email: they keep working. One provider down rarely means everything is down.' },
+                { text: 'Nothing: email is a nice-to-have', why: 'Look at “Reset password”: it can’t work without email. Anyone who forgot their password is locked out.' },
                 { text: 'Most things work; password resets break and some emails silently go missing', correct: true, why: 'Exactly. Reset password is broken (critical), while welcome and receipt emails quietly vanish (degraded). Partial failures are the most common kind.' },
-                { text: 'Payments stop working', why: 'Payments run through the payment provider. Only the receipt email is lost — the money still arrives.' },
+                { text: 'Payments stop working', why: 'Payments run through the payment provider. Only the receipt email is lost: the money still arrives.' },
               ]}
               onSolved={() => setAnswered(true)}
             />
@@ -260,7 +252,7 @@ export function ServiceBoard({ onDone }: Props) {
                     aria-pressed={fallback === x.id}
                     onClick={() => pickFallback(x.id)}
                   >
-                    {x.emoji} {x.label}
+                    {x.label}
                     {tried.has(x.id) ? ' ✓' : ''}
                   </button>
                 ))}
@@ -276,7 +268,7 @@ export function ServiceBoard({ onDone }: Props) {
                 </div>
               )}
               <button type="button" className="btn small" onClick={endDrill}>
-                ↺ End drill — provider recovered
+                ↺ End drill: provider recovered
               </button>
             </div>
           )}

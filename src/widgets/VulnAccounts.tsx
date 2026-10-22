@@ -48,7 +48,7 @@ export function WeakPasswordCase({ onDone }: CaseProps) {
     if (!alive.current) return
     api.setBusy(false)
     if (weak) {
-      setOutcome('✓ MATCH on guess #6 — logged in as Maya.')
+      setOutcome('✓ MATCH on guess #6: logged in as Maya.')
       api.report('breach')
     } else {
       setOutcome('All 8 guesses wrong. And even a right guess would hit the 2FA code prompt.')
@@ -58,10 +58,9 @@ export function WeakPasswordCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🔑"
       name="Weak passwords"
       intended="Each person picks a password. Only the person who knows it can get into the account."
-      happened="Maya chose ‘password1’ — one of the most common passwords on Earth. A bot that just tries popular passwords got in on guess 6. No hacking skill needed."
+      happened="Maya chose ‘password1’: one of the most common passwords on Earth. A bot that just tries popular passwords got in on guess 6. No hacking skill needed."
       fixName="Block common passwords + 2FA"
       fixText="Reject passwords found on breach lists, and ask for a one-time code from Maya’s phone."
       blocked="Maya was forced to pick a long passphrase at sign-up, so the list never matches. 2FA is the safety net if a password leaks anyway."
@@ -173,9 +172,8 @@ export function StolenSessionCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🍪"
       name="Stolen sessions"
-      intended="After Maya logs in, her browser keeps a session cookie — like a festival wristband — so she isn’t asked for her password on every click."
+      intended="After Maya logs in, her browser keeps a session cookie (like a festival wristband) so she isn’t asked for her password on every click."
       happened="The attacker never learned Maya’s password. They copied her wristband. While it’s valid, the app can’t tell the attacker from Maya."
       fixName="Secure session cookies"
       fixText="Mark cookies HttpOnly + Secure, expire idle sessions, and let users “log out everywhere”."
@@ -189,7 +187,7 @@ export function StolenSessionCase({ onDone }: CaseProps) {
             {loggedIn ? (
               <>
                 <div className="small" style={{ fontWeight: 650 }}>
-                  Welcome back, Maya 👋
+                  Welcome back, Maya
                 </div>
                 <div className="mono tiny ink2">
                   cookie: session=7f3a…c91{api.fixOn ? ' · HttpOnly · Secure · 30 min' : ''}
@@ -211,7 +209,7 @@ export function StolenSessionCase({ onDone }: CaseProps) {
           {api.stage >= 1 && (
             <>
               <button type="button" className="btn small danger block" disabled={api.busy} onClick={() => void attack(api)}>
-                🕵️ Run the leaky script
+                Run the leaky script
               </button>
               {log.map((l, i) => (
                 <LogLine key={i} tone={l.tone}>
@@ -222,7 +220,7 @@ export function StolenSessionCase({ onDone }: CaseProps) {
                 <div className="well stack sm pop" style={{ padding: 10, background: attacker === 'in' ? 'var(--bad-soft)' : 'var(--good-soft)' }}>
                   <div className="tiny muted">🕵️ Attacker’s browser (pasted the cookie)</div>
                   <div className="small" style={{ fontWeight: 650 }}>
-                    {attacker === 'in' ? 'Welcome back, Maya 👋 — no password asked.' : '401 · Please log in.'}
+                    {attacker === 'in' ? 'Welcome back, Maya. No password asked.' : '401 · Please log in.'}
                   </div>
                 </div>
               )}
@@ -265,7 +263,6 @@ export function MissingAuthzCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🚪"
       name="Missing authorization"
       intended="Each customer can see only their own invoices. Alex runs a bakery; he should only ever see the bakery’s bills."
       happened="The server checked WHO Alex is (logged in ✓) but never checked whether invoice 1042 is HIS. Changing one number showed another company’s private bill."
@@ -352,7 +349,7 @@ export function ExposedSecretCase({ onDone }: CaseProps) {
       api.setBusy(false)
       api.report('breach')
     } else {
-      push('good', '401 Unauthorized — this key was revoked.')
+      push('good', '401 Unauthorized: this key was revoked.')
       api.setBusy(false)
       api.report('blocked')
     }
@@ -360,7 +357,6 @@ export function ExposedSecretCase({ onDone }: CaseProps) {
 
   return (
     <VulnCase
-      emoji="🗝️"
       name="Exposed secrets"
       intended="KiteDesk uses a secret key to charge cards through a payment provider. Only KiteDesk’s servers were supposed to know it."
       happened="The key was in the frontend code, and every visitor downloads the frontend. Anyone can press “view source”. That key could read every customer and issue refunds."
@@ -398,7 +394,7 @@ export function ExposedSecretCase({ onDone }: CaseProps) {
               </button>
               {source && (
                 <div className="code pop" key={String(api.fixOn)}>
-                  {'// app.js — downloaded by every visitor\n'}
+                  {'// app.js: downloaded by every visitor\n'}
                   {!api.fixOn ? (
                     <>
                       <span style={{ background: 'var(--bad-soft)', color: 'var(--bad)', fontWeight: 700 }}>
@@ -413,7 +409,7 @@ export function ExposedSecretCase({ onDone }: CaseProps) {
               )}
               {source && (
                 <button type="button" className="btn small danger block" disabled={api.busy} onClick={() => void tryKey(api)}>
-                  🗝️ Use the copied key
+                  Use the copied key
                 </button>
               )}
               {log.map((l, i) => (

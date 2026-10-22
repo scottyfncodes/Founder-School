@@ -23,7 +23,6 @@ const world: World = {
   num: 1,
   title: 'How Software Works',
   tagline: 'What actually happens when you tap a button.',
-  emoji: '🧭',
   color: '#3b5bdb',
   skill: 'tech',
   concepts: [
@@ -48,9 +47,8 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🏃',
           title: 'A web app is a relay race',
-          what: 'When you tap a button, a message is passed hand to hand — phone, browser, internet, your app’s servers, the database — and an answer is passed all the way back.',
+          what: 'When you tap a button, a message is passed hand to hand (phone, browser, internet, your app’s servers, the database) and an answer is passed all the way back.',
           why: 'No single computer does everything. Your phone is good at showing things; servers are good at remembering things and enforcing rules. Splitting the work is what lets millions of people share one app.',
         },
         {
@@ -72,7 +70,7 @@ const world: World = {
                     { at: 'browser', say: 'Runs the app’s code for the Save button', tone: 'req', hold: 700 },
                     { at: 'internet', say: 'Carries “save Maria” to the app’s servers', tone: 'req' },
                     { at: 'frontend', say: 'Packages the form into a request', tone: 'req', hold: 700 },
-                    { at: 'api', say: '“POST /contacts — please save Maria”', tone: 'req' },
+                    { at: 'api', say: '“POST /contacts: please save Maria”', tone: 'req' },
                     { at: 'backend', say: 'Checks: logged in? allowed? valid email?', tone: 'req' },
                     { at: 'database', say: 'Stores Maria as contact #482', tone: 'res', hold: 1100 },
                     { at: 'backend', say: '“Saved. Her ID is 482.”', tone: 'res', hold: 600 },
@@ -83,25 +81,25 @@ const world: World = {
                   screen: '✅ Maria Lopez saved',
                   result: {
                     tone: 'good',
-                    text: 'Eight hand-offs out, back again — in a fraction of a second. Every box you saw is something you pay for, and something that can break.',
+                    text: 'Eight hand-offs out, back again: in a fraction of a second. Every box you saw is something you pay for, and something that can break.',
                   },
                 },
                 {
                   id: 'offline',
-                  label: 'Save — but Wi‑Fi drops',
+                  label: 'Save, but Wi‑Fi drops',
                   danger: true,
                   hops: [
                     { at: 'user', say: 'Taps “Save”', tone: 'req' },
                     { at: 'phone', say: 'Registers the touch', tone: 'req', hold: 600 },
                     { at: 'browser', say: 'Runs the Save code', tone: 'req', hold: 600 },
-                    { at: 'internet', say: 'No connection — the message never leaves', tone: 'err', status: 'fail', hold: 1300 },
+                    { at: 'internet', say: 'No connection: the message never leaves', tone: 'err', status: 'fail', hold: 1300 },
                     { at: 'browser', say: 'Waits… gives up after a timeout', tone: 'err', status: 'warn' },
                     { at: 'user', say: 'Sees a spinner, then an error', tone: 'err', status: 'fail' },
                   ],
                   screen: '⚠️ Couldn’t save. Check your connection and try again.',
                   result: {
                     tone: 'warn',
-                    text: 'The database never heard about Maria. A good app tells the user clearly and keeps what they typed so they can retry — a bad one silently loses it.',
+                    text: 'The database never heard about Maria. A good app tells the user clearly and keeps what they typed so they can retry: a bad one silently loses it.',
                   },
                 },
               ]}
@@ -112,10 +110,10 @@ const world: World = {
           kind: 'points',
           title: 'The cast of characters',
           points: [
-            { term: '🎨 Frontend', text: 'Everything you see and touch. It runs on the user’s device, inside the browser.' },
-            { term: '🚪 API', text: 'The service window where the frontend asks the backend for things.' },
-            { term: '⚙️ Backend', text: 'Code on your servers that applies the rules: who’s allowed, what’s valid, what to save.' },
-            { term: '🗄️ Database', text: 'Permanent, organized memory. It still has your data after everyone closes the app.' },
+            { term: 'Frontend', text: 'Everything you see and touch. It runs on the user’s device, inside the browser.' },
+            { term: 'API', text: 'The service window where the frontend asks the backend for things.' },
+            { term: 'Backend', text: 'Code on your servers that applies the rules: who’s allowed, what’s valid, what to save.' },
+            { term: 'Database', text: 'Permanent, organized memory. It still has your data after everyone closes the app.' },
           ],
         },
         {
@@ -137,10 +135,10 @@ const world: World = {
           level: 2,
           concepts: ['database-intro', 'web-stack'],
           options: [
-            { text: 'The frontend', why: 'The frontend is rebuilt from scratch every time you open the app. It only shows data — it doesn’t keep it.' },
+            { text: 'The frontend', why: 'The frontend is rebuilt from scratch every time you open the app. It only shows data: it doesn’t keep it.' },
             { text: 'The browser', why: 'Browsers can hold small temporary bits, but they get wiped, and they’re only on one device. Your data must survive a lost phone.' },
             { text: 'The database', correct: true, why: 'The database is the app’s permanent memory. It lives on servers, not your phone, which is why you can log in from a new device and everything is there.' },
-            { text: 'The API', why: 'The API passes requests and responses back and forth. Like a waiter, it carries the order — it doesn’t store the food.' },
+            { text: 'The API', why: 'The API passes requests and responses back and forth. Like a waiter, it carries the order: it doesn’t store the food.' },
           ],
         },
         {
@@ -152,15 +150,15 @@ const world: World = {
           concepts: ['frontend', 'backend', 'web-stack'],
           options: [
             { text: 'The app won’t open at all', why: 'If the frontend is fine, the screens still load. The problem appears when the app needs the backend.' },
-            { text: 'Screens look normal, but saving fails with an error', correct: true, why: 'The frontend (what you see) works, so the app looks healthy — until you do something that needs the backend. That’s why “it looks fine” and “it works” are different claims.' },
+            { text: 'Screens look normal, but saving fails with an error', correct: true, why: 'The frontend (what you see) works, so the app looks healthy, until you do something that needs the backend. That’s why “it looks fine” and “it works” are different claims.' },
             { text: 'Their phone is slow', why: 'A backend crash happens on your servers. The user’s phone has nothing to do with it.' },
-            { text: 'Nothing — backend problems are invisible to users', why: 'Backend problems are very visible: they show up as failed saves, missing data and error messages.' },
+            { text: 'Nothing: backend problems are invisible to users', why: 'Backend problems are very visible: they show up as failed saves, missing data and error messages.' },
           ],
         },
         {
           kind: 'care',
           points: [
-            'When something breaks, the first useful question is “which box?” — it turns panic into a search.',
+            'When something breaks, the first useful question is “which box?”: it turns panic into a search.',
             'Each box is a cost line: hosting for the backend, a database plan, bandwidth for the internet hops.',
             'Anything that must be enforced (prices, permissions, limits) belongs in the backend. The frontend is on the user’s device, and users can change it.',
           ],
@@ -170,13 +168,12 @@ const world: World = {
     {
       id: 'w1-front-back',
       title: 'Frontend vs. backend',
-      subtitle: 'What runs on their phone, what runs on your servers — and why it matters.',
+      subtitle: 'What runs on their phone, what runs on your servers, and why it matters.',
       minutes: 7,
       concepts: ['frontend', 'backend', 'trust-device'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🏠',
           title: 'Two halves of every app',
           what: 'The frontend is the code your customer downloads and runs on their own device. The backend is code that runs on servers you control.',
           why: 'Showing things fast needs to happen on the device. Keeping secrets, money and rules safe needs a place the customer can’t touch.',
@@ -184,17 +181,17 @@ const world: World = {
         {
           kind: 'widget',
           title: 'Change the price yourself',
-          instruction: 'Edit the price in the page and pay — once with each setting. Watch what your server does.',
+          instruction: 'Edit the price in the page and pay: once with each setting. Watch what your server does.',
           render: ({ done }) => <FrontBackLab onDone={done} />,
         },
         {
           kind: 'points',
           title: 'The rule of thumb',
           points: [
-            { term: '🎨 Frontend = convenience', text: 'Layout, animations, instant hints like “that email looks wrong”. It makes the app pleasant.' },
-            { term: '⚙️ Backend = authority', text: 'Prices, permissions, limits, secrets. Anything that must be true no matter who is asking.' },
-            { term: '🙅 Never trust the device', text: 'Anything on the user’s phone can be read or changed by a curious user. Treat what it sends as a request, not a fact.' },
-            { term: '🔁 Check twice', text: 'Good apps check a form in the frontend (for speed) and again in the backend (for safety).' },
+            { term: 'Frontend = convenience', text: 'Layout, animations, instant hints like “that email looks wrong”. It makes the app pleasant.' },
+            { term: 'Backend = authority', text: 'Prices, permissions, limits, secrets. Anything that must be true no matter who is asking.' },
+            { term: 'Never trust the device', text: 'Anything on the user’s phone can be read or changed by a curious user. Treat what it sends as a request, not a fact.' },
+            { term: 'Check twice', text: 'Good apps check a form in the frontend (for speed) and again in the backend (for safety).' },
           ],
         },
         {
@@ -205,8 +202,8 @@ const world: World = {
             <Categorize
               onDone={done}
               buckets={[
-                { id: 'front', label: 'Frontend', emoji: '🎨' },
-                { id: 'back', label: 'Backend', emoji: '⚙️' },
+                { id: 'front', label: 'Frontend', },
+                { id: 'back', label: 'Backend', },
               ]}
               items={[
                 { id: 'colors', label: 'Button colors & layout', bucket: 'front', why: 'Purely visual. If a user changes it, only their own screen looks different.' },
@@ -228,21 +225,21 @@ const world: World = {
           level: 2,
           concepts: ['frontend', 'trust-device'],
           options: [
-            { text: 'The frontend code had a typo', why: 'No typo needed. The code worked exactly as written — it just ran on a device the customer controls.' },
+            { text: 'The frontend code had a typo', why: 'No typo needed. The code worked exactly as written: it just ran on a device the customer controls.' },
             { text: 'Frontend code runs on the customer’s device, so they can change it', correct: true, why: 'Exactly. The customer’s browser is their territory. Whatever it sends, your server should treat as a request, not a fact.' },
-            { text: 'The customer hacked your servers', why: 'They never touched your servers. They edited a page on their own phone — something any user can do.' },
+            { text: 'The customer hacked your servers', why: 'They never touched your servers. They edited a page on their own phone: something any user can do.' },
             { text: 'Payments always have bugs', why: 'This isn’t bad luck; it’s a design mistake. Put the price check on the backend and it disappears.' },
           ],
         },
         {
           kind: 'quiz',
           id: 'w1-front-back-q2',
-          context: 'Your AI agent says: “Done! Free users can no longer export data — I hid the Export button for them.”',
+          context: 'Your AI agent says: “Done! Free users can no longer export data: I hid the Export button for them.”',
           prompt: 'What should you ask next?',
           level: 3,
           concepts: ['backend', 'trust-device', 'frontend'],
           options: [
-            { text: 'Nothing — if the button is hidden, they can’t export', why: 'Hiding a button is a frontend change. A curious user can still call the export API directly.' },
+            { text: 'Nothing, if the button is hidden, they can’t export', why: 'Hiding a button is a frontend change. A curious user can still call the export API directly.' },
             { text: '“Does the backend also refuse exports from free users?”', correct: true, why: 'This is the real question. The button is decoration; the backend check is the lock. You want both.' },
             { text: '“Can you make the button grey instead?”', why: 'Still cosmetic. Grey, hidden or missing, the frontend can be bypassed.' },
             { text: '“Can you move the button to settings?”', why: 'Moving it changes where people look, not what they’re allowed to do.' },
@@ -255,8 +252,8 @@ const world: World = {
           level: 4,
           concepts: ['backend', 'frontend'],
           options: [
-            { text: 'No — checking twice is wasted work', why: 'The frontend check can be skipped by anyone talking to your API directly, so it isn’t enough on its own.' },
-            { text: 'Yes — the frontend check is for speed, the backend check is for safety', correct: true, why: 'Frontend checks give instant feedback; backend checks are the ones you can rely on. Doing both is standard practice.' },
+            { text: 'No: checking twice is wasted work', why: 'The frontend check can be skipped by anyone talking to your API directly, so it isn’t enough on its own.' },
+            { text: 'Yes: the frontend check is for speed, the backend check is for safety', correct: true, why: 'Frontend checks give instant feedback; backend checks are the ones you can rely on. Doing both is standard practice.' },
             { text: 'Only if the app is popular', why: 'Bad data and abuse don’t wait for popularity. Backend checks matter from the first user.' },
             { text: 'Remove the frontend check and keep only the backend', why: 'That’s safe but annoying: users would only learn about typos after submitting. Keep both.' },
           ],
@@ -264,7 +261,7 @@ const world: World = {
         {
           kind: 'care',
           points: [
-            'Pricing, plan limits and permissions must be enforced on the backend — or they are suggestions.',
+            'Pricing, plan limits and permissions must be enforced on the backend, or they are suggestions.',
             '“I hid the button” is not security. Ask: “What does the server do if someone calls it anyway?”',
             'Frontend bugs usually look ugly; backend bugs usually cost money or leak data. Prioritize accordingly.',
           ],
@@ -274,16 +271,15 @@ const world: World = {
     {
       id: 'w1-code',
       title: 'What code actually is',
-      subtitle: 'Languages, frameworks, packages — and the code you didn’t write.',
+      subtitle: 'Languages, frameworks, packages, and the code you didn’t write.',
       minutes: 6,
       concepts: ['code-languages', 'packages'],
       steps: [
         {
           kind: 'concept',
-          emoji: '📜',
           title: 'Code is a very precise recipe',
           what: 'Code is written instructions a computer follows exactly, step by step. A programming language (TypeScript, Python, Swift…) is the vocabulary those instructions are written in.',
-          why: 'Computers do exactly what they’re told and nothing more. Languages let humans — and AI agents — write those instructions in something closer to English.',
+          why: 'Computers do exactly what they’re told and nothing more. Languages let humans (and AI agents) write those instructions in something closer to English.',
         },
         {
           kind: 'widget',
@@ -323,7 +319,7 @@ const world: World = {
           options: [
             { text: 'Someone broke in and added it', why: 'Possible in theory, but far less likely than the everyday explanation: dependencies bring their own dependencies.' },
             { text: 'A package you chose depends on it', correct: true, why: 'Right. Each package you install can pull in dozens more. They all ship inside your app and are your responsibility.' },
-            { text: 'The alert is a mistake — you only run code you wrote', why: 'Most of what ships in a modern app is borrowed code, often 95%+ of it.' },
+            { text: 'The alert is a mistake: you only run code you wrote', why: 'Most of what ships in a modern app is borrowed code, often 95%+ of it.' },
             { text: 'Your programming language includes it automatically', why: 'Languages come with a small built-in toolkit, but alerts like this are almost always about installed packages.' },
           ],
         },
@@ -335,10 +331,10 @@ const world: World = {
           level: 3,
           concepts: ['packages', 'code-languages'],
           options: [
-            { text: 'Always approve — free code is free', why: 'Every package adds weight, update work and security risk. “Free” code has an ongoing cost.' },
+            { text: 'Always approve: free code is free', why: 'Every package adds weight, update work and security risk. “Free” code has an ongoing cost.' },
             { text: 'Never use packages; write everything ourselves', why: 'That would be slow and often less safe. Well-maintained packages are usually better than home-made versions.' },
             { text: 'Ask if it’s well maintained, and whether something smaller would do', correct: true, why: 'Good packages save months. The trade-off is size and risk, so prefer popular, maintained, right-sized ones.' },
-            { text: 'Ask the agent to rewrite the app in another language', why: 'Switching languages doesn’t solve this — every language has packages and the same trade-offs.' },
+            { text: 'Ask the agent to rewrite the app in another language', why: 'Switching languages doesn’t solve this: every language has packages and the same trade-offs.' },
           ],
         },
         {
@@ -351,14 +347,14 @@ const world: World = {
             { text: 'TypeScript is the framework and React is the language', why: 'It’s the other way around: TypeScript is the language, React is the framework built on it.' },
             { text: 'TypeScript is the language; React is the framework that structures the screens', correct: true, why: 'Yes. Language = the vocabulary. Framework = the ready-made structure the app is built inside.' },
             { text: 'It’s a mobile app only', why: 'React runs in web browsers. (React Native is the cousin for mobile apps.)' },
-            { text: 'Nothing useful', why: 'It tells you quite a lot — like which skills a future hire needs and which packages you can use.' },
+            { text: 'Nothing useful', why: 'It tells you quite a lot, like which skills a future hire needs and which packages you can use.' },
           ],
         },
         {
           kind: 'care',
           points: [
             'Your language and framework decide who you can hire and which tools your AI agent knows best. Boring and popular is a feature.',
-            'Every package is a supplier. Keep them updated — most real-world breaches use old, known flaws.',
+            'Every package is a supplier. Keep them updated: most real-world breaches use old, known flaws.',
             'Ask for automated dependency alerts (e.g. GitHub Dependabot). They’re free and catch the “tiny-color” problem for you.',
           ],
         },
@@ -367,15 +363,14 @@ const world: World = {
     {
       id: 'w1-state',
       title: 'Where things live',
-      subtitle: 'Memory, device storage, the server — and why refresh eats your draft.',
+      subtitle: 'Memory, device storage, the server, and why refresh eats your draft.',
       minutes: 8,
       concepts: ['memory-storage', 'caching', 'database-intro'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🧠',
           title: 'Short-term vs. long-term memory',
-          what: 'Memory is where an app keeps things while it’s running — fast, but wiped on refresh or close. Storage (on the device or on a server) keeps things after the app closes.',
+          what: 'Memory is where an app keeps things while it’s running: fast, but wiped on refresh or close. Storage (on the device or on a server) keeps things after the app closes.',
           why: 'Memory is fast and cheap but forgetful. Storage is slower but permanent. Every app juggles both.',
         },
         {
@@ -388,16 +383,16 @@ const world: World = {
           kind: 'points',
           title: 'Four places data can live',
           points: [
-            { term: '🧠 Memory', text: 'What the open app is holding right now. Gone on refresh, close or crash.' },
-            { term: '💾 Device storage', text: 'Saved inside one browser on one device. Survives refresh; lost if the user clears data or switches device.' },
-            { term: '🗄️ Server database', text: 'The source of truth. Same data on every device, survives everything except your own mistakes.' },
-            { term: '⚡ Cache', text: 'A quick copy kept nearby so you don’t have to ask again. Fast — but can be out of date.' },
+            { term: 'Memory', text: 'What the open app is holding right now. Gone on refresh, close or crash.' },
+            { term: 'Device storage', text: 'Saved inside one browser on one device. Survives refresh; lost if the user clears data or switches device.' },
+            { term: 'Server database', text: 'The source of truth. Same data on every device, survives everything except your own mistakes.' },
+            { term: 'Cache', text: 'A quick copy kept nearby so you don’t have to ask again. Fast, but can be out of date.' },
           ],
         },
         {
           kind: 'widget',
           title: 'Fast copies go stale',
-          instruction: 'Open the contact twice, have Alex rename her, open again — then pull to refresh.',
+          instruction: 'Open the contact twice, have Alex rename her, open again, then pull to refresh.',
           render: ({ done }) => <CacheLab onDone={done} />,
         },
         {
@@ -410,7 +405,7 @@ const world: World = {
             { text: 'In the server database', why: 'If it had reached the database, the refresh would have loaded it back.' },
             { text: 'Only in memory', correct: true, why: 'Unsaved text lives in memory, and a refresh wipes memory. Autosaving drafts to device storage would have saved it.' },
             { text: 'In the cache', why: 'A cache holds copies of things that already exist somewhere else. The draft never existed anywhere else.' },
-            { text: 'In device storage', why: 'Device storage survives refresh — if it had been there, it would have come back.' },
+            { text: 'In device storage', why: 'Device storage survives refresh: if it had been there, it would have come back.' },
           ],
         },
         {
@@ -435,9 +430,9 @@ const world: World = {
           concepts: ['memory-storage', 'database-intro'],
           options: [
             { text: 'In memory', why: 'Memory is wiped when the app closes, and it never leaves the phone.' },
-            { text: 'In the phone’s browser storage', why: 'That survives a refresh, but it lives on the phone only — the laptop can’t see it.' },
+            { text: 'In the phone’s browser storage', why: 'That survives a refresh, but it lives on the phone only: the laptop can’t see it.' },
             { text: 'On the server, in the database', correct: true, why: 'Only the server is shared by every device. Cross-device drafts mean saving drafts to the backend.' },
-            { text: 'In a cache', why: 'A cache is a copy of data that lives elsewhere. You still need the “elsewhere” — the server.' },
+            { text: 'In a cache', why: 'A cache is a copy of data that lives elsewhere. You still need the “elsewhere”: the server.' },
           ],
         },
         {
@@ -445,7 +440,7 @@ const world: World = {
           points: [
             'Lost work is the fastest way to lose a user’s trust. Ask: “What happens to unsaved input if the page refreshes?”',
             '“Works on every device” is a backend feature: it means storing things on the server, which costs money and design effort.',
-            'Caching makes apps fast and cheap — and causes “I changed it but it didn’t change” bugs. Know where your app caches.',
+            'Caching makes apps fast and cheap, and causes “I changed it but it didn’t change” bugs. Know where your app caches.',
           ],
         },
       ],

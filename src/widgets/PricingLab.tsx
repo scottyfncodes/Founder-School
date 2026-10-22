@@ -55,7 +55,7 @@ export function PricingLab({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="well small ink2">
-        🩺 <b>ClinicBook</b> (fictional) books appointments for small clinics. Same marketing budget every time — only the monthly price
+        <b>ClinicBook</b> (fictional) books appointments for small clinics. Same marketing budget every time, only the monthly price
         changes.
       </div>
       <div className="row" role="group" aria-label="Monthly price" style={{ gap: 6 }}>
@@ -146,7 +146,7 @@ export function PricingLab({ onDone }: { onDone?: () => void }) {
       )}
       {tried.size >= 4 && (
         <div className="callout good pop">
-          <b>The cheapest price made the least money.</b> At $9 you serve 35× more customers than at $499 — 12× the tickets — for a fraction
+          <b>The cheapest price made the least money.</b> At $9 you serve 35× more customers than at $499 (12× the tickets) for a fraction
           of the profit. Higher prices attract fewer, more serious customers who churn less but expect more of you.
         </div>
       )}
@@ -175,7 +175,7 @@ export function ValueCalc({ onDone }: { onDone?: () => void }) {
   const share = price / value
   const verdict =
     share < 0.05
-      ? { tone: 'warn', text: 'An easy yes — but you’re leaving a lot of money on the table.' }
+      ? { tone: 'warn', text: 'An easy yes, but you’re leaving a lot of money on the table.' }
       : share <= 0.25
         ? { tone: 'good', text: 'A no-brainer for the customer and healthy for you. A common target is roughly 10–25% of the value created.' }
         : share <= 0.6
@@ -236,7 +236,7 @@ export function ValueCalc({ onDone }: { onDone?: () => void }) {
         {verdict.text}
       </div>
       <div className="well small ink2">
-        💡 Notice what’s <b>not</b> in this calculator: how long it took you to build. The customer never sees your costs — only their own
+        Notice what’s <b>not</b> in this calculator: how long it took you to build. The customer never sees your costs, only their own
         time and money saved.
       </div>
     </div>

@@ -38,17 +38,12 @@ export function Home() {
                 How levels work →
               </a>
             </div>
-            <div className="row nowrap" style={{ gap: 12 }}>
-              <span style={{ fontSize: 34 }} aria-hidden="true">
-                {o.rank === 0 ? '🌱' : rank.emoji}
-              </span>
-              <div className="grow stack" style={{ gap: 6 }}>
+            <div className="stack" style={{ gap: 6 }}>
                 <div style={{ fontWeight: 700, fontSize: 20 }}>{o.rank === 0 ? 'Just getting started' : rank.name}</div>
                 <Meter value={o.rank === 4 ? 1 : o.toNext} color={o.rank === 0 ? undefined : rank.color} label="Progress to next level" />
                 <div className="tiny muted">
-                  {o.rank === 4 ? 'Top level reached.' : `Next: ${nextRank.emoji} ${nextRank.name} — “${nextRank.claim}”`}
+                  {o.rank === 4 ? 'Top level reached.' : `Next: ${nextRank.name} (“${nextRank.claim}”)`}
                 </div>
-              </div>
             </div>
             <div className="grid3">
               <div className="stat">
@@ -95,7 +90,7 @@ export function Home() {
               <div style={{ opacity: 0.9 }}>{next.subtitle}</div>
               <div className="row between" style={{ marginTop: 'auto' }}>
                 <span className="pill" style={{ background: 'color-mix(in srgb, currentColor 18%, transparent)', color: 'inherit' }}>
-                  ⏱ {next.minutes} min
+                  {next.minutes} min
                 </span>
                 <span style={{ fontWeight: 700 }}>Start →</span>
               </div>
@@ -132,7 +127,7 @@ export function Home() {
                     }}
                   >
                     <Ring value={ratio} color={w.color}>
-                      {ratio === 1 ? '✓' : w.emoji}
+                      {ratio === 1 ? '✓' : w.num}
                     </Ring>
                     <div className="grow">
                       <div className="tiny muted" style={{ fontWeight: 650 }}>
@@ -156,9 +151,6 @@ export function Home() {
           <h2>Put it to work</h2>
           <div className="grid-home">
             <a href={href('/map')} className="card stack sm" style={{ textDecoration: 'none' }}>
-              <div style={{ fontSize: 30 }} aria-hidden="true">
-                🗺️
-              </div>
               <h3>Architecture map</h3>
               <p className="small ink2">The whole machine, box by box. Tap anything to see what it does and what breaks.</p>
               <span className="tiny muted">
@@ -166,9 +158,6 @@ export function Home() {
               </span>
             </a>
             <a href={href('/scenarios')} className="card stack sm" style={{ textDecoration: 'none' }}>
-              <div style={{ fontSize: 30 }} aria-hidden="true">
-                🧯
-              </div>
               <h3>Founder reality checks</h3>
               <p className="small ink2">Real situations founders face. What do you do first?</p>
               <span className="tiny muted">
@@ -176,17 +165,11 @@ export function Home() {
               </span>
             </a>
             <a href={href('/capstone')} className="card stack sm" style={{ textDecoration: 'none' }}>
-              <div style={{ fontSize: 30 }} aria-hidden="true">
-                🚀
-              </div>
               <h3>Capstone: build a software company</h3>
               <p className="small ink2">Make the calls, grow from 10 to 10,000 users, survive what goes wrong.</p>
               <span className="tiny muted">{p.capstone ? 'Readiness report available' : 'Best after a few worlds'}</span>
             </a>
             <a href={href('/glossary')} className="card stack sm" style={{ textDecoration: 'none' }}>
-              <div style={{ fontSize: 30 }} aria-hidden="true">
-                📚
-              </div>
               <h3>Glossary</h3>
               <p className="small ink2">Every term in plain English, linked back to where you can see it in action.</p>
             </a>

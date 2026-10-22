@@ -44,7 +44,7 @@ const TRACE = [
   { emoji: '🎨', name: 'Frontend', text: 'POST /checkout sent (12 ms)', ok: true },
   { emoji: '🚪', name: 'API', text: 'User #482 authenticated', ok: true },
   { emoji: '⚙️', name: 'Backend', text: 'Order #9921 created, calling payments…', ok: true },
-  { emoji: '💳', name: 'Payments provider', text: '401 invalid API key — PAYMENTS_KEY is empty since deploy v57 (9:02)', ok: false },
+  { emoji: '💳', name: 'Payments provider', text: '401 invalid API key: PAYMENTS_KEY is empty since deploy v57 (9:02)', ok: false },
 ]
 
 type Mode = 'off' | 'on'
@@ -191,7 +191,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
               </div>
             </div>
             <div className="callout bad small">
-              Checkout was broken for <b>{Math.floor(brokenMins / 60)}h {brokenMins % 60}m</b> and you heard it from an angry customer. ≈ {failed} payments failed; most of those people won’t email — they just leave.
+              Checkout was broken for <b>{Math.floor(brokenMins / 60)}h {brokenMins % 60}m</b> and you heard it from an angry customer. ≈ {failed} payments failed; most of those people won’t email: they just leave.
             </div>
           </div>
         )}
@@ -204,7 +204,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
               </div>
             </div>
             <div className="callout good small">
-              You found out <b>{brokenMins} minutes</b> after it broke — before any customer emailed. Now find out why: open the logs.
+              You found out <b>{brokenMins} minutes</b> after it broke, before any customer emailed. Now find out why: open the logs.
             </div>
           </div>
         )}
@@ -212,7 +212,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
 
       {outcome?.mode === 'on' && (
         <div className="stack sm">
-          <div className="kicker">📜 Logs · tap a failed request to trace it</div>
+          <div className="kicker">Logs · tap a failed request to trace it</div>
           <div className="stack sm" style={{ gap: 4 }}>
             {LOGS.map((l) => (
               <button
@@ -255,7 +255,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
                       setRolledBack(true)
                       setFrame((f) => Math.min(FRAMES, f + 5))
                     }}>
-                    {rolledBack ? '✓ Rolled back to v56 — errors back to normal' : '↩︎ Roll back to v56'}
+                    {rolledBack ? 'Rolled back to v56: errors back to normal' : 'Roll back to v56'}
                   </button>
                 </>
               ) : (

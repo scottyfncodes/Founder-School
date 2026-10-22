@@ -63,7 +63,7 @@ export function LimitsLab({ onDone }: Props) {
     over === 0
       ? { tone: 'good', text: '✨ Summary ready.' }
       : queue
-        ? { tone: 'warn', text: '⏳ Busy right now — your summary will be ready in ~30 seconds.' }
+        ? { tone: 'warn', text: '⏳ Busy right now: your summary will be ready in ~30 seconds.' }
         : { tone: 'bad', text: '❌ Something went wrong. (429: Too Many Requests)' }
 
   return (
@@ -99,7 +99,7 @@ export function LimitsLab({ onDone }: Props) {
         <Meter value={peak / Math.max(limit, peak)} color={over ? 'var(--bad)' : 'var(--good)'} label="AI requests vs. rate limit" />
         {over > 0 ? (
           <p className="small bad-text" style={{ fontWeight: 600 }}>
-            {num(over)} requests/min get “429 Too Many Requests” ({Math.round(errRate * 100)}% of AI calls fail{queue ? ' — but they’re queued and retried' : ''}).
+            {num(over)} requests/min get “429 Too Many Requests” ({Math.round(errRate * 100)}% of AI calls fail{queue ? ', but they’re queued and retried' : ''}).
           </p>
         ) : (
           <p className="small good-text" style={{ fontWeight: 600 }}>Under the limit. Every AI call goes through.</p>
@@ -163,7 +163,7 @@ export function LimitsLab({ onDone }: Props) {
       <div className="card tight flat stack sm">
         <div className="kicker">Levers (try at least two at 100,000 users)</div>
         {[
-          { id: 'cache', on: cache, set: setCache, label: 'Cache AI answers', note: 'Same note, same summary — don’t pay twice. Halves AI calls.' },
+          { id: 'cache', on: cache, set: setCache, label: 'Cache AI answers', note: 'Same note, same summary: don’t pay twice. Halves AI calls.' },
           { id: 'queue', on: queue, set: setQueue, label: 'Queue & retry', note: 'Requests over the limit wait and retry instead of failing.' },
           { id: 'tier', on: tier, set: setTier, label: 'Buy a higher tier', note: `Limit ${num(PRO_LIMIT)}/min for ${money(PRO_TIER_FEE)}/mo extra.` },
         ].map((l) => (

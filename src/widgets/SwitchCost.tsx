@@ -53,12 +53,12 @@ export function SwitchCost({ onDone }: Props) {
   }
 
   const verdict = contract
-    ? { tone: 'bad', text: '🔒 Locked in by contract. You pay the new price until the term ends — no engineering can fix that.' }
+    ? { tone: 'bad', text: 'Locked in by contract. You pay the new price until the term ends: no engineering can fix that.' }
     : weeks <= 2
-      ? { tone: 'good', text: `🟢 About ${weeks} week${weeks === 1 ? '' : 's'} to switch. You can credibly say “we’ll leave” — and negotiate.` }
+      ? { tone: 'good', text: `About ${weeks} week${weeks === 1 ? '' : 's'} to switch. You can credibly say “we’ll leave”, and negotiate.` }
       : weeks <= 5
-        ? { tone: 'warn', text: `🟠 About ${weeks} weeks of work to switch. Painful, but possible.` }
-        : { tone: 'bad', text: `🔴 About ${weeks} weeks to switch. That’s a quarter of a developer’s year — so you’ll probably just pay.` }
+        ? { tone: 'warn', text: `About ${weeks} weeks of work to switch. Painful, but possible.` }
+        : { tone: 'bad', text: `About ${weeks} weeks to switch. That’s a quarter of a developer’s year, so you’ll probably just pay.` }
 
   return (
     <div className="stack">
@@ -88,7 +88,7 @@ export function SwitchCost({ onDone }: Props) {
 
       {!shock ? (
         <button type="button" className="btn danger block" onClick={priceShock}>
-          📈 The vendor just tripled its price
+          The vendor just tripled its price
         </button>
       ) : (
         <div className={`callout ${verdict.tone} pop`} key={verdict.text}>

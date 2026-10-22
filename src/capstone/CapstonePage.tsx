@@ -55,7 +55,16 @@ interface Current {
   upgradeDone: 'yes' | 'no' | null
 }
 
-const TONE_ICON: Record<Tone, string> = { good: '✅', warn: '⚠️', bad: '💥' }
+const TONE_COLOR: Record<Tone, string> = { good: 'var(--good)', warn: 'var(--warn)', bad: 'var(--bad)' }
+
+function ToneDot({ tone }: { tone: Tone }) {
+  return (
+    <span
+      aria-hidden="true"
+      style={{ width: 9, height: 9, borderRadius: '50%', background: TONE_COLOR[tone], flex: 'none', display: 'inline-block', marginTop: 7 }}
+    />
+  )
+}
 const lessonTitle = (id: string) => lessonById(id)?.title ?? LESSON_TITLES[id] ?? id
 const top = () => window.scrollTo({ top: 0 })
 
@@ -265,14 +274,9 @@ function Landing({ hasSaved, onStart, onView }: { hasSaved: boolean; onStart: ()
       </header>
 
       <section className="card cap-hero stack">
-        <div className="row nowrap" style={{ gap: 12 }}>
-          <span style={{ fontSize: 40 }} aria-hidden="true">
-            ✈️
-          </span>
-          <div className="grow">
-            <h2 style={{ fontFamily: 'var(--font)', fontWeight: 750 }}>FlightLog</h2>
-            <p className="small ink2">Maintenance tracking for small-aircraft owners and their mechanics.</p>
-          </div>
+        <div>
+          <h2 style={{ fontFamily: 'var(--font)', fontWeight: 750 }}>FlightLog</h2>
+          <p className="small ink2">Maintenance tracking for small-aircraft owners and their mechanics.</p>
         </div>
         <div className="callout warn stack sm">
           <b>The customer problem</b>
@@ -281,7 +285,7 @@ function Landing({ hasSaved, onStart, onView }: { hasSaved: boolean; onStart: ()
           </span>
         </div>
         <ul className="stack sm small ink2" style={{ margin: 0, paddingLeft: 20 }}>
-          <li>Miss an inspection and the plane is grounded — or unsafe.</li>
+          <li>Miss an inspection and the plane is grounded, or unsafe.</li>
           <li>Lost logbooks can cut a plane’s resale value by 20%.</li>
           <li>Her mechanic re-types everything, every visit.</li>
         </ul>
@@ -301,7 +305,7 @@ function Landing({ hasSaved, onStart, onView }: { hasSaved: boolean; onStart: ()
             <b>Readiness report.</b> <span className="ink2">Your strengths, gaps and what to revisit.</span>
           </li>
         </ol>
-        <p className="tiny muted">About 12 minutes. There’s no perfect path — the goal is to see consequences.</p>
+        <p className="tiny muted">About 12 minutes. There’s no perfect path: the goal is to see consequences.</p>
       </section>
 
       <div className="stack sm">
@@ -370,9 +374,6 @@ function DecisionCard({
         <div className="stack sm" role="group" aria-label={d.title}>
           {d.options.map((o) => (
             <button key={o.id} type="button" className="chip cap-opt" aria-pressed={picked === o.id} onClick={() => onPick(o.id)}>
-              <span className="e" aria-hidden="true">
-                {o.emoji}
-              </span>
               <span className="stack" style={{ gap: 2 }}>
                 <b style={{ lineHeight: 1.3 }}>{o.label}</b>
                 <span className="small ink2" style={{ fontWeight: 450 }}>
@@ -396,7 +397,7 @@ function Plan({ draft, onEdit, onLaunch }: { draft: Partial<Choices>; onEdit: (i
       <header className="stack sm">
         <div className="kicker">Launch plan</div>
         <h2>Your FlightLog blueprint</h2>
-        <p className="small ink2">Tap any decision to change it. Once you launch, choices stick — unless events give you a chance to fix them.</p>
+        <p className="small ink2">Tap any decision to change it. Once you launch, choices stick, unless events give you a chance to fix them.</p>
       </header>
       <ul className="stack sm" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         {DECISIONS.map((d, i) => {
@@ -404,9 +405,6 @@ function Plan({ draft, onEdit, onLaunch }: { draft: Partial<Choices>; onEdit: (i
           return (
             <li key={d.key}>
               <button type="button" className="chip cap-opt" onClick={() => onEdit(i)} aria-label={`Change ${d.title}: ${o?.label ?? 'not chosen'}`}>
-                <span className="e" aria-hidden="true">
-                  {o?.emoji ?? '❔'}
-                </span>
                 <span className="stack grow" style={{ gap: 0 }}>
                   <span className="tiny muted" style={{ fontWeight: 650 }}>
                     {d.title}
@@ -422,7 +420,7 @@ function Plan({ draft, onEdit, onLaunch }: { draft: Partial<Choices>; onEdit: (i
         })}
       </ul>
       <button type="button" className="btn primary block" onClick={onLaunch}>
-        Launch FlightLog 🚀
+        Launch FlightLog
       </button>
     </>
   )
@@ -463,7 +461,7 @@ function useTween(target: Stats): Stats {
   return shown
 }
 
-const fmtMargin = (m: number | null) => (m === null ? '—' : m < -1 ? '< −100%' : `${Math.round(m * 100)}%`)
+const fmtMargin = (m: number | null) => (m === null ? '-' : m < -1 ? '< −100%' : `${Math.round(m * 100)}%`)
 
 function Dashboard({ sim }: { sim: Sim }) {
   const target = useMemo(() => computeStats(sim), [sim])
@@ -480,7 +478,7 @@ function Dashboard({ sim }: { sim: Sim }) {
   return (
     <section className="card tight stack sm" aria-label="Company stats">
       <div className="row between">
-        <span className="kicker">✈️ FlightLog</span>
+        <span className="kicker">FlightLog</span>
         <span className="tiny muted">Stage {sim.stage + 1} of 4</span>
       </div>
       <div className="cap-track" aria-hidden="true">
@@ -561,9 +559,6 @@ function StageView({
       <Dashboard sim={sim} />
       {phase.kind === 'growing' && (
         <section className="card stack center pop" aria-live="polite">
-          <div style={{ fontSize: 44 }} aria-hidden="true" className="pulse">
-            {sim.stage === 0 ? '🚀' : '📈'}
-          </div>
           <h2>{sim.stage === 0 ? 'Launching to your first 10 users…' : `Growing to ${STAGE_NAMES[sim.stage]} users…`}</h2>
           <p className="small muted">Watch the numbers move.</p>
         </section>
@@ -618,17 +613,12 @@ function EventCard({
           {STAGE_NAMES[sim.stage]} users · event {n} of {of}
         </span>
       </div>
-      <div className="row nowrap" style={{ gap: 12, alignItems: 'flex-start' }}>
-        <span style={{ fontSize: 34, lineHeight: 1 }} aria-hidden="true">
-          {ev.emoji}
-        </span>
-        <h2 id={`ev-${ev.id}`}>{ev.title}</h2>
-      </div>
+      <h2 id={`ev-${ev.id}`}>{ev.title}</h2>
       <p>{ev.story}</p>
 
       <div className={`callout ${tone} stack sm`}>
         <b>
-          {TONE_ICON[tone]} {tone === 'good' ? 'Your choices paid off' : tone === 'warn' ? 'It stung' : 'It hurt'}
+          {tone === 'good' ? 'Your choices paid off' : tone === 'warn' ? 'It stung' : 'It hurt'}
         </b>
         {cur.lines.map((l, i) => (
           <span key={i}>
@@ -659,7 +649,7 @@ function EventCard({
               </button>
               {picked !== null && !isPicked && (
                 <p className="tiny muted" style={{ padding: '0 6px' }}>
-                  {i === best ? '⭐ Best move: ' : ''}
+                  {i === best ? 'Best move: ' : ''}
                   {r.why}
                 </p>
               )}
@@ -679,7 +669,7 @@ function EventCard({
         )}
         {picked !== null && u && (
           <div className="well stack sm pop">
-            <b>🔧 Change an earlier decision?</b>
+            <b>Change an earlier decision?</b>
             <span className="small ink2">
               {u.pitch} You chose “{labelOf(u.key, cur.at[u.key])}”.
             </span>
@@ -727,9 +717,10 @@ function StageSummary({ sim, onGrow }: { sim: Sim; onGrow: () => void }) {
           const ev = EVENTS.find((e) => e.id === t.eventId)!
           return (
             <li key={t.eventId} className="row nowrap" style={{ alignItems: 'flex-start' }}>
-              <span aria-hidden="true">{TONE_ICON[t.tone]}</span>
+              <ToneDot tone={t.tone} />
               <span className="small">
-                <b>{ev.title}</b> <span className="muted">— {t.tone === 'good' ? 'handled well' : t.tone === 'warn' ? 'bumpy' : 'painful'}</span>
+                <b>{ev.title}</b>
+                <span className="muted">: {t.tone === 'good' ? 'handled well' : t.tone === 'warn' ? 'bumpy' : 'painful'}</span>
               </span>
             </li>
           )
@@ -748,10 +739,10 @@ function StageSummary({ sim, onGrow }: { sim: Sim; onGrow: () => void }) {
 /* ============================================================ report */
 
 function verdict(avg: number) {
-  if (avg >= 80) return { t: 'Ready to lead', e: '🏆' }
-  if (avg >= 60) return { t: 'Solid foundation', e: '🧭' }
-  if (avg >= 40) return { t: 'Getting there', e: '🌱' }
-  return { t: 'Early days', e: '🛫' }
+  if (avg >= 80) return { t: 'Ready to lead' }
+  if (avg >= 60) return { t: 'Solid foundation' }
+  if (avg >= 40) return { t: 'Getting there' }
+  return { t: 'Early days' }
 }
 
 function SkillBars({ blended, simS, lessons }: { blended: Record<string, number>; simS?: Record<string, number>; lessons?: Record<string, number> }) {
@@ -798,7 +789,7 @@ function Recommendations({ blended, extra }: { blended: Record<string, number>; 
     <>
       <div className="grid2" style={{ alignItems: 'start' }}>
         <section className="callout good stack sm">
-          <b>💪 Strengths</b>
+          <b>Strengths</b>
           {strengths.length ? (
             strengths.map((s) => (
               <span key={s.id} className="small">
@@ -810,7 +801,7 @@ function Recommendations({ blended, extra }: { blended: Record<string, number>; 
           )}
         </section>
         <section className="callout warn stack sm">
-          <b>🎯 Grow next</b>
+          <b>Grow next</b>
           {weak.length ? (
             weak.map((s) => (
               <span key={s.id} className="small">
@@ -818,7 +809,7 @@ function Recommendations({ blended, extra }: { blended: Record<string, number>; 
               </span>
             ))
           ) : (
-            <span className="small">No weak spots — sharpen {ranked[ranked.length - 1].label}.</span>
+            <span className="small">No weak spots: sharpen {ranked[ranked.length - 1].label}.</span>
           )}
         </section>
       </div>
@@ -872,9 +863,6 @@ function Report({
       </header>
 
       <section className="card stack center">
-        <div style={{ fontSize: 44 }} aria-hidden="true">
-          {v.e}
-        </div>
         <h2>{v.t}</h2>
         <p className="lead">Overall readiness: <b style={{ color: 'var(--ink)' }}>{avg}%</b></p>
         <p className="small ink2">
@@ -882,7 +870,7 @@ function Report({
         </p>
         {lessonAvg < 40 && simAvg >= 60 && (
           <p className="callout info small" style={{ textAlign: 'left' }}>
-            Great founder instincts! Readiness also counts what you’ve proven in lessons — finish more to raise it.
+            Great founder instincts! Readiness also counts what you’ve proven in lessons: finish more to raise it.
           </p>
         )}
       </section>
@@ -899,7 +887,7 @@ function Report({
         </div>
         <p className="small ink2">
           {healthy
-            ? 'A healthy, trusted business. Your early calls made growth boring — in the best way.'
+            ? 'A healthy, trusted business. Your early calls made growth boring: in the best way.'
             : stats.trust < 40
               ? 'FlightLog survived, but customers are wary. Most of the damage traces back to a few early shortcuts.'
               : 'FlightLog is alive and growing, with some scars. Each one below has a clear cause.'}
@@ -916,8 +904,9 @@ function Report({
         <ol className="stack sm" style={{ margin: '10px 0 0', paddingLeft: 0, listStyle: 'none' }}>
           {sim.turns.map((t) => (
             <li key={t.eventId} className="stack" style={{ gap: 2 }}>
-              <b className="small">
-                {TONE_ICON[t.tone]} {EVENTS.find((e) => e.id === t.eventId)?.title}
+              <b className="small row nowrap" style={{ gap: 8, alignItems: 'flex-start' }}>
+                <ToneDot tone={t.tone} />
+                {EVENTS.find((e) => e.id === t.eventId)?.title}
               </b>
               {t.lines.map((l, i) => (
                 <span key={i} className="tiny ink2">
@@ -960,9 +949,6 @@ function SavedReport({ at, scores, onPlayAgain }: { at: number; scores: Record<s
         <h1 style={{ fontSize: 'clamp(26px, 7.5vw, 36px)' }}>Software Founder Readiness Report</h1>
       </header>
       <section className="card stack center">
-        <div style={{ fontSize: 44 }} aria-hidden="true">
-          {v.e}
-        </div>
         <h2>{v.t}</h2>
         <p className="lead">Overall readiness: <b style={{ color: 'var(--ink)' }}>{avg}%</b></p>
       </section>

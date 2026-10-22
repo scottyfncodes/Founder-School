@@ -26,7 +26,7 @@ interface RunDef {
 
 const RUNS: RunDef[] = [
   {
-    button: '🚀 DEPLOY',
+    button: 'DEPLOY',
     commit: 'Add dark mode',
     lines: [
       { at: 'laptop', text: '$ git push   (“Add dark mode”)' },
@@ -35,13 +35,13 @@ const RUNS: RunDef[] = [
       { at: 'build', text: 'Installing packages… done' },
       { at: 'build', text: 'Bundling app… done (2.1 MB)' },
       { at: 'hosting', text: 'Uploading to servers… starting v13' },
-      { at: 'hosting', text: 'Health check passed — switching traffic' },
+      { at: 'hosting', text: 'Health check passed: switching traffic' },
       { at: 'live', text: 'v13 is live at acme-crm.app' },
     ],
-    success: 'Three minutes from “git push” to every customer having dark mode — with tests and checks along the way. Nobody copied files by hand.',
+    success: 'Three minutes from “git push” to every customer having dark mode, with tests and checks along the way. Nobody copied files by hand.',
   },
   {
-    button: '🚀 Deploy Alex’s change',
+    button: 'Deploy Alex’s change',
     commit: 'Add calendar view',
     lines: [
       { at: 'laptop', text: '$ git push   (“Add calendar view”)' },
@@ -56,9 +56,9 @@ const RUNS: RunDef[] = [
     failAt: 'build',
     hints: {
       laptop: 'The laptop did its job: the code was pushed (first line).',
-      github: 'GitHub received the push fine — see line 2.',
+      github: 'GitHub received the push fine: see line 2.',
       ci: 'CI says 214 tests passed. That stage succeeded.',
-      hosting: 'Nothing was ever uploaded to hosting — no line mentions servers.',
+      hosting: 'Nothing was ever uploaded to hosting: no line mentions servers.',
       live: 'The live site never changed. The failure happened before anything got there.',
     },
     reasons: [
@@ -66,10 +66,10 @@ const RUNS: RunDef[] = [
       { text: 'The code uses a package that was never added to the project’s package list', right: true, why: 'Alex installed “date-picker-pro” on his laptop, so it worked there. The clean build machine had never heard of it.' },
       { text: 'Too many customers were online', right: false, why: 'Customers don’t affect a build. The build happens before anything reaches them.' },
     ],
-    success: 'Diagnosed. The fix is one line in the package list. And notice: the live website stayed on v13 the whole time — a failed build never reaches customers.',
+    success: 'Diagnosed. The fix is one line in the package list. And notice: the live website stayed on v13 the whole time. A failed build never reaches customers.',
   },
   {
-    button: '🚀 Deploy welcome emails',
+    button: 'Deploy welcome emails',
     commit: 'Send welcome emails',
     lines: [
       { at: 'laptop', text: '$ git push   (“Send welcome emails”)' },
@@ -79,16 +79,16 @@ const RUNS: RunDef[] = [
       { at: 'build', text: 'Bundling app… done (2.2 MB)' },
       { at: 'hosting', text: 'Uploading to servers… starting v14' },
       { at: 'hosting', text: 'Error: EMAIL_API_KEY is not set', err: true },
-      { at: 'hosting', text: 'Health check failed — v14 never became healthy', err: true },
+      { at: 'hosting', text: 'Health check failed: v14 never became healthy', err: true },
       { at: 'hosting', text: 'Keeping v13 live. Deploy rolled back.', err: true },
     ],
     failAt: 'hosting',
     hints: {
       laptop: 'The push left the laptop fine.',
-      github: 'GitHub received it — line 2.',
+      github: 'GitHub received it: line 2.',
       ci: 'All 216 tests passed.',
       build: 'The build finished: “Bundling app… done (2.2 MB)”. It got further than that.',
-      live: 'Close — but the new version never went live. Customers stayed on v13. Something stopped it just before.',
+      live: 'Close, but the new version never went live. Customers stayed on v13. Something stopped it just before.',
     },
     reasons: [
       { text: 'The build broke', right: false, why: 'The bundle was built successfully (2.2 MB). It failed later, when starting up.' },
@@ -263,7 +263,7 @@ export function DeployConsole({ onDone }: { onDone?: () => void }) {
       {phase === 'stage' && (
         <div className="stack sm pop" aria-live="polite">
           <div className="callout bad small">
-            <b>❌ Deploy #{runIdx + 1} failed.</b> Read the log. Then tap the stage above where it broke.
+            <b>Deploy #{runIdx + 1} failed.</b> Read the log. Then tap the stage above where it broke.
           </div>
           {stagePick && stagePick !== run.failAt && <div className="callout warn small">{run.hints?.[stagePick]}</div>}
         </div>
@@ -271,7 +271,7 @@ export function DeployConsole({ onDone }: { onDone?: () => void }) {
 
       {(phase === 'why' || (phase === 'solved' && failed)) && run.reasons && (
         <div className="stack sm pop">
-          <div className="kicker">✓ It broke at {STAGES.find((s) => s.id === run.failAt)?.label}. Why?</div>
+          <div className="kicker">It broke at {STAGES.find((s) => s.id === run.failAt)?.label}. Why?</div>
           {run.reasons.map((r, i) => (
             <button
               key={i}
@@ -302,7 +302,7 @@ export function DeployConsole({ onDone }: { onDone?: () => void }) {
           </div>
           <div style={{ fontWeight: 600 }}>{version >= 13 ? '🌙 Dark mode is here!' : '☀️ Welcome to Acme CRM'}</div>
           {failed && phase !== 'ready' && phase !== 'running' && (
-            <div className="tiny good-text">Still serving v13 — customers noticed nothing.</div>
+            <div className="tiny good-text">Still serving v13: customers noticed nothing.</div>
           )}
         </div>
       </div>

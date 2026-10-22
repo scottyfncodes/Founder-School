@@ -10,14 +10,14 @@ interface Line {
 }
 
 const LINES: Line[] = [
-  { id: 'f1', file: 'api/invites.ts', text: 'export async function invite(user, email) {', kind: ' ', ok: 'Just the function name — context, not a change.' },
-  { id: 'l1', text: "  if (user.role !== 'ADMIN') return forbidden()", kind: '-', flag: 'The admin check was DELETED. Now any user can invite people into the company — the authorization bug from World 4.' },
+  { id: 'f1', file: 'api/invites.ts', text: 'export async function invite(user, email) {', kind: ' ', ok: 'Just the function name: context, not a change.' },
+  { id: 'l1', text: "  if (user.role !== 'ADMIN') return forbidden()", kind: '-', flag: 'The admin check was DELETED. Now any user can invite people into the company: the authorization bug from World 4.' },
   { id: 'l2', text: '  validateEmail(email)', kind: '+', ok: 'Checking the email looks valid. Good hygiene.' },
   { id: 'l3', text: '  const KEY = "SG.live_9xK2fQ…"', kind: '+', flag: 'A live email-provider key pasted into the code. Anyone with repo access (or a leaked copy) can send email as you. Keys belong in secret settings, not code.' },
-  { id: 'l4', text: '  await sendInvite(KEY, email)', kind: '+', ok: 'Sends the invite. Fine — once the key comes from a secret setting instead.' },
-  { id: 'l5', text: '  await db.run("DELETE FROM invites")', kind: '+', flag: 'Meant to clear old invites — but there’s no filter. It deletes EVERY company’s pending invites, every time anyone invites someone.' },
+  { id: 'l4', text: '  await sendInvite(KEY, email)', kind: '+', ok: 'Sends the invite. Fine: once the key comes from a secret setting instead.' },
+  { id: 'l5', text: '  await db.run("DELETE FROM invites")', kind: '+', flag: 'Meant to clear old invites, but there’s no filter. It deletes EVERY company’s pending invites, every time anyone invites someone.' },
   { id: 'l6', text: "  return ok('Invite sent')", kind: '+', ok: 'Tells the user it worked. Fine.' },
-  { id: 'f2', file: 'tests/invites.test.ts', text: "test('admin can invite a teammate')", kind: '+', ok: 'A test! Good — though notice there’s no test that a USER is refused. That test would have caught the deleted check.' },
+  { id: 'f2', file: 'tests/invites.test.ts', text: "test('admin can invite a teammate')", kind: '+', ok: 'A test! Good, though notice there’s no test that a USER is refused. That test would have caught the deleted check.' },
 ]
 
 const FLAGS = LINES.filter((l) => l.flag).length
@@ -56,7 +56,7 @@ export function PRReview({ onDone }: { onDone?: () => void }) {
 
       <div className="stack sm">
         <div className="row between">
-          <span className="kicker">The diff — tap lines that worry you</span>
+          <span className="kicker">The diff: tap lines that worry you</span>
           <span className={`pill ${found === FLAGS ? 'good-text' : ''}`}>
             {found}/{FLAGS} problems
           </span>
@@ -104,7 +104,7 @@ export function PRReview({ onDone }: { onDone?: () => void }) {
 
       {last && (
         <div className={`callout ${last.flag ? 'bad' : 'good'} small pop`} key={last.id} aria-live="polite">
-          <b>{last.flag ? '🚩 Problem: ' : '👍 Looks fine: '}</b>
+          <b>{last.flag ? 'Problem: ' : 'Looks fine: '}</b>
           {last.flag ?? last.ok}
         </div>
       )}
@@ -114,14 +114,14 @@ export function PRReview({ onDone }: { onDone?: () => void }) {
           <div className="kicker">Your review</div>
           <div className="grid2">
             <button type="button" className={`chip ${decision === 'approve' ? 'bad' : ''}`} onClick={() => decide('approve')}>
-              ✅ Approve & merge
+              Approve & merge
             </button>
             <button type="button" className={`chip ${decision === 'changes' ? 'good' : ''}`} onClick={() => decide('changes')}>
-              🔁 Request changes
+              Request changes
             </button>
           </div>
           {decision === 'approve' && (
-            <div className="callout bad small">That would ship a permission hole, a leaked key and a data-deleting bug — all in one tidy-looking PR. Try the other choice.</div>
+            <div className="callout bad small">That would ship a permission hole, a leaked key and a data-deleting bug: all in one tidy-looking PR. Try the other choice.</div>
           )}
           {decision === 'changes' && (
             <div className="callout good small">

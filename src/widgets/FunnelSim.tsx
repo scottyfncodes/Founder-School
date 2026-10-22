@@ -44,10 +44,10 @@ export function FunnelSim({ onDone }: { onDone?: () => void }) {
   }).sort((a, b) => b.extra - a.extra)
 
   const rows = [
-    { label: '👀 Visitors', n: VISITORS, share: 1 },
-    { label: '✍️ Signed up', n: f.signups, share: f.signups / VISITORS },
-    { label: '⚡ Activated', n: f.activated, share: f.activated / VISITORS },
-    { label: '💳 Paying', n: f.paid, share: f.paid / VISITORS },
+    { label: 'Visitors', n: VISITORS, share: 1 },
+    { label: 'Signed up', n: f.signups, share: f.signups / VISITORS },
+    { label: 'Activated', n: f.activated, share: f.activated / VISITORS },
+    { label: 'Paying', n: f.paid, share: f.paid / VISITORS },
   ]
 
   return (
@@ -120,21 +120,21 @@ export function FunnelSim({ onDone }: { onDone?: () => void }) {
 const SHAPES = [
   {
     id: 'leaky',
-    label: '🪣 Leaky bucket',
+    label: 'Leaky bucket',
     values: [100, 60, 42, 31, 24, 18, 14, 11, 8, 6, 5, 4, 3],
     tone: 'bad',
     text: 'Every month’s signups drain away to almost nothing. More marketing just pours water into a bucket with a hole. Fix the product first.',
   },
   {
     id: 'flat',
-    label: '📏 Flattens out',
+    label: 'Flattens out',
     values: [100, 65, 52, 46, 43, 41, 40, 39, 39, 38, 38, 38, 38],
     tone: 'good',
-    text: 'Some people leave early, then the curve goes flat: ~38% stay for good. That flat line is product–market fit for that group — now growth compounds.',
+    text: 'Some people leave early, then the curve goes flat: ~38% stay for good. That flat line is product–market fit for that group: now growth compounds.',
   },
   {
     id: 'smile',
-    label: '😊 Smile',
+    label: 'Smile',
     values: [100, 80, 74, 72, 73, 75, 78, 82, 86, 90, 95, 100, 106],
     tone: 'good',
     text: 'Some customers leave, but those who stay upgrade and add seats. After a year the cohort pays more than when it started (>100% net revenue retention).',

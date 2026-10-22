@@ -8,10 +8,9 @@ const STAGES: { id: StageId; label: string; team: string }[] = [
   { id: 's1000', label: '1,000 customers', team: '~12–15 people' },
 ]
 
-const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { text: string; load: number }> }[] = [
+const AREAS: { id: string; name: string; at: Record<StageId, { text: string; load: number }> }[] = [
   {
     id: 'support',
-    emoji: '🎧',
     name: 'Support',
     at: {
       s10: { text: '~5 tickets a week. You answer them from your phone.', load: 15 },
@@ -21,7 +20,6 @@ const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { te
   },
   {
     id: 'oncall',
-    emoji: '🚨',
     name: 'On-call',
     at: {
       s10: { text: 'If it breaks, a customer texts you.', load: 10 },
@@ -31,7 +29,6 @@ const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { te
   },
   {
     id: 'onboard',
-    emoji: '🚀',
     name: 'Onboarding',
     at: {
       s10: { text: 'You set up each clinic on a 2-hour call. They love it.', load: 20 },
@@ -41,7 +38,6 @@ const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { te
   },
   {
     id: 'process',
-    emoji: '📋',
     name: 'Process',
     at: {
       s10: { text: 'Ship straight to production; decide in a group chat.', load: 10 },
@@ -51,7 +47,6 @@ const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { te
   },
   {
     id: 'hiring',
-    emoji: '🧑‍🤝‍🧑',
     name: 'Hiring',
     at: {
       s10: { text: 'No one to hire yet. Founders do everything.', load: 5 },
@@ -62,12 +57,12 @@ const AREAS: { id: string; emoji: string; name: string; at: Record<StageId, { te
 ]
 
 const INVEST: { id: string; text: string; good: boolean; why: string }[] = [
-  { id: 'help', text: '📚 Help center + in-app guided setup', good: true, why: 'Turns 80 hours a week of onboarding calls into something customers do on their own — and cuts repeat tickets.' },
-  { id: 'rewrite', text: '🧱 Rewrite everything as microservices', good: false, why: 'Months of work that customers can’t see. At 1,000 customers your pain is people and process, not architecture.' },
-  { id: 'rota', text: '📟 On-call rotation + runbooks', good: true, why: 'Shares the 2 a.m. pager so no one burns out, and runbooks let anyone on the rota fix the common problems.' },
-  { id: 'features', text: '✨ Ship 10 new features this quarter', good: false, why: 'More features means more to support. If support and onboarding are already overloaded, this makes it worse.' },
-  { id: 'hire', text: '🙋 Hire your first full-time support person', good: true, why: 'Support is now a full-time job. A dedicated person answers faster — and spots patterns the engineers should fix.' },
-  { id: 'heroics', text: '🦸 Founders answer every ticket at night', good: false, why: 'It worked at 10 customers. At 1,000 it burns out the founders and stops them doing the work only they can do.' },
+  { id: 'help', text: 'Help center + in-app guided setup', good: true, why: 'Turns 80 hours a week of onboarding calls into something customers do on their own, and cuts repeat tickets.' },
+  { id: 'rewrite', text: 'Rewrite everything as microservices', good: false, why: 'Months of work that customers can’t see. At 1,000 customers your pain is people and process, not architecture.' },
+  { id: 'rota', text: 'On-call rotation + runbooks', good: true, why: 'Shares the 2 a.m. pager so no one burns out, and runbooks let anyone on the rota fix the common problems.' },
+  { id: 'features', text: 'Ship 10 new features this quarter', good: false, why: 'More features means more to support. If support and onboarding are already overloaded, this makes it worse.' },
+  { id: 'hire', text: 'Hire your first full-time support person', good: true, why: 'Support is now a full-time job. A dedicated person answers faster, and spots patterns the engineers should fix.' },
+  { id: 'heroics', text: 'Founders answer every ticket at night', good: false, why: 'It worked at 10 customers. At 1,000 it burns out the founders and stops them doing the work only they can do.' },
 ]
 
 export function ScaleDial({ onDone }: { onDone?: () => void }) {
@@ -113,7 +108,7 @@ export function ScaleDial({ onDone }: { onDone?: () => void }) {
             <div key={`${a.id}-${stage}`} className="card tight flat stack sm pop">
               <div className="row between nowrap">
                 <b className="small">
-                  {a.emoji} {a.name}
+                  {a.name}
                 </b>
                 <span className="tiny muted">{v.load >= 80 ? 'Breaking' : v.load >= 45 ? 'Strained' : 'Easy'}</span>
               </div>

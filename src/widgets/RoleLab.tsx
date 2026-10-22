@@ -7,7 +7,7 @@ type RoomId = 'dash' | 'inv-alex' | 'inv-scott' | 'admin'
 const USERS: Record<UserId, { name: string; emoji: string; role: string; badge: string }> = {
   scott: { name: 'Scott', emoji: '🧑‍💼', role: 'ADMIN', badge: '👑 ADMIN' },
   alex: { name: 'Alex', emoji: '🙂', role: 'USER', badge: 'USER' },
-  nobody: { name: 'Nobody', emoji: '👤', role: '—', badge: 'logged out' },
+  nobody: { name: 'Nobody', emoji: '👤', role: 'none', badge: 'logged out' },
 }
 
 const ROOMS: { id: RoomId; emoji: string; label: string; path: string }[] = [
@@ -86,7 +86,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         status: 401,
         screen: '🔒 Please log in',
         tone: 'info',
-        text: 'Stopped at checkpoint 1: the server doesn’t know who this is. That’s an authentication failure — “401: who are you?”',
+        text: 'Stopped at checkpoint 1: the server doesn’t know who this is. That’s an authentication failure: “401: who are you?”',
       })
       return
     }
@@ -103,7 +103,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         status: 200,
         screen:
           r === 'admin'
-            ? '⚙️ Admin settings — users, roles, billing'
+            ? '⚙️ Admin settings: users, roles, billing'
             : r === 'dash'
               ? `🏠 Hi ${name}! Your dashboard`
               : r === 'inv-alex'
@@ -120,7 +120,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         status: 403,
         screen: '⛔ You don’t have access to this page',
         tone: 'good',
-        text: `The server knows exactly who this is — ${name} — and still says no. Rule: ${RULE[r]}. That’s authorization: “403: I know who you are, and you can’t do this.”`,
+        text: `The server knows exactly who this is (${name}) and still says no. Rule: ${RULE[r]}. That’s authorization: “403: I know who you are, and you can’t do this.”`,
       })
       if (user === 'alex') {
         setAlexDenied(true)
@@ -133,7 +133,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       status: 200,
       screen:
         r === 'admin'
-          ? '⚙️ Admin settings — Alex taps “Make me an admin”…'
+          ? '⚙️ Admin settings: Alex taps “Make me an admin”…'
           : '🧾 Scott: 3 invoices, $4,800 · card •••• 4242',
       tone: 'bad',
       text:
@@ -156,7 +156,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       : g === 'checking'
         ? 'checking…'
         : g === 'skipped'
-          ? 'SKIPPED — no check!'
+          ? 'SKIPPED: no check!'
           : g === 'pass'
             ? which === 1
               ? `✓ It’s ${u.name} (${u.role})`
@@ -208,7 +208,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
               style={{ padding: '8px 10px' }}
             >
               <div className="small" style={{ fontWeight: 650 }}>
-                {r.emoji} {r.label}
+                {r.label}
               </div>
               <div className="tiny muted mono" style={{ overflowWrap: 'anywhere' }}>
                 {r.path}
@@ -218,7 +218,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         </div>
         {user === 'alex' && (
           <p className="tiny muted">
-            The app hides “Admin settings” from Alex’s menu. Here he types the address directly — hiding a button is not
+            The app hides “Admin settings” from Alex’s menu. Here he types the address directly: hiding a button is not
             security.
           </p>
         )}
@@ -231,7 +231,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
           </span>
           <div className="grow">
             <div className="small">Checkpoint 1 · Authentication</div>
-            <div className="tiny muted">“Who are you?” — the ID badge</div>
+            <div className="tiny muted">“Who are you?”: the ID badge</div>
             <div className="tiny" style={{ fontWeight: 650 }}>
               {gateTxt(gate1, 1)}
             </div>
@@ -244,7 +244,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
           </span>
           <div className="grow">
             <div className="small">Checkpoint 2 · Authorization</div>
-            <div className="tiny muted">“What are you allowed to do?” — the keycard</div>
+            <div className="tiny muted">“What are you allowed to do?”: the keycard</div>
             <div className="tiny" style={{ fontWeight: 650 }}>
               {gateTxt(gate2, 2)}
             </div>
@@ -272,8 +272,8 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       <div className={`card tight flat stack sm`} style={{ borderColor: authzOn ? undefined : 'var(--bad)' }}>
         <div className="row nowrap between">
           <span className="small">
-            <b>🚦 Server checks permissions</b>
-            <div className="tiny muted">{authzOn ? 'On — every request is checked' : 'OFF — a developer forgot it'}</div>
+            <b>Server checks permissions</b>
+            <div className="tiny muted">{authzOn ? 'On: every request is checked' : 'OFF: a developer forgot it'}</div>
           </span>
           <button
             type="button"

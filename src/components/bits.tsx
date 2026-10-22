@@ -65,11 +65,26 @@ export function BackLink({ to, label }: { to: string; label: string }) {
   )
 }
 
+/* Hand-drawn tab glyphs: a lesson book, the architecture map's boxes, a dictionary entry, rising bars. */
+const ICONS: Record<string, React.ReactNode> = {
+  learn: <path d="M3 5.5c2.6-1 5.6-.8 9 1.2v13c-3.4-2-6.4-2.2-9-1.2zM21 5.5c-2.6-1-5.6-.8-9 1.2v13c3.4-2 6.4-2.2 9-1.2z" />,
+  map: (
+    <>
+      <rect x="2.5" y="3" width="7" height="5" rx="1.2" />
+      <rect x="14.5" y="3" width="7" height="5" rx="1.2" />
+      <rect x="8.5" y="16" width="7" height="5" rx="1.2" />
+      <path d="M6 8v4h12V8M12 12v4" />
+    </>
+  ),
+  glossary: <path d="M3.5 19 8 5l4.5 14M5.2 14h5.6M15.5 9.5h5M15.5 14h5M15.5 18.5h5" />,
+  progress: <path d="M5 20v-5M10 20v-9M15 20v-6M20 20V5" />,
+}
+
 const TABS = [
-  { to: '/', label: 'Learn', icon: '🏫', match: ['', 'world', 'lesson', 'scenarios', 'capstone'] },
-  { to: '/map', label: 'Map', icon: '🗺️', match: ['map'] },
-  { to: '/glossary', label: 'Glossary', icon: '📚', match: ['glossary'] },
-  { to: '/progress', label: 'Progress', icon: '📈', match: ['progress'] },
+  { to: '/', label: 'Learn', icon: 'learn', match: ['', 'world', 'lesson', 'scenarios', 'capstone'] },
+  { to: '/map', label: 'Map', icon: 'map', match: ['map'] },
+  { to: '/glossary', label: 'Glossary', icon: 'glossary', match: ['glossary'] },
+  { to: '/progress', label: 'Progress', icon: 'progress', match: ['progress'] },
 ]
 
 export function TabBar({ section }: { section: string }) {
@@ -110,9 +125,19 @@ export function TabBar({ section }: { section: string }) {
                 color: on ? 'var(--ink)' : 'var(--muted)',
               }}
             >
-              <span aria-hidden="true" style={{ fontSize: 22, filter: on ? 'none' : 'grayscale(1)', opacity: on ? 1 : 0.7 }}>
-                {t.icon}
-              </span>
+              <svg
+                aria-hidden="true"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={on ? 2 : 1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICONS[t.icon]}
+              </svg>
               {t.label}
             </a>
           )

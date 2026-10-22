@@ -14,11 +14,8 @@ import { TabBar } from './components/bits'
 function NotFound() {
   return (
     <main className="page stack center" style={{ paddingTop: 80 }}>
-      <div style={{ fontSize: 48 }} aria-hidden="true">
-        🧭
-      </div>
       <h2>That page doesn’t exist</h2>
-      <p className="muted">Like a 404 error — the server is fine, the address just points nowhere.</p>
+      <p className="muted">Like a 404 error: the server is fine, the address just points nowhere.</p>
       <a className="btn primary" href={href('/')}>
         Go home
       </a>
