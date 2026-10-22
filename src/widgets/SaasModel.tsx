@@ -67,7 +67,7 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
   const paybackTone = ue.payback <= 12 ? 'good' : ue.payback <= 24 ? 'warn' : 'bad'
   const win = ue.ratio >= 3 && monthly[MONTHS - 1] > 0
   const tone = (t: string) => (t === 'good' ? 'good-text' : t === 'warn' ? 'warn-text' : 'bad-text')
-  const icon = (t: string) => (t === 'good' ? '✅' : t === 'warn' ? '⚠️' : '⛔')
+  const icon = (t: string) => (t === 'good' ? '✓' : t === 'warn' ? '!' : '✕')
 
   return (
     <div className="stack">
@@ -79,10 +79,10 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat stack sm">
-        <BizSlider label="💵 Price per customer" value={inp.price} min={5} max={300} show={(v) => `$${v}/mo`} onChange={(v) => set('price', v)} />
-        <BizSlider label="🧲 New customers per month" value={inp.newPerMonth} min={5} max={200} show={(v) => `${v}`} onChange={(v) => set('newPerMonth', v)} />
+        <BizSlider label="Price per customer" value={inp.price} min={5} max={300} show={(v) => `$${v}/mo`} onChange={(v) => set('price', v)} />
+        <BizSlider label="New customers per month" value={inp.newPerMonth} min={5} max={200} show={(v) => `${v}`} onChange={(v) => set('newPerMonth', v)} />
         <BizSlider
-          label="📉 Monthly churn"
+          label="Monthly churn"
           value={Math.round(inp.churn * 1000) / 10}
           min={1}
           max={15}
@@ -92,7 +92,7 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
           hint="Share of paying customers who cancel each month."
         />
         <BizSlider
-          label="🖥️ Infra + support cost per customer"
+          label="Infra + support cost per customer"
           value={inp.infra}
           min={0}
           max={60}
@@ -100,7 +100,7 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
           onChange={(v) => set('infra', v)}
         />
         <BizSlider
-          label="📣 Acquisition cost (CAC)"
+          label="Acquisition cost (CAC)"
           value={inp.cac}
           min={0}
           max={1500}

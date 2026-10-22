@@ -134,13 +134,13 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
       <section className="card tight flat stack sm" aria-label="Who has access">
         <div style={{ fontWeight: 700 }}>2 · Who has admin access?</div>
         <div className="row nowrap between small">
-          <span>👩‍💻 You · founder</span>
+          <span>You · founder</span>
           <span className="pill">Owner</span>
         </div>
         {PEOPLE.map((p) => (
           <div key={p.id} className="stack sm">
             <div className="row nowrap between small">
-              <span className="grow">👤 {p.who}</span>
+              <span className="grow">{p.who}</span>
               <span className="pill" style={{ color: people[p.id] ? 'var(--good)' : 'var(--bad)' }}>
                 {people[p.id] ? p.good : p.bad}
               </span>
@@ -159,7 +159,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
         {DEPS.map((d) => (
           <div key={d.id} className="row nowrap between">
             <span className="small grow">
-              📦 <span className="mono">{d.name}</span> {deps[d.id] === 'new' ? d.to : d.from}
+              <span className="mono">{d.name}</span> {deps[d.id] === 'new' ? d.to : d.from}
               <span className={`tiny ${deps[d.id] === 'new' ? 'good-text' : 'bad-text'}`} style={{ display: 'block' }}>
                 {deps[d.id] === 'new' ? 'updated · tests passed ✓' : d.note}
               </span>
@@ -181,7 +181,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
             <div key={i} className={`node ${d.open ? 'fail' : 'ok'} pop`} style={{ minHeight: 0, alignItems: 'flex-start' }}>
               <span className="grow">
                 <span style={{ display: 'block' }}>
-                  {d.open ? '🚪 OPEN' : '🔒 held'} · {d.label}
+                  {d.open ? 'OPEN' : 'held'} · {d.label}
                 </span>
                 <span className="tiny" style={{ display: 'block', fontWeight: 500 }}>
                   {d.how}

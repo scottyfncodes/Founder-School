@@ -67,7 +67,7 @@ export function PRReview({ onDone }: { onDone?: () => void }) {
             const bg = t ? (l.flag ? 'var(--bad-soft)' : 'var(--good-soft)') : l.kind === '+' ? 'color-mix(in srgb, var(--good) 8%, transparent)' : l.kind === '-' ? 'color-mix(in srgb, var(--bad) 8%, transparent)' : 'transparent'
             return (
               <div key={l.id}>
-                {l.file && <div className="tiny muted mono" style={{ padding: '6px 6px 2px' }}>📄 {l.file}</div>}
+                {l.file && <div className="tiny muted mono" style={{ padding: '6px 6px 2px' }}>{l.file}</div>}
                 <button
                   type="button"
                   onClick={() => tap(l)}
@@ -93,7 +93,7 @@ export function PRReview({ onDone }: { onDone?: () => void }) {
                     {l.kind}
                   </span>
                   <span className="grow">{l.text}</span>
-                  {t && <span aria-hidden="true">{l.flag ? '🚩' : '👍'}</span>}
+                  {t && <span aria-hidden="true" className={l.flag ? 'bad-text' : 'good-text'} style={{ fontWeight: 800 }}>{l.flag ? '✕' : '✓'}</span>}
                 </button>
               </div>
             )

@@ -89,14 +89,14 @@ interface Resp {
 const CODES = [200, 201, 401, 403, 404, 500]
 
 function respond(req: ReqId, who: WhoId, bug: boolean): Resp {
-  if (bug) return { code: 500, name: 'Internal Server Error', plain: 'The server tripped over its own code. Not your fault, user: ours.', screen: '😵 Something went wrong on our end.', tone: 'bad' }
-  if (who === 'none') return { code: 401, name: 'Unauthorized', plain: '“I don’t know who you are.” Log in first.', screen: '🔑 Please log in to continue.', tone: 'warn' }
-  if (req === 'admin' && who !== 'scott') return { code: 403, name: 'Forbidden', plain: '“I know who you are, Alex, and you’re not allowed in here.”', screen: '⛔ You don’t have access to this page.', tone: 'warn' }
-  if (req === 'missing') return { code: 404, name: 'Not Found', plain: '“There’s no contact 999.” The address points at nothing.', screen: '🤷 Contact not found.', tone: 'warn' }
-  if (req === 'post') return { code: 201, name: 'Created', plain: '“Saved it. The new contact is #483.”', screen: '✅ Contact saved', tone: 'good' }
-  if (req === 'del') return { code: 200, name: 'OK', plain: '“Done: Maria is deleted.”', screen: '🗑️ Maria Lopez deleted', tone: 'good' }
-  if (req === 'admin') return { code: 200, name: 'OK', plain: '“Here are all 1,204 users.”', screen: '👥 1,204 users', tone: 'good' }
-  return { code: 200, name: 'OK', plain: '“Here’s Maria: maria@skyways.aero, Denver.”', screen: '👤 Maria Lopez · Denver', tone: 'good' }
+  if (bug) return { code: 500, name: 'Internal Server Error', plain: 'The server tripped over its own code. Not your fault, user: ours.', screen: 'Something went wrong on our end.', tone: 'bad' }
+  if (who === 'none') return { code: 401, name: 'Unauthorized', plain: '“I don’t know who you are.” Log in first.', screen: 'Please log in to continue.', tone: 'warn' }
+  if (req === 'admin' && who !== 'scott') return { code: 403, name: 'Forbidden', plain: '“I know who you are, Alex, and you’re not allowed in here.”', screen: 'You don’t have access to this page.', tone: 'warn' }
+  if (req === 'missing') return { code: 404, name: 'Not Found', plain: '“There’s no contact 999.” The address points at nothing.', screen: 'Contact not found.', tone: 'warn' }
+  if (req === 'post') return { code: 201, name: 'Created', plain: '“Saved it. The new contact is #483.”', screen: 'Contact saved', tone: 'good' }
+  if (req === 'del') return { code: 200, name: 'OK', plain: '“Done: Maria is deleted.”', screen: 'Maria Lopez deleted', tone: 'good' }
+  if (req === 'admin') return { code: 200, name: 'OK', plain: '“Here are all 1,204 users.”', screen: '1,204 users', tone: 'good' }
+  return { code: 200, name: 'OK', plain: '“Here’s Maria: maria@skyways.aero, Denver.”', screen: 'Maria Lopez · Denver', tone: 'good' }
 }
 
 const cookieFor = (w: WhoId) => (w === 'none' ? '(none)' : w === 'alex' ? 'session=al3x-7f2c' : 'session=sc0tt-91be')
@@ -187,7 +187,7 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
       <div className="stack sm">
         <div className="kicker">3 · Conditions</div>
         <div className="row nowrap between">
-          <span className="small">🐞 Server has a bug</span>
+          <span className="small">Server has a bug</span>
           <button type="button" role="switch" aria-checked={bug} aria-label="Server has a bug" className="switch" disabled={busy} onClick={() => setBug(!bug)} />
         </div>
         <div className="row nowrap between">
@@ -202,13 +202,11 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
 
       <div className="stack sm" aria-hidden="true">
         <div className={`node ${phase === 'out' ? 'active' : ''}`}>
-          <span className="emoji">📱</span>
           <span className="grow">Your app</span>
           {phase === 'out' && <span className="bubble req">request →</span>}
         </div>
         <div className={`link ${busy ? 'active' : ''}`} />
         <div className={`node ${phase === 'back' ? 'active' : resp ? (resp.tone === 'bad' ? 'fail' : resp.tone === 'warn' ? 'warn' : 'ok') : ''}`}>
-          <span className="emoji">⚙️</span>
           <span className="grow">Server</span>
           {phase === 'back' && <span className="bubble res">← response</span>}
         </div>

@@ -89,12 +89,12 @@ export function ArchMap({ only, revealAll, onExplored, initial }: Props) {
               </div>
               <div className="grid2">
                 <div className="well stack sm">
-                  <div className="kicker">⬇ Goes in</div>
+                  <div className="kicker">Goes in</div>
                   <p className="small">{selected.input}</p>
                   {near.ins.length > 0 && <p className="tiny muted">From: {near.ins.map(name).join(', ')}</p>}
                 </div>
                 <div className="well stack sm">
-                  <div className="kicker">⬆ Comes out</div>
+                  <div className="kicker">Comes out</div>
                   <p className="small">{selected.output}</p>
                   {near.outs.length > 0 && <p className="tiny muted">To: {near.outs.map(name).join(', ')}</p>}
                 </div>

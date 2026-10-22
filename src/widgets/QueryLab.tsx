@@ -22,7 +22,7 @@ const VIEW: Table = {
   columns: ['id', 'name', 'city', 'owner_id', 'plane'],
   rows: [],
 }
-const toView = (r: Cell[]): Cell[] => [r[0], r[1], r[3], r[4], owns(r[0]) ? '✈️ yes' : 'no']
+const toView = (r: Cell[]): Cell[] => [r[0], r[1], r[3], r[4], owns(r[0]) ? 'yes' : 'no']
 
 interface Filters {
   city: City
@@ -112,7 +112,7 @@ export function QueryBuilder({ onDone }: { onDone?: () => void }) {
           <div style={{ fontWeight: 650 }}>{ch.ask}</div>
           {isSolved && (
             <div className="stack sm pop" style={{ marginTop: 6 }}>
-              <div className="small">✅ {ch.win}</div>
+              <div className="small">{ch.win}</div>
               {level < CHALLENGES.length - 1 ? (
                 <button
                   type="button"

@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { wait } from '../lib/motion'
 
 const FILES = [
-  { id: 'reg', emoji: '📄', name: 'registration_N123AB.pdf', mb: 2.1, key: 'docs/3c9e1a.pdf', sensitive: false },
-  { id: 'passport', emoji: '🪪', name: 'maria_passport.jpg', mb: 3.4, key: 'docs/7f3a9c.jpg', sensitive: true },
+  { id: 'reg', name: 'registration_N123AB.pdf', mb: 2.1, key: 'docs/3c9e1a.pdf', sensitive: false },
+  { id: 'passport', name: 'maria_passport.jpg', mb: 3.4, key: 'docs/7f3a9c.jpg', sensitive: true },
 ]
 
 type Who = 'stranger' | 'maria'
@@ -68,13 +68,12 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
           ))}
         </div>
         <button type="button" className="btn primary" onClick={upload} disabled={stage === 'api' || stage === 'split'}>
-          ⬆️ Upload
+          Upload
         </button>
       </div>
 
       <div className="stack sm" style={{ gap: 0 }} aria-hidden="true">
         <div className={`node ${stage === 'api' ? 'active' : stage !== 'idle' ? 'ok' : ''}`}>
-          <span className="emoji">🚪</span>
           <div className="grow small">
             API
             {stage === 'api' && <div className="tiny" style={{ fontWeight: 500 }}>Checks: logged in? allowed? under 10 MB?</div>}
@@ -83,17 +82,13 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
         <div className={`link ${stage === 'split' ? 'active' : ''}`} />
         <div className="grid2">
           <div className={`node ${stage === 'split' ? 'active' : ''}`} style={{ alignItems: 'flex-start', flexDirection: 'column', gap: 4 }}>
-            <span>
-              <span className="emoji">🗂️</span> File storage
-            </span>
+            <span>File storage</span>
             <span className="tiny" style={{ fontWeight: 500 }}>
               stores the <b>bytes</b>
             </span>
           </div>
           <div className={`node ${stage === 'split' ? 'active' : ''}`} style={{ alignItems: 'flex-start', flexDirection: 'column', gap: 4 }}>
-            <span>
-              <span className="emoji">🗄️</span> Database
-            </span>
+            <span>Database</span>
             <span className="tiny" style={{ fontWeight: 500 }}>
               stores the <b>pointer</b>
             </span>
@@ -109,7 +104,6 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
               const x = FILES.find((y) => y.id === id)!
               return (
                 <div key={id} className="row nowrap small" style={{ gap: 8 }}>
-                  <span aria-hidden="true">{x.emoji}</span>
                   <span className="mono grow" style={{ overflowWrap: 'anywhere' }}>
                     {x.key}
                   </span>
@@ -184,7 +178,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
             </button>
           </div>
           <p className="tiny muted">
-            Try the stranger both ways: public {tried.has('pub') ? '✅' : '⬜'} · private {tried.has('priv') ? '✅' : '⬜'}
+            Try the stranger both ways: public {tried.has('pub') ? '✓' : '○'} · private {tried.has('priv') ? '✓' : '○'}
           </p>
           {rows.includes(latest.id) && (
             <button
@@ -195,7 +189,7 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
                 setView(null)
               }}
             >
-              🗑 Delete the DB row (but forget the file)
+              Delete the DB row (but forget the file)
             </button>
           )}
         </div>
@@ -210,9 +204,9 @@ export function FileLab({ onDone }: { onDone?: () => void }) {
                   {view.who === 'maria' && !view.pub ? `${vf.key}?signature=…&expires=10min` : `acme-docs.storage.example/${vf.key}`}
                 </div>
                 {view.who === 'stranger' && !view.pub ? (
-                  <div style={{ fontWeight: 700 }}>⛔ 403. Access denied</div>
+                  <div style={{ fontWeight: 700 }}>403. Access denied</div>
                 ) : view.who === 'maria' && view.orphan ? (
-                  <div style={{ fontWeight: 700 }}>🤷 Document not found</div>
+                  <div style={{ fontWeight: 700 }}>Document not found</div>
                 ) : (
                   <div style={{ fontWeight: 700 }}>
                     {vf.name}: {vf.sensitive ? 'passport photo visible' : 'visible'}

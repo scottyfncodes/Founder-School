@@ -91,7 +91,7 @@ export function Matcher({ pairs, leftTitle = 'Term', rightTitle = 'Meaning', onD
         </div>
       </div>
       <p className="tiny muted" aria-live="polite">
-        {done ? '✅ All connected.' : msg || 'Tap a term, then tap what it means.'}
+        {done ? 'All connected.' : msg || 'Tap a term, then tap what it means.'}
       </p>
     </div>
   )

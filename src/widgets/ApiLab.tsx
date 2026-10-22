@@ -13,10 +13,10 @@ interface Hop {
   warn?: boolean
 }
 
-const NODES: { id: NodeId; emoji: string; label: string; note: string }[] = [
-  { id: 'app', emoji: '📱', label: 'App', note: 'What Scott sees' },
-  { id: 'api', emoji: '🚪', label: 'API', note: 'The service window' },
-  { id: 'db', emoji: '🗄️', label: 'Database', note: 'Where contacts live' },
+const NODES: { id: NodeId; label: string; note: string }[] = [
+  { id: 'app', label: 'App', note: 'What Scott sees' },
+  { id: 'api', label: 'API', note: 'The service window' },
+  { id: 'db', label: 'Database', note: 'Where contacts live' },
 ]
 
 const LOAD: Hop[] = [
@@ -130,7 +130,7 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
       {phase === 'start' && !running && <p className="tiny muted">Start with “Load my contacts”.</p>}
 
       <div className="row nowrap between">
-        <span className="small">🧑‍💻 Show what developers see</span>
+        <span className="small">Show what developers see</span>
         <button type="button" role="switch" aria-checked={tech} aria-label="Show what developers see" className="switch" onClick={() => setTech(!tech)} />
       </div>
 
@@ -141,7 +141,6 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           return (
             <div key={n.id}>
               <div className={`node ${cls}`} style={{ alignItems: 'flex-start' }}>
-                <span className="emoji">{n.emoji}</span>
                 <div className="grow">
                   <div>{n.label}</div>
                   <div className="tiny muted" style={{ fontWeight: 500 }}>
@@ -193,20 +192,19 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           {screen === 'list' &&
             CONTACTS.map((c) => (
               <div key={c} className="small pop" style={{ background: 'var(--surface)', borderRadius: 10, padding: '6px 10px' }}>
-                👤 {c}
+                {c}
               </div>
             ))}
-          {screen === 'error-wait' && <div className="small" style={{ fontWeight: 600 }}>❓ The app is waiting for you to decide…</div>}
+          {screen === 'error-wait' && <div className="small" style={{ fontWeight: 600 }}>The app is waiting for you to decide…</div>}
           {screen === 'A' && (
             <div className="stack sm pop center" style={{ paddingTop: 10 }}>
-              <div style={{ fontSize: 28 }}>💥</div>
               <div className="small" style={{ fontWeight: 700 }}>App stopped responding</div>
               <div className="mono tiny muted">TypeError: contacts.map is not a function</div>
             </div>
           )}
           {screen === 'B' && (
             <div className="stack sm pop">
-              <div className="small" style={{ fontWeight: 700 }}>⚠️ Couldn’t load your contacts</div>
+              <div className="small" style={{ fontWeight: 700 }}>Couldn’t load your contacts</div>
               <div className="tiny ink2">Your data is safe. This is on our side: please try again in a moment.</div>
               <button type="button" className="btn primary small" onClick={retry} disabled={running}>
                 ↻ Try again
@@ -215,14 +213,12 @@ export function ApiLab({ onDone }: { onDone?: () => void }) {
           )}
           {screen === 'C' && (
             <div className="stack sm pop center" style={{ paddingTop: 6 }}>
-              <div style={{ fontSize: 28 }}>📭</div>
               <div className="small" style={{ fontWeight: 700 }}>You have no contacts yet</div>
               <div className="tiny muted">Add your first contact to get started!</div>
             </div>
           )}
           {screen === 'D' && (
             <div className="stack sm pop center" style={{ paddingTop: 6 }}>
-              <div style={{ fontSize: 28 }}>🗑️</div>
               <div className="small bad-text" style={{ fontWeight: 700 }}>Account reset. Welcome, new user!</div>
               <div className="tiny muted">All 3 contacts, notes and files: permanently gone.</div>
             </div>

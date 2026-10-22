@@ -109,7 +109,9 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
           return (
             <div key={t.id} className={`row nowrap small ${r === 'fail' ? 'bad-text' : ''}`} style={{ alignItems: 'flex-start' }}>
               <span style={{ width: 20, flex: 'none' }} aria-hidden="true">
-                {r === 'pass' ? '✅' : r === 'fail' ? '❌' : r === 'run' ? '⏳' : '◻️'}
+                <span className={r === 'pass' ? 'good-text' : r === 'fail' ? 'bad-text' : 'muted'} style={{ fontWeight: 800 }}>
+                  {r === 'pass' ? '✓' : r === 'fail' ? '✕' : r === 'run' ? '…' : '○'}
+                </span>
               </span>
               <span className="grow">{t.name}</span>
             </div>
@@ -143,13 +145,13 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
                   {o.who} · code <span className="mono">{o.code}</span>
                 </span>
                 <b>${o.charged}</b>
-                <span aria-hidden="true">{bad ? '❌' : '✓'}</span>
+                <span aria-hidden="true" className={bad ? 'bad-text' : 'good-text'} style={{ fontWeight: 800 }}>{bad ? '✕' : '✓'}</span>
               </div>
             )
           })}
           {phase !== 'prod' && (
             <div className="callout bad small">
-              📨 Cleo: “I typed your code save10 and got charged full price!”. Every test was green.
+              Cleo: “I typed your code save10 and got charged full price!”. Every test was green.
             </div>
           )}
         </div>

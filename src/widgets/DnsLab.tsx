@@ -10,12 +10,12 @@ const HOSTS: Record<HostId, { ip: string; name: string; label: string }> = {
 }
 
 type Step = 'domain' | 'dns' | 'ip' | 'hosting' | 'site'
-const STEPS: { id: Step; emoji: string; label: string }[] = [
-  { id: 'domain', emoji: '🔤', label: 'Domain' },
-  { id: 'dns', emoji: '📖', label: 'DNS' },
-  { id: 'ip', emoji: '🔢', label: 'Server address' },
-  { id: 'hosting', emoji: '🏢', label: 'Hosting' },
-  { id: 'site', emoji: '🖥️', label: 'Website' },
+const STEPS: { id: Step; label: string }[] = [
+  { id: 'domain', label: 'Domain' },
+  { id: 'dns', label: 'DNS' },
+  { id: 'ip', label: 'Server address' },
+  { id: 'hosting', label: 'Hosting' },
+  { id: 'site', label: 'Website' },
 ]
 
 interface Result {
@@ -162,7 +162,6 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
           return (
             <div key={s.id}>
               <div className={`node ${st ?? (running ? 'dim' : '')}`} style={{ minHeight: 46, padding: '8px 12px' }}>
-                <span className="emoji">{s.emoji}</span>
                 <div className="grow">
                   <div>{s.label}</div>
                   {notes[s.id] && (
@@ -181,7 +180,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
       {show && (
         <div className="phone pop">
           <div className="screen" style={{ minHeight: 0 }}>
-            <div className="tiny muted mono">🔒 example.com</div>
+            <div className="tiny muted mono">example.com</div>
             <div style={{ fontWeight: 700 }}>Acme CRM</div>
             <div className="tiny ink2">Your contacts, aircraft and notes. · v3</div>
             <div className="tiny muted">Served by {HOSTS[show].name} · {HOSTS[show].ip}</div>
@@ -211,7 +210,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
             <div className="row" style={{ gap: 4 }} aria-label={`${6 - stale} of 6 visitors on the new address`}>
               {Array.from({ length: 6 }, (_, i) => (
                 <span key={i} className="pill" style={i < stale ? { background: 'var(--warn-soft)', color: 'var(--warn)' } : { background: 'var(--good-soft)', color: 'var(--good)' }}>
-                  {i < stale ? '⏳ old' : '✓ new'}
+                  {i < stale ? 'old' : '✓ new'}
                 </span>
               ))}
             </div>
@@ -240,7 +239,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
               setNotes({})
             }}
           >
-            📅 Skip ahead: renewal card expired
+            Skip ahead: renewal card expired
           </button>
         ) : (
           <div className="stack sm">
@@ -256,7 +255,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
                 setNotes({})
               }}
             >
-              💳 Renew the domain
+              Renew the domain
             </button>
           </div>
         )}

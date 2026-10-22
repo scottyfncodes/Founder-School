@@ -6,7 +6,6 @@ export type Cell = string | number | null
 export interface Table {
   id: string
   name: string
-  emoji: string
   what: string
   columns: string[]
   /** Column explanations shown when the header is tapped. */
@@ -18,7 +17,6 @@ export interface Table {
 export const USERS: Table = {
   id: 'users',
   name: 'USERS',
-  emoji: '🧑‍💼',
   what: 'People who log in to your app.',
   columns: ['id', 'name', 'email', 'role'],
   colInfo: { name: 'Each user’s display name.', email: 'What they log in with. No two users share one.', role: 'What they’re allowed to do: admin or user.' },
@@ -32,7 +30,6 @@ export const USERS: Table = {
 export const CONTACTS: Table = {
   id: 'contacts',
   name: 'CONTACTS',
-  emoji: '👤',
   what: 'Customers and leads your team keeps track of.',
   columns: ['id', 'name', 'company', 'city', 'owner_id'],
   colInfo: {
@@ -57,7 +54,6 @@ export const CONTACTS: Table = {
 export const AIRCRAFT: Table = {
   id: 'aircraft',
   name: 'AIRCRAFT',
-  emoji: '✈️',
   what: 'Planes your customers own.',
   columns: ['id', 'tail_number', 'model', 'year'],
   colInfo: { tail_number: 'The registration painted on the plane.', model: 'Make and model.', year: 'Year built.' },
@@ -74,7 +70,6 @@ export const AIRCRAFT: Table = {
 export const NOTES: Table = {
   id: 'notes',
   name: 'NOTES',
-  emoji: '📝',
   what: 'What your team wrote down about each contact.',
   columns: ['id', 'contact_id', 'author_id', 'text'],
   colInfo: {
@@ -96,7 +91,6 @@ export const NOTES: Table = {
 export const DOCUMENTS: Table = {
   id: 'documents',
   name: 'DOCUMENTS',
-  emoji: '📄',
   what: 'Files attached to contacts: registrations, insurance, logbooks.',
   columns: ['id', 'contact_id', 'aircraft_id', 'filename'],
   colInfo: {
@@ -117,7 +111,6 @@ export const DOCUMENTS: Table = {
 export const OWNERS: Table = {
   id: 'owners',
   name: 'AIRCRAFT_OWNERS',
-  emoji: '🔗',
   what: 'Links contacts to aircraft. One row per “this person owns that plane”.',
   columns: ['contact_id', 'aircraft_id'],
   colInfo: {},

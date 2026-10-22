@@ -93,13 +93,12 @@ export function KeyVault({ onDone }: Props) {
         <div className="stack sm pop" key={spot.id}>
           <div className="code">{spot.code}</div>
           <div className="row nowrap" style={{ alignItems: 'flex-start' }}>
-            <span className="pill">👀 Who can see it</span>
+            <span className="pill">Who can see it</span>
             <span className={`small ${spot.safe ? 'good-text' : 'bad-text'}`} style={{ fontWeight: 650 }}>
               {spot.who}
             </span>
           </div>
           <div className={`callout ${spot.safe ? 'good' : 'bad'}`}>
-            {spot.safe ? '✅ ' : '🚨 '}
             {spot.what}
           </div>
         </div>

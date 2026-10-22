@@ -46,7 +46,7 @@ export function FlawHunt({ claim, lines, onDone }: Props) {
   return (
     <div className="stack">
       <div className="row nowrap" style={{ alignItems: 'flex-start', gap: 8 }}>
-        <span aria-hidden="true" style={{ fontSize: 22 }}>🤖</span>
+        <span className="tiny muted" style={{ fontWeight: 650, paddingTop: 9, flex: 'none' }}>Agent</span>
         <span className="bubble" style={{ fontSize: 14 }}>{claim}</span>
       </div>
       <div className="row between">
@@ -61,7 +61,7 @@ export function FlawHunt({ claim, lines, onDone }: Props) {
           const hit = tapped.has(i)
           return (
             <div key={i} className="stack sm" style={{ gap: 4 }}>
-              {l.file && <div className="tiny muted mono" style={{ marginTop: i ? 8 : 0 }}>📄 {l.file}</div>}
+              {l.file && <div className="tiny muted mono" style={{ marginTop: i ? 8 : 0 }}>{l.file}</div>}
               <button
                 type="button"
                 onClick={() => tap(i)}
@@ -82,7 +82,6 @@ export function FlawHunt({ claim, lines, onDone }: Props) {
                   background: hit ? (l.flaw ? 'var(--bad-soft)' : 'var(--surface-2)') : 'var(--surface)',
                 }}
               >
-                {hit && l.flaw ? '🚩 ' : ''}
                 {l.code}
               </button>
             </div>
@@ -97,7 +96,7 @@ export function FlawHunt({ claim, lines, onDone }: Props) {
                 <b>{lastLine.flaw.name}.</b> {lastLine.flaw.why}
               </>
             ) : (
-              <>✅ {lastLine.fine ?? 'This line is fine. Keep looking.'}</>
+              <>{lastLine.fine ?? 'This line is fine. Keep looking.'}</>
             )}
           </div>
         )}

@@ -37,7 +37,7 @@ export function Categorize({ buckets, items, onDone }: Props) {
       const next = { ...placed, [item.id]: bucketId }
       setPlaced(next)
       setSel(null)
-      setFeedback({ tone: 'good', text: `✅ ${item.label}: ${item.why}` })
+      setFeedback({ tone: 'good', text: `${item.label}: ${item.why}` })
       if (Object.keys(next).length === items.length) onDone?.()
     } else {
       const b = buckets.find((x) => x.id === bucketId)

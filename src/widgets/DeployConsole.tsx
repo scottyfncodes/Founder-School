@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { wait } from '../lib/motion'
 
 const STAGES = [
-  { id: 'laptop', emoji: '💻', label: 'My laptop' },
-  { id: 'github', emoji: '🐙', label: 'GitHub' },
-  { id: 'ci', emoji: '🤖', label: 'CI' },
-  { id: 'build', emoji: '🏗️', label: 'Build' },
-  { id: 'hosting', emoji: '🏠', label: 'Hosting' },
-  { id: 'live', emoji: '🌍', label: 'Live website' },
+  { id: 'laptop', label: 'My laptop' },
+  { id: 'github', label: 'GitHub' },
+  { id: 'ci', label: 'CI' },
+  { id: 'build', label: 'Build' },
+  { id: 'hosting', label: 'Hosting' },
+  { id: 'live', label: 'Live website' },
 ] as const
 
 type StageId = (typeof STAGES)[number]['id']
@@ -224,9 +224,6 @@ export function DeployConsole({ onDone }: { onDone?: () => void }) {
                 outlineOffset: -4,
               }}
             >
-              <span className="emoji" aria-hidden="true">
-                {s.emoji}
-              </span>
               <span>{s.label}</span>
             </button>
           )
@@ -297,10 +294,10 @@ export function DeployConsole({ onDone }: { onDone?: () => void }) {
       <div className="phone">
         <div className="screen" style={{ minHeight: 0 }}>
           <div className="row between">
-            <span className="tiny muted">🌍 acme-crm.app</span>
+            <span className="tiny muted">acme-crm.app</span>
             <span className="pill">v{version}</span>
           </div>
-          <div style={{ fontWeight: 600 }}>{version >= 13 ? '🌙 Dark mode is here!' : '☀️ Welcome to Acme CRM'}</div>
+          <div style={{ fontWeight: 600 }}>{version >= 13 ? 'Dark mode is here!' : 'Welcome to Acme CRM'}</div>
           {failed && phase !== 'ready' && phase !== 'running' && (
             <div className="tiny good-text">Still serving v13: customers noticed nothing.</div>
           )}

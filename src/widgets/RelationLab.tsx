@@ -68,7 +68,7 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
       {contact && (
         <div className="card tight flat stack sm pop" key={sel}>
           <div style={{ fontWeight: 700 }}>
-            👤 {contact[1]} <span className="pill mono">id {contact[0]}</span>
+            {contact[1]} <span className="pill mono">id {contact[0]}</span>
           </div>
           <div className="small ink2">
             {notes.length} note{notes.length === 1 ? '' : 's'} · {docs.length} document{docs.length === 1 ? '' : 's'} · {planes.length} aircraft · looked
@@ -103,7 +103,7 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
         )}
         {contact && planes.length > 0 && (
           <div className="callout good small pop" key={`p${sel}`}>
-            ✈️ {planes.map((p) => `${p[1]} (${p[2]})`).join(', ')}
+            {planes.map((p) => `${p[1]} (${p[2]})`).join(', ')}
             {shared.length > 0 && (
               <>
                 {', and '}

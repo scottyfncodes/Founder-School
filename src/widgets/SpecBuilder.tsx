@@ -70,7 +70,7 @@ export function SpecBuilder({ onDone }: Props) {
       setSpec([...spec, a.id])
       setNote(
         a.kind === 'vague'
-          ? '☁️ The agent will happily agree, but this changes nothing. What does “secure” or “intuitive” mean here? Say the specific rule instead.'
+          ? 'The agent will happily agree, but this changes nothing. What does “secure” or “intuitive” mean here? Say the specific rule instead.'
           : null,
       )
     }
@@ -145,12 +145,12 @@ export function SpecBuilder({ onDone }: Props) {
             const ok = builtFixed.has(p.id)
             return (
               <div key={p.id} className={`node ${ok ? 'ok' : 'fail'}`} style={{ alignItems: 'flex-start', animation: 'none' }}>
-                <span className="emoji" style={{ fontSize: 18 }}>{ok ? '✅' : '❌'}</span>
+                <span className={ok ? 'good-text' : 'bad-text'} style={{ fontWeight: 800, width: 14, flex: 'none' }} aria-hidden="true">{ok ? '✓' : '✕'}</span>
                 <span className="small grow" style={{ fontWeight: 500 }}>{ok ? p.good : p.bad}</span>
               </div>
             )
           })}
-          <div className="tiny muted">🤖 Agent’s message: “Done! Team invites are fully implemented.”</div>
+          <div className="tiny muted">Agent’s message: “Done! Team invites are fully implemented.”</div>
           {builtFixed.size >= 5 && builds >= 2 && <div className="callout good pop">Same agent, same model: a much better result. The difference was entirely in what you asked for.</div>}
         </div>
       )}

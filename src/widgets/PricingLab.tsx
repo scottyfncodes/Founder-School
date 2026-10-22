@@ -186,7 +186,7 @@ export function ValueCalc({ onDone }: { onDone?: () => void }) {
     <div className="stack">
       <div className="card tight flat stack sm">
         <BizSlider
-          label="⏱️ Staff hours saved per week"
+          label="Staff hours saved per week"
           value={hours}
           min={1}
           max={20}
@@ -197,7 +197,7 @@ export function ValueCalc({ onDone }: { onDone?: () => void }) {
           }}
         />
         <BizSlider
-          label="👩‍⚕️ Cost of an hour of staff time"
+          label="Cost of an hour of staff time"
           value={rate}
           min={15}
           max={80}
@@ -208,7 +208,7 @@ export function ValueCalc({ onDone }: { onDone?: () => void }) {
           }}
         />
         <BizSlider
-          label="🏷️ Your price"
+          label="Your price"
           value={price}
           min={9}
           max={999}

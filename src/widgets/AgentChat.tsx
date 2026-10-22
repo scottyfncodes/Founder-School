@@ -95,9 +95,7 @@ export function AgentChat({ claim, setup, questions, budget, onDone }: Props) {
         {msgs.map((m, i) =>
           m.from === 'agent' ? (
             <div key={i} className="row nowrap pop" style={{ alignItems: 'flex-start', gap: 8 }}>
-              <span aria-hidden="true" style={{ fontSize: 22, lineHeight: 1.2 }}>
-                🤖
-              </span>
+              <span className="tiny muted" style={{ fontWeight: 650, paddingTop: 9, flex: 'none' }} aria-hidden="true">Agent</span>
               <div className="stack sm" style={{ minWidth: 0, gap: 6 }}>
                 <span className="sr-only">Agent says:</span>
                 <span className="bubble" style={{ fontSize: 14.5, borderTopLeftRadius: 4 }}>
@@ -106,7 +104,7 @@ export function AgentChat({ claim, setup, questions, budget, onDone }: Props) {
                 {m.evidence && <div className="code" style={{ fontSize: 12 }}>{m.evidence}</div>}
                 {m.gap && (
                   <span className="pill" style={{ background: 'var(--bad-soft)', color: 'var(--bad)', whiteSpace: 'normal', alignSelf: 'flex-start' }}>
-                    🚩 Gap exposed: {m.gap}
+                    Gap exposed: {m.gap}
                   </span>
                 )}
               </div>
@@ -122,9 +120,7 @@ export function AgentChat({ claim, setup, questions, budget, onDone }: Props) {
         )}
         {typing && (
           <div className="row nowrap" style={{ gap: 8 }}>
-            <span aria-hidden="true" style={{ fontSize: 22 }}>
-              🤖
-            </span>
+            <span className="tiny muted" style={{ fontWeight: 650, flex: 'none' }} aria-hidden="true">Agent</span>
             <span className="bubble pulse" aria-label="Agent is typing">
               • • •
             </span>
@@ -175,7 +171,7 @@ export function AgentChat({ claim, setup, questions, budget, onDone }: Props) {
             return (
               <div key={q.id} className={`card tight flat stack sm`} style={{ gap: 4 }}>
                 <div className="small" style={{ fontWeight: 650 }}>
-                  {was ? (q.strong ? '✅ You asked' : '⚠️ You asked') : '❌ Missed'}: “{q.q}”
+                  <span className={was ? (q.strong ? 'good-text' : 'warn-text') : 'bad-text'}>{was ? (q.strong ? '✓ You asked' : '! You asked') : '✕ Missed'}</span>: “{q.q}”
                 </div>
                 {!was && q.gap && <div className="tiny bad-text">Would have exposed: {q.gap}</div>}
                 <div className="tiny ink2">{q.lesson}</div>

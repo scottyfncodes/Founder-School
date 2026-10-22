@@ -15,18 +15,18 @@ const HASHES = ['a1f3e9c', '7b20d4e', 'c94e1a2', 'e03b7f5', '5d8c2b1', '9f61ae0'
 
 const CHANGES: Record<Branch, { msg: string; add: string }[]> = {
   main: [
-    { msg: 'Fix typo on login page', add: '✏️ Login typo fixed' },
-    { msg: 'Make contacts page faster', add: '⚡ Faster contacts' },
-    { msg: 'Add CSV export', add: '📤 CSV export' },
+    { msg: 'Fix typo on login page', add: 'Login typo fixed' },
+    { msg: 'Make contacts page faster', add: 'Faster contacts' },
+    { msg: 'Add CSV export', add: 'CSV export' },
   ],
   'new-pricing': [
-    { msg: 'Add pricing page', add: '💳 Pricing page' },
-    { msg: 'Add annual plan', add: '📅 Annual plan' },
-    { msg: 'Add coupon codes', add: '🎟️ Coupon codes' },
+    { msg: 'Add pricing page', add: 'Pricing page' },
+    { msg: 'Add annual plan', add: 'Annual plan' },
+    { msg: 'Add coupon codes', add: 'Coupon codes' },
   ],
 }
 
-const START: Commit = { id: HASHES[0], msg: 'First version of the app', branch: 'main', snap: ['🔑 Login', '📇 Contacts'] }
+const START: Commit = { id: HASHES[0], msg: 'First version of the app', branch: 'main', snap: ['Login', 'Contacts'] }
 
 /**
  * A tiny Git you can drive: commit, branch, switch, merge, and tap any commit to time-travel.
@@ -127,7 +127,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
             aria-pressed={current === 'new-pricing'}
             onClick={() => setCurrent('new-pricing')}
           >
-            🌿 new-pricing
+            new-pricing
           </button>
         )}
       </div>
@@ -216,7 +216,6 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
                 </span>
                 <span className="grow" style={{ minWidth: 0 }}>
                   <span className="small" style={{ display: 'block', fontWeight: 600 }}>
-                    {c.merge ? '🔀 ' : ''}
                     {c.msg}
                   </span>
                   <span className="tiny muted mono">

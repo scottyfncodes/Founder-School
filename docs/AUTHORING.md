@@ -56,7 +56,7 @@ Surfaces: `card` (`.tight/.flat`), `well`, `callout good|bad|warn|info`, `pill`,
 Text: `kicker`, `lead`, `muted`, `ink2`, `small`, `tiny`, `mono`, `code`, `good-text|bad-text|warn-text`.
 Buttons: `btn` (+ `primary|ink|danger|ghost|small|block|icon`). Toggle chips: `chip` with
 `aria-pressed`, or `.good/.bad`. Switch: `<button role="switch" aria-checked className="switch">`.
-Diagrams: `node` (+ `active|ok|fail|warn|dim`, child `.emoji`), `link` (+`active|fail`) vertical
+Diagrams: `node` (+ `active|ok|fail|warn|dim`), `link` (+`active|fail`) vertical
 connector, `bubble` (`req|res|err`). Data: `tbl-wrap` > `table.tbl` (rows `.hl|.hl-good|.hl-bad|.clickable`),
 `meter > span`, `stat > .v + .l`. Device mock: `phone > .screen`. Animations: `pop`, `pulse`.
 Colors via CSS vars only (`var(--good)`, `var(--bad-soft)`, `var(--accent)` …) so dark mode works.
@@ -134,5 +134,7 @@ storage backups email push thirdparty payments analytics github cicd hosting sec
 
 ## Copy & visual rules
 Follow the "Design guardrails" in `CLAUDE.md`. In short: no em dashes in learner-facing copy (use a colon,
-comma, period or parentheses), and no emoji in headings, kickers, cards or button labels. Emoji may still
-appear as glyphs inside non-interactive simulation diagrams (e.g. `FlowSim` nodes) and simulated chat/log lines.
+comma, period or parentheses), and no emoji as icons or labels anywhere, including simulation diagram nodes
+(label them with words) and the prefixes of simulated chat, log and phone-screen lines. Status marks use the
+text marks `✓` / `✕` / `!` / `○` with `good-text|bad-text|warn-text`. An emoji may appear only inside realistic
+message text a real person or agent would type (e.g. an agent claiming "All tests pass ✅").

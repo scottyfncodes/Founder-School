@@ -201,7 +201,7 @@ export function SecretHunt({ onDone }: { onDone?: () => void }) {
               }}
             >
               <span className="grow">{moved && c.fixed ? c.fixed : c.text}</span>
-              {t && !moved && <span aria-hidden="true">{c.secret ? '🔑' : '👌'}</span>}
+              {t && !moved && <span className={`tiny ${c.secret ? 'bad-text' : 'good-text'}`} style={{ fontWeight: 700, flex: 'none' }}>{c.secret ? 'secret' : 'fine'}</span>}
             </button>
           )
         })}

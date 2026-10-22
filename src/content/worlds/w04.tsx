@@ -249,11 +249,11 @@ const world: World = {
             <FlowSim
               onDone={done}
               nodes={[
-                { id: 'you', label: 'You', emoji: '🧑' },
-                { id: 'device', label: 'Your phone', emoji: '📱', note: 'Holds your passkey' },
-                { id: 'app', label: 'acme-crm.app', emoji: '🖥️', note: 'The real app' },
-                { id: 'google', label: 'Google', emoji: '🔵' },
-                { id: 'fake', label: 'acme-crm-login.co', emoji: '🎣', note: 'A lookalike site' },
+                { id: 'you', label: 'You' },
+                { id: 'device', label: 'Your phone', note: 'Holds your passkey' },
+                { id: 'app', label: 'acme-crm.app', note: 'The real app' },
+                { id: 'google', label: 'Google' },
+                { id: 'fake', label: 'acme-crm-login.co', note: 'A lookalike site' },
               ]}
               scenarios={[
                 {
@@ -267,7 +267,7 @@ const world: World = {
                     { at: 'google', say: 'Hands back a signed note: “this is scott@gmail.com, verified”', tone: 'res' },
                     { at: 'app', say: 'Trusts Google’s signature, creates a session. It never saw a password.', tone: 'res', hold: 1100 },
                   ],
-                  screen: '👋 Welcome, Scott (via Google)',
+                  screen: 'Welcome, Scott (via Google)',
                   result: { tone: 'good', text: 'Google did the authentication. Your app still decides what Scott may do: that part is always yours.' },
                 },
                 {
@@ -280,7 +280,7 @@ const world: World = {
                     { at: 'app', say: 'Checks the signature with the public key it stored. Match → session.', tone: 'res', hold: 1100 },
                     { at: 'you', say: 'Logged in. Nothing to type, nothing to leak.', tone: 'res' },
                   ],
-                  screen: '👋 Welcome back, Scott (passkey)',
+                  screen: 'Welcome back, Scott (passkey)',
                   result: { tone: 'good', text: 'The app only stores a PUBLIC key. If its database leaks, there are no passwords in it to steal.' },
                 },
                 {
@@ -293,7 +293,7 @@ const world: World = {
                     { at: 'device', say: '“No passkey for acme-crm-login.co.” Passkeys are tied to the real address.', tone: 'res', hold: 1300 },
                     { at: 'fake', say: 'Gets nothing usable', tone: 'err', status: 'fail' },
                   ],
-                  screen: '🤔 No passkey found for this site',
+                  screen: 'No passkey found for this site',
                   result: { tone: 'warn', text: 'A typed password would have been stolen here. A passkey can’t be handed to the wrong site, even by a fooled human.' },
                 },
               ]}

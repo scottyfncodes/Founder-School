@@ -144,7 +144,7 @@ const world: World = {
         {
           kind: 'widget',
           title: 'Now break it',
-          instruction: 'Run each ⚠️ scenario and fix it: failing tests, a merge conflict, a failed deploy and a bad change in production.',
+          instruction: 'Run each red scenario and fix it: failing tests, a merge conflict, a failed deploy and a bad change in production.',
           render: ({ done }) => <GitPipeline onDone={done} />,
         },
         {

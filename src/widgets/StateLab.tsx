@@ -99,9 +99,8 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
     return () => clearTimeout(t)
   }, [flash])
 
-  const box = (id: string, emoji: string, title: string, sub: string, content: React.ReactNode) => (
+  const box = (id: string, title: string, sub: string, content: React.ReactNode) => (
     <div className={`node ${flash === id ? 'active' : ''}`} style={{ alignItems: 'flex-start' }}>
-      <span className="emoji">{emoji}</span>
       <div className="grow stack" style={{ gap: 2 }}>
         <div>
           {title} <span className="tiny muted">· {sub}</span>
@@ -118,7 +117,7 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
       <div className="phone">
         <div className="screen">
           <div className="row between tiny muted">
-            <span>{device === 'phone' ? '📱 Your phone' : '💻 Your laptop'}</span>
+            <span>{device === 'phone' ? 'Your phone' : 'Your laptop'}</span>
             <span>Notes</span>
           </div>
           {server.map((n, i) => (
@@ -185,15 +184,14 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
 
       <div className="stack sm">
         <div className="kicker">Where things live right now</div>
-        {box('memory', '🧠', 'Memory', 'this tab, this second', draft.trim() ? `Draft: “${draft.trim()}”` : <span className="muted">empty</span>)}
+        {box('memory', 'Memory', 'this tab, this second', draft.trim() ? `Draft: “${draft.trim()}”` : <span className="muted">empty</span>)}
         {box(
           'device',
-          '💾',
           'Device storage',
           device === 'phone' ? 'this phone’s browser' : 'this laptop’s browser',
           device === 'phone' && deviceDraft ? `Saved draft: “${deviceDraft}”` : <span className="muted">{autosave ? 'empty' : 'empty (autosave is off)'}</span>,
         )}
-        {box('server', '🗄️', 'Server database', 'every device', `${server.length} saved note${server.length === 1 ? '' : 's'}`)}
+        {box('server', 'Server database', 'every device', `${server.length} saved note${server.length === 1 ? '' : 's'}`)}
       </div>
       {did.size < 3 && (
         <p className="tiny muted">
@@ -260,9 +258,9 @@ export function CacheLab({ onDone }: { onDone?: () => void }) {
           {!loading && !shown && <div className="small muted">Not opened yet.</div>}
           {shown && (
             <div className="stack sm pop" key={`${shown.name}-${shown.from}-${shown.ms}`}>
-              <div style={{ fontWeight: 700, fontSize: 18 }}>👤 {shown.name}</div>
+              <div style={{ fontWeight: 700, fontSize: 18 }}>{shown.name}</div>
               <span className="pill" style={{ alignSelf: 'flex-start' }}>
-                {shown.from === 'cache' ? '⚡ from cache' : '🌐 from server'} · {shown.ms === 8 ? '0.008 s' : '1.2 s'}
+                {shown.from === 'cache' ? 'from cache' : 'from server'} · {shown.ms === 8 ? '0.008 s' : '1.2 s'}
               </span>
             </div>
           )}
@@ -282,11 +280,11 @@ export function CacheLab({ onDone }: { onDone?: () => void }) {
       <div className="grid2">
         <div className="stat">
           <span className="v small" style={{ fontSize: 15 }}>{serverName}</span>
-          <span className="l">🗄️ Server says</span>
+          <span className="l">Server says</span>
         </div>
         <div className="stat">
           <span className="v small" style={{ fontSize: 15 }}>{cached ?? '-'}</span>
-          <span className="l">⚡ Phone’s cached copy</span>
+          <span className="l">Phone’s cached copy</span>
         </div>
       </div>
       <div aria-live="polite">

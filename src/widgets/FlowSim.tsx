@@ -4,7 +4,6 @@ import { wait } from '../lib/motion'
 export interface FlowNode {
   id: string
   label: string
-  emoji: string
   /** Small caption under the label. */
   note?: string
 }
@@ -111,7 +110,7 @@ export function FlowSim({ nodes, scenarios, required, onDone }: Props) {
             disabled={running !== null}
             onClick={() => run(s)}
           >
-            {s.danger ? '⚠️ ' : '▶ '}
+            {'▶ '}
             {s.label}
             {ran.has(s.id) ? ' ✓' : ''}
           </button>
@@ -125,7 +124,6 @@ export function FlowSim({ nodes, scenarios, required, onDone }: Props) {
           return (
             <div key={n.id}>
               <div className={`node ${cls}`}>
-                <span className="emoji">{n.emoji}</span>
                 <div className="grow">
                   <div>{n.label}</div>
                   {n.note && <div className="tiny muted" style={{ fontWeight: 500 }}>{n.note}</div>}
