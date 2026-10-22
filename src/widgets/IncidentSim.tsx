@@ -170,13 +170,13 @@ const DECISIONS: Decision[] = [
   },
 ]
 
-const STATUS: Record<Status, { emoji: string; text: string; tone: string }> = {
-  ok: { emoji: '🟢', text: 'All systems operational', tone: 'var(--good)' },
-  investigating: { emoji: '🟠', text: 'Investigating: some users can’t log in', tone: 'var(--warn)' },
-  monitoring: { emoji: '🔵', text: 'Fix deployed: monitoring', tone: 'var(--info)' },
-  resolved: { emoji: '🟢', text: 'Resolved', tone: 'var(--good)' },
-  silent: { emoji: '🟢', text: 'All systems operational (not updated)', tone: 'var(--muted)' },
-  lie: { emoji: '🟢', text: 'All systems operational (while broken!)', tone: 'var(--bad)' },
+const STATUS: Record<Status, { text: string; tone: string }> = {
+  ok: { text: 'All systems operational', tone: 'var(--good)' },
+  investigating: { text: 'Investigating: some users can’t log in', tone: 'var(--warn)' },
+  monitoring: { text: 'Fix deployed: monitoring', tone: 'var(--info)' },
+  resolved: { text: 'Resolved', tone: 'var(--good)' },
+  silent: { text: 'All systems operational (not updated)', tone: 'var(--muted)' },
+  lie: { text: 'All systems operational (while broken!)', tone: 'var(--bad)' },
 }
 
 const BASE_DOWN = 7 // errors began at 4:05, alert at 4:12
@@ -244,9 +244,7 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat row nowrap" style={{ gap: 10 }}>
-        <span aria-hidden="true" style={{ fontSize: 20 }}>
-          {st.emoji}
-        </span>
+        <span aria-hidden="true" style={{ flex: 'none', width: 10, height: 10, borderRadius: '50%', background: st.tone }} />
         <div className="grow">
           <div className="tiny muted">status.kitedesk.example</div>
           <div className="small" style={{ fontWeight: 650, color: st.tone }}>

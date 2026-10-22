@@ -86,7 +86,7 @@ export function FrontBackLab({ onDone }: Props) {
               setOut(null)
             }}
           >
-            🎨 Frontend only {tampered.has('front') ? '✓' : ''}
+            Frontend only {tampered.has('front') ? '✓' : ''}
           </button>
           <button
             type="button"
@@ -97,7 +97,7 @@ export function FrontBackLab({ onDone }: Props) {
               setOut(null)
             }}
           >
-            ⚙️ Backend {tampered.has('back') ? '✓' : ''}
+            Backend {tampered.has('back') ? '✓' : ''}
           </button>
         </div>
       </div>
@@ -146,7 +146,6 @@ export function FrontBackLab({ onDone }: Props) {
         {out && (
           <div className="stack sm pop" key={`${out.where}-${out.typed}-${tampered.size}`}>
             <div className="node">
-              <span className="emoji">📱</span>
               <div className="grow small">
                 <div className="tiny muted">The browser sends</div>
                 <span className="mono">{out.sent}</span>
@@ -154,7 +153,6 @@ export function FrontBackLab({ onDone }: Props) {
             </div>
             <div className="link active" />
             <div className={`node ${out.tone === 'bad' ? 'fail' : out.tone === 'good' ? 'ok' : ''}`}>
-              <span className="emoji">⚙️</span>
               <div className="grow small">
                 <div className="tiny muted">Your server</div>
                 {out.server}

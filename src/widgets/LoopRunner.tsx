@@ -104,7 +104,6 @@ export function LoopRunner({ onDone }: Props) {
           const tone = !o ? '' : o.gate === 'prod' ? 'fail' : o.gate === 'clean' ? 'ok' : 'warn'
           return (
             <div key={c.id} className={`node ${tone} ${!o && running ? 'dim' : ''}`} style={{ alignItems: 'flex-start' }}>
-              <span className="emoji">{!o ? '📦' : o.gate === 'prod' ? '💥' : o.gate === 'clean' ? '✅' : '🛑'}</span>
               <span className="grow stack" style={{ gap: 2 }}>
                 <span>{c.label}</span>
                 {o && (

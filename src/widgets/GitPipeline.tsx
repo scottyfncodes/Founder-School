@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { wait } from '../lib/motion'
 
 const STAGES = [
-  { id: 'code', emoji: '💻', label: 'Working code' },
-  { id: 'commit', emoji: '📌', label: 'Commit' },
-  { id: 'branch', emoji: '🌿', label: 'Branch' },
-  { id: 'pr', emoji: '🔀', label: 'Pull request' },
-  { id: 'ci', emoji: '🤖', label: 'CI tests' },
-  { id: 'merge', emoji: '🧩', label: 'Merge' },
-  { id: 'deploy', emoji: '🚀', label: 'Deploy' },
-  { id: 'live', emoji: '🌍', label: 'Live app' },
+  { id: 'code', label: 'Working code' },
+  { id: 'commit', label: 'Commit' },
+  { id: 'branch', label: 'Branch' },
+  { id: 'pr', label: 'Pull request' },
+  { id: 'ci', label: 'CI tests' },
+  { id: 'merge', label: 'Merge' },
+  { id: 'deploy', label: 'Deploy' },
+  { id: 'live', label: 'Live app' },
 ] as const
 
 type StageId = (typeof STAGES)[number]['id']
@@ -198,7 +198,7 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
             disabled={busy}
             onClick={() => run(s.id)}
           >
-            {s.danger ? '⚠️ ' : '▶ '}
+            {'▶ '}
             {s.label}
             {solved.has(s.id) ? ' ✓' : ''}
           </button>
@@ -216,9 +216,6 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
             >
               <span className="tiny muted" style={{ width: 12 }}>
                 {i + 1}
-              </span>
-              <span className="emoji" style={{ fontSize: 18 }}>
-                {s.emoji}
               </span>
               <span className="grow">{s.label}</span>
             </div>
@@ -301,11 +298,11 @@ export function GitPipeline({ onDone }: { onDone?: () => void }) {
       <div className="phone">
         <div className="screen" style={{ minHeight: 0 }}>
           <div className="row between">
-            <span className="tiny muted">🌍 Live app</span>
+            <span className="tiny muted">Live app</span>
             <span className="pill">v{version}</span>
           </div>
           <div style={{ fontWeight: 600 }} className={liveOk ? '' : 'bad-text'}>
-            {liveOk ? '🛒 Checkout working' : '💥 Checkout failing: orders: 0/min'}
+            {liveOk ? 'Checkout working' : 'Checkout failing: orders: 0/min'}
           </div>
         </div>
       </div>

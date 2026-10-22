@@ -32,7 +32,7 @@ function Rows({ rows, viewer }: { rows: Row[]; viewer: 'acme' }) {
         <tbody>
           {rows.map((r) => (
             <tr key={r.id} className={r.company !== viewer ? 'hl-bad' : ''}>
-              <td>{r.company !== viewer ? `⚠️ ${CO[r.company]}` : CO[r.company]}</td>
+              <td>{r.company !== viewer ? <b className="bad-text">! {CO[r.company]}</b> : CO[r.company]}</td>
               <td>{r.name}</td>
               <td>{r.note}</td>
             </tr>
@@ -199,7 +199,7 @@ export function LeakHunt({ onDone }: { onDone?: () => void }) {
                 onDone?.()
               }}
             >
-              🔧 Add the company filter to Export
+              Add the company filter to Export
             </button>
           )}
         </div>

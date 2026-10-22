@@ -95,7 +95,7 @@ export function IndexRace({ onDone }: { onDone?: () => void }) {
 
       <div className="card tight flat stack sm">
         <div className="row between">
-          <b className="small">🐢 No index</b>
+          <b className="small">No index</b>
           <span className="tiny muted">check every row, in order</span>
         </div>
         <div className="meter">
@@ -109,7 +109,7 @@ export function IndexRace({ onDone }: { onDone?: () => void }) {
 
       <div className="card tight flat stack sm">
         <div className="row between">
-          <b className="small">⚡ With an index on email</b>
+          <b className="small">With an index on email</b>
           <span className="tiny muted">like the index at the back of a book</span>
         </div>
         <div className="meter">

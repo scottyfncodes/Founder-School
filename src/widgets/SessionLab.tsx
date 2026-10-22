@@ -120,7 +120,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
         <div className="kicker">Cookie in your browser</div>
         <div className="mono small">{cookie ? `session=${cookie}` : '(none)'}</div>
         <div className="kicker" style={{ marginTop: 6 }}>
-          🗄️ Server’s session list
+          Server’s session list
         </div>
         {session ? (
           <div className="small">
@@ -133,7 +133,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
               <span className="warn-text">expired</span>
             )}
             {stolen && !session.revoked && stolen === session.id && (
-              <div className="tiny warn-text">⚠️ Also used from: unknown device, another country</div>
+              <div className="tiny warn-text">Also used from: unknown device, another country</div>
             )}
           </div>
         ) : (
@@ -166,7 +166,7 @@ export function SessionLab({ onDone }: { onDone?: () => void }) {
             Use stolen cookie
           </button>
         </div>
-        {attackerIn && <div className="tiny bad-text">🦹 Attacker is browsing your account right now.</div>}
+        {attackerIn && <div className="tiny bad-text">Attacker is browsing your account right now.</div>}
       </div>
 
       {msg && (

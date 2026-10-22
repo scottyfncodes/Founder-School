@@ -8,14 +8,14 @@ import { CodeReader, PackageTree } from '../../widgets/PackageTree'
 import { CacheLab, StateLab } from '../../widgets/StateLab'
 
 const STACK = [
-  { id: 'user', label: 'You', emoji: '🧑', note: 'Taps “Save”' },
-  { id: 'phone', label: 'Phone', emoji: '📱', note: 'Turns the tap into a signal' },
-  { id: 'browser', label: 'Browser', emoji: '🧭', note: 'Runs the app’s code' },
-  { id: 'internet', label: 'Internet', emoji: '🌐', note: 'Carries the message' },
-  { id: 'frontend', label: 'Frontend', emoji: '🎨', note: 'The screens you see' },
-  { id: 'api', label: 'API', emoji: '🚪', note: 'The service window' },
-  { id: 'backend', label: 'Backend', emoji: '⚙️', note: 'Rules & decisions' },
-  { id: 'database', label: 'Database', emoji: '🗄️', note: 'Permanent memory' },
+  { id: 'user', label: 'You', note: 'Taps “Save”' },
+  { id: 'phone', label: 'Phone', note: 'Turns the tap into a signal' },
+  { id: 'browser', label: 'Browser', note: 'Runs the app’s code' },
+  { id: 'internet', label: 'Internet', note: 'Carries the message' },
+  { id: 'frontend', label: 'Frontend', note: 'The screens you see' },
+  { id: 'api', label: 'API', note: 'The service window' },
+  { id: 'backend', label: 'Backend', note: 'Rules & decisions' },
+  { id: 'database', label: 'Database', note: 'Permanent memory' },
 ]
 
 const world: World = {
@@ -78,7 +78,7 @@ const world: World = {
                     { at: 'frontend', say: 'Shows a green “Saved ✓”', tone: 'res', hold: 600 },
                     { at: 'user', say: 'Sees the checkmark. Total time: ~0.3 seconds.', tone: 'res' },
                   ],
-                  screen: '✅ Maria Lopez saved',
+                  screen: 'Maria Lopez saved',
                   result: {
                     tone: 'good',
                     text: 'Eight hand-offs out, back again: in a fraction of a second. Every box you saw is something you pay for, and something that can break.',
@@ -96,7 +96,7 @@ const world: World = {
                     { at: 'browser', say: 'Waits… gives up after a timeout', tone: 'err', status: 'warn' },
                     { at: 'user', say: 'Sees a spinner, then an error', tone: 'err', status: 'fail' },
                   ],
-                  screen: '⚠️ Couldn’t save. Check your connection and try again.',
+                  screen: 'Couldn’t save. Check your connection and try again.',
                   result: {
                     tone: 'warn',
                     text: 'The database never heard about Maria. A good app tells the user clearly and keeps what they typed so they can retry: a bad one silently loses it.',

@@ -140,7 +140,7 @@ const PHANTOM_CHAT: ChatQuestion[] = [
     q: 'Send a screenshot of the pricing page 375px wide.',
     strong: true,
     reply: 'Here it is. The “Buy” button still runs off the right edge: my fix targeted tablet width, not phones.',
-    evidence: '📸 pricing @ 375px\n“Buy” button cut off at the right edge',
+    evidence: 'Screenshot: pricing @ 375px\n“Buy” button cut off at the right edge',
     gap: 'Mobile layout is still broken',
     lesson: 'For anything visual, a screenshot at the size real users use beats any description.',
   },

@@ -4,17 +4,17 @@ import { wait } from '../lib/motion'
 type UserId = 'scott' | 'alex' | 'nobody'
 type RoomId = 'dash' | 'inv-alex' | 'inv-scott' | 'admin'
 
-const USERS: Record<UserId, { name: string; emoji: string; role: string; badge: string }> = {
-  scott: { name: 'Scott', emoji: '🧑‍💼', role: 'ADMIN', badge: '👑 ADMIN' },
-  alex: { name: 'Alex', emoji: '🙂', role: 'USER', badge: 'USER' },
-  nobody: { name: 'Nobody', emoji: '👤', role: 'none', badge: 'logged out' },
+const USERS: Record<UserId, { name: string; role: string; badge: string }> = {
+  scott: { name: 'Scott', role: 'ADMIN', badge: 'ADMIN' },
+  alex: { name: 'Alex', role: 'USER', badge: 'USER' },
+  nobody: { name: 'Nobody', role: 'none', badge: 'logged out' },
 }
 
-const ROOMS: { id: RoomId; emoji: string; label: string; path: string }[] = [
-  { id: 'dash', emoji: '🏠', label: 'Dashboard', path: '/dashboard' },
-  { id: 'inv-alex', emoji: '🧾', label: 'Alex’s invoices', path: '/invoices?user=alex' },
-  { id: 'inv-scott', emoji: '🧾', label: 'Scott’s invoices', path: '/invoices?user=scott' },
-  { id: 'admin', emoji: '⚙️', label: 'Admin settings', path: '/admin' },
+const ROOMS: { id: RoomId; label: string; path: string }[] = [
+  { id: 'dash', label: 'Dashboard', path: '/dashboard' },
+  { id: 'inv-alex', label: 'Alex’s invoices', path: '/invoices?user=alex' },
+  { id: 'inv-scott', label: 'Scott’s invoices', path: '/invoices?user=scott' },
+  { id: 'admin', label: 'Admin settings', path: '/admin' },
 ]
 
 /** The rule the server is supposed to enforce. */
@@ -84,7 +84,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       setBusy(false)
       setOut({
         status: 401,
-        screen: '🔒 Please log in',
+        screen: 'Please log in',
         tone: 'info',
         text: 'Stopped at checkpoint 1: the server doesn’t know who this is. That’s an authentication failure: “401: who are you?”',
       })
@@ -103,12 +103,12 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         status: 200,
         screen:
           r === 'admin'
-            ? '⚙️ Admin settings: users, roles, billing'
+            ? 'Admin settings: users, roles, billing'
             : r === 'dash'
-              ? `🏠 Hi ${name}! Your dashboard`
+              ? `Hi ${name}! Your dashboard`
               : r === 'inv-alex'
-                ? '🧾 Alex: 2 invoices, $58 total'
-                : '🧾 Scott: 3 invoices, $4,800 · card •••• 4242',
+                ? 'Alex: 2 invoices, $58 total'
+                : 'Scott: 3 invoices, $4,800 · card •••• 4242',
         tone: 'good',
         text: `${name} is allowed here (${RULE[r]}), so the door opens. Correct behaviour.`,
       })
@@ -118,7 +118,7 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       setGate2('fail')
       setOut({
         status: 403,
-        screen: '⛔ You don’t have access to this page',
+        screen: 'You don’t have access to this page',
         tone: 'good',
         text: `The server knows exactly who this is (${name}) and still says no. Rule: ${RULE[r]}. That’s authorization: “403: I know who you are, and you can’t do this.”`,
       })
@@ -133,8 +133,8 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
       status: 200,
       screen:
         r === 'admin'
-          ? '⚙️ Admin settings: Alex taps “Make me an admin”…'
-          : '🧾 Scott: 3 invoices, $4,800 · card •••• 4242',
+          ? 'Admin settings: Alex taps “Make me an admin”…'
+          : 'Scott: 3 invoices, $4,800 · card •••• 4242',
       tone: 'bad',
       text:
         r === 'admin'
@@ -182,9 +182,6 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
               }}
               style={{ textAlign: 'center', padding: '8px 6px' }}
             >
-              <div style={{ fontSize: 22 }} aria-hidden="true">
-                {USERS[id].emoji}
-              </div>
               <div className="small" style={{ fontWeight: 650 }}>
                 {USERS[id].name}
               </div>
@@ -226,9 +223,6 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
 
       <div className="stack sm" style={{ gap: 0 }} aria-live="polite">
         <div className={`node ${gateCls(gate1)}`}>
-          <span className="emoji" aria-hidden="true">
-            🪪
-          </span>
           <div className="grow">
             <div className="small">Checkpoint 1 · Authentication</div>
             <div className="tiny muted">“Who are you?”: the ID badge</div>
@@ -239,9 +233,6 @@ export function RoleLab({ onDone }: { onDone?: () => void }) {
         </div>
         <div className={`link ${gate1 === 'pass' ? 'active' : gate1 === 'fail' ? 'fail' : ''}`} />
         <div className={`node ${gateCls(gate2)}`}>
-          <span className="emoji" aria-hidden="true">
-            🚪
-          </span>
           <div className="grow">
             <div className="small">Checkpoint 2 · Authorization</div>
             <div className="tiny muted">“What are you allowed to do?”: the keycard</div>

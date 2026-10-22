@@ -147,8 +147,8 @@ export function BackupChain({ onDone }: { onDone?: () => void }) {
                     {st ? st.note : t.meta}
                   </span>
                 </span>
-                <span aria-hidden="true" style={{ fontSize: 18 }}>
-                  {st?.fate === 'ok' ? '✅' : st?.fate === 'fail' ? '💥' : ''}
+                <span aria-hidden="true" className={st?.fate === 'ok' ? 'good-text' : 'bad-text'} style={{ fontWeight: 800 }}>
+                  {st?.fate === 'ok' ? '✓' : st?.fate === 'fail' ? '✕' : ''}
                 </span>
               </button>
               {openTier === t.id && <p className="small card tight flat pop" style={{ marginTop: 6 }}>{t.what}</p>}
@@ -292,7 +292,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="callout bad stack sm">
-        <div style={{ fontWeight: 800, fontSize: 18 }}>💥 DATABASE DESTROYED</div>
+        <div style={{ fontWeight: 800, fontSize: 18 }}>DATABASE DESTROYED</div>
         <div className="small">
           {fmt(DISASTER)}: a migration script wiped the live database. Alert fired at {fmt(DETECTED).split(' ').slice(1).join(' ')}. The app shows empty accounts to every customer.
         </div>
@@ -324,7 +324,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
 
       {phase !== 'now' && (
         <div className="callout good small">
-          ✅ Right: stop writes, then restore a known-good copy. Maintenance page is up.
+          Right: stop writes, then restore a known-good copy. Maintenance page is up.
         </div>
       )}
 
@@ -367,7 +367,9 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
                 ← Sunday
               </div>
             )}
-            <div style={{ position: 'absolute', left: pct(DISASTER), top: 0, marginLeft: -9, fontSize: 16 }}>💥</div>
+            <div className="tiny" style={{ position: 'absolute', left: pct(DISASTER), top: 0, transform: 'translateX(-50%)', color: 'var(--bad)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+              crash
+            </div>
             <div style={{ position: 'absolute', left: pct(DISASTER), top: 20, width: 2, height: 22, background: 'var(--bad)' }} />
             <div
               style={{
@@ -432,7 +434,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
               Restore to: <b className="mono">{fmt(point)}</b>
             </span>
             <span className={`tiny ${afterDisaster ? 'bad-text' : 'muted'}`}>
-              {afterDisaster ? 'after the 💥' : `${dur(rpo)} before the 💥`}
+              {afterDisaster ? 'after the crash' : `${dur(rpo)} before the crash`}
             </span>
           </div>
 
@@ -484,7 +486,7 @@ export function RestoreDrill({ onDone }: { onDone?: () => void }) {
                     <div className="mono tiny good-text">✓ customers: 2,311 rows</div>
                     <div className="mono tiny good-text">✓ app logins work on a test account</div>
                     <div className={`mono tiny ${rpo > 5 ? 'warn-text' : 'good-text'}`}>
-                      {rpo > 5 ? '⚠' : '✓'} latest order: {fmt(point)}
+                      {rpo > 5 ? '!' : '✓'} latest order: {fmt(point)}
                     </div>
                   </div>
                   <div className="grid2">

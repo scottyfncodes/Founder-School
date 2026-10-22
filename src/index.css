@@ -574,12 +574,6 @@ button.node {
   cursor: pointer;
 }
 
-.node .emoji {
-  font-size: 22px;
-  line-height: 1;
-  flex: none;
-}
-
 .node.active {
   border-color: var(--accent);
   background: var(--accent-soft);

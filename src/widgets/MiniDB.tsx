@@ -59,12 +59,12 @@ export function DbTable({
                     }}
                   >
                     {c}
-                    {c === 'id' ? ' 🔑' : ''}
+                    {c === 'id' ? <span className="tiny muted"> key</span> : ''}
                   </button>
                 ) : (
                   <span className="mono">
                     {c}
-                    {c === 'id' ? ' 🔑' : ''}
+                    {c === 'id' ? <span className="tiny muted"> key</span> : ''}
                   </span>
                 )}
               </th>
@@ -119,7 +119,7 @@ const TASKS: { id: Task; label: string }[] = [
   { id: 'tables', label: 'Open 3 different tables' },
   { id: 'row', label: 'Tap a row' },
   { id: 'col', label: 'Tap a column name' },
-  { id: 'pk', label: 'Find the primary key (🔑)' },
+  { id: 'pk', label: 'Find the primary key' },
 ]
 
 export function TableBrowser({ onDone }: { onDone?: () => void }) {
@@ -178,7 +178,7 @@ export function TableBrowser({ onDone }: { onDone?: () => void }) {
           setCol(c)
           setRow(null)
           if (c === 'id') {
-            setMsg(`🔑 The primary key. Every ${t.name} row gets a unique id that never changes and is never reused, so the app can always point at exactly one row.`)
+            setMsg(`The primary key. Every ${t.name} row gets a unique id that never changes and is never reused, so the app can always point at exactly one row.`)
             tick('pk')
           } else {
             setMsg(`One column = one kind of fact, for every row. “${c}”: ${t.colInfo[c] ?? ''}`)
@@ -191,7 +191,7 @@ export function TableBrowser({ onDone }: { onDone?: () => void }) {
       <ul className="stack sm" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         {TASKS.map((x) => (
           <li key={x.id} className={`small ${done.has(x.id) ? 'good-text' : 'muted'}`}>
-            {done.has(x.id) ? '✅' : '⬜'} {x.label}
+            {done.has(x.id) ? '✓' : '○'} {x.label}
           </li>
         ))}
       </ul>

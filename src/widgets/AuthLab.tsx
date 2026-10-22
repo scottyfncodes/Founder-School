@@ -217,10 +217,10 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
               <p className="tiny muted">We texted a code to Scott’s phone (•••• 0142).</p>
               {who === 'scott' ? (
                 <div className="callout info small">
-                  📱 Scott’s phone: <b className="mono">{CODE}</b>
+                  Scott’s phone: <b className="mono">{CODE}</b>
                 </div>
               ) : (
-                <div className="callout warn small">📵 The stranger doesn’t have Scott’s phone.</div>
+                <div className="callout warn small">The stranger doesn’t have Scott’s phone.</div>
               )}
               <input
                 aria-label="2FA code"
@@ -250,7 +250,7 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
           )}
           {screen === 'in' && (
             <div className="stack sm pop">
-              <b>{who === 'scott' ? '👋 Welcome back, Scott' : '👋 Welcome back, “Scott”'}</b>
+              <b>{who === 'scott' ? 'Welcome back, Scott' : 'Welcome back, “Scott”'}</b>
               <div className="tiny muted">Logged in. Every tap from here carries the session.</div>
               <div className="code" style={{ fontSize: 12 }}>
                 cookie: session=sess_7Hk2…{'\n'}expires: in 7 days
@@ -332,7 +332,7 @@ export function HashVault({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat stack sm" style={isLeaked ? { borderColor: 'var(--bad)' } : undefined}>
-        <div className="tiny muted">{isLeaked ? '🦹 What the attacker downloaded' : '🗄️ users table'}</div>
+        <div className="tiny muted">{isLeaked ? 'What the attacker downloaded' : 'users table'}</div>
         {rows.map((r) => (
           <div key={r.email} className="stack" style={{ gap: 0 }}>
             <span className="tiny muted">{r.email}</span>

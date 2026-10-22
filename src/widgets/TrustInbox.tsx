@@ -133,7 +133,7 @@ export function TrustInbox({ onDone }: { onDone?: () => void }) {
   return (
     <AuditBoard
       items={QUESTIONS}
-      meterLabel="📨 Customer questions answered well"
+      meterLabel="Customer questions answered well"
       riskLabel="Unanswered"
       fixedLabel="Sent"
       onDone={onDone}

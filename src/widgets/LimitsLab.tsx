@@ -61,10 +61,10 @@ export function LimitsLab({ onDone }: Props) {
 
   const screen =
     over === 0
-      ? { tone: 'good', text: '✨ Summary ready.' }
+      ? { tone: 'good', text: 'Summary ready.' }
       : queue
-        ? { tone: 'warn', text: '⏳ Busy right now: your summary will be ready in ~30 seconds.' }
-        : { tone: 'bad', text: '❌ Something went wrong. (429: Too Many Requests)' }
+        ? { tone: 'warn', text: 'Busy right now: your summary will be ready in ~30 seconds.' }
+        : { tone: 'bad', text: 'Something went wrong. (429: Too Many Requests)' }
 
   return (
     <div className="stack">
@@ -91,7 +91,7 @@ export function LimitsLab({ onDone }: Props) {
 
       <div className="card tight flat stack sm">
         <div className="row between">
-          <span className="small" style={{ fontWeight: 650 }}>✨ AI requests at peak</span>
+          <span className="small" style={{ fontWeight: 650 }}>AI requests at peak</span>
           <span className="small mono">
             {num(peak)}/min · limit {num(limit)}
           </span>
@@ -121,20 +121,20 @@ export function LimitsLab({ onDone }: Props) {
           <table className="tbl">
             <tbody>
               <tr>
-                <td>✨ AI (30 summaries/user)</td>
+                <td>AI (30 summaries/user)</td>
                 <td className="mono">{money(ai)}</td>
               </tr>
               <tr>
-                <td>✉️ Email (20/user)</td>
+                <td>Email (20/user)</td>
                 <td className="mono">{money(email)}</td>
               </tr>
               <tr>
-                <td>💬 SMS codes (3/user)</td>
+                <td>SMS codes (3/user)</td>
                 <td className="mono">{money(sms)}</td>
               </tr>
               {tier && (
                 <tr>
-                  <td>⬆️ Higher AI tier</td>
+                  <td>Higher AI tier</td>
                   <td className="mono">{money(fee)}</td>
                 </tr>
               )}

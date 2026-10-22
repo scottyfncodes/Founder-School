@@ -41,10 +41,10 @@ const LOGS = [
 ]
 
 const TRACE = [
-  { emoji: '🎨', name: 'Frontend', text: 'POST /checkout sent (12 ms)', ok: true },
-  { emoji: '🚪', name: 'API', text: 'User #482 authenticated', ok: true },
-  { emoji: '⚙️', name: 'Backend', text: 'Order #9921 created, calling payments…', ok: true },
-  { emoji: '💳', name: 'Payments provider', text: '401 invalid API key: PAYMENTS_KEY is empty since deploy v57 (9:02)', ok: false },
+  { name: 'Frontend', text: 'POST /checkout sent (12 ms)', ok: true },
+  { name: 'API', text: 'User #482 authenticated', ok: true },
+  { name: 'Backend', text: 'Order #9921 created, calling payments…', ok: true },
+  { name: 'Payments provider', text: '401 invalid API key: PAYMENTS_KEY is empty since deploy v57 (9:02)', ok: false },
 ]
 
 type Mode = 'off' | 'on'
@@ -111,7 +111,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
     <div className="stack">
       <div className="card tight flat row nowrap">
         <div className="grow">
-          <div style={{ fontWeight: 700 }}>📟 Monitoring & alerts</div>
+          <div style={{ fontWeight: 700 }}>Monitoring & alerts</div>
           <div className="tiny muted">{mode === 'on' ? 'Error-rate chart + alert when checkout errors > 2%' : 'Nothing is watching the app'}</div>
         </div>
         <button
@@ -138,11 +138,11 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
       <div className="well stack sm" style={{ padding: 12 }}>
         <div className="row between">
           <span className="kicker">Checkout error rate</span>
-          <span className="mono small">🕘 {clock(now)}</span>
+          <span className="mono small">{clock(now)}</span>
         </div>
         {mode === 'off' ? (
           <div className="center small muted" style={{ padding: '28px 8px' }}>
-            {frame < 0 ? 'No dashboard. You’ll find out about problems… somehow.' : running ? '☕ Quiet morning. Nothing seems wrong.' : '…'}
+            {frame < 0 ? 'No dashboard. You’ll find out about problems… somehow.' : running ? 'Quiet morning. Nothing seems wrong.' : '…'}
             <div className="tiny" style={{ marginTop: 6 }}>
               v57 deployed at 9:02 AM ✓
             </div>
@@ -185,7 +185,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
         {outcome?.mode === 'off' && (
           <div className="stack sm pop">
             <div className="card tight flat stack sm" style={{ borderColor: 'var(--bad)' }}>
-              <div className="tiny muted">📧 11:40 AM · support inbox</div>
+              <div className="tiny muted">11:40 AM · support inbox</div>
               <div className="small" style={{ fontWeight: 700 }}>
                 “I’ve been trying to pay you for TWO HOURS. Is this company even real?”
               </div>
@@ -198,7 +198,7 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
         {outcome?.mode === 'on' && (
           <div className="stack sm pop">
             <div className="card tight flat stack sm" style={{ borderColor: 'var(--warn)' }}>
-              <div className="tiny muted">📟 {clock(outcome.at)} · alert to your phone</div>
+              <div className="tiny muted">{clock(outcome.at)} · alert to your phone</div>
               <div className="small" style={{ fontWeight: 700 }}>
                 Checkout errors {'>'} 2% for 10 minutes (now 18%)
               </div>
@@ -236,7 +236,6 @@ export function MonitorBoard({ onDone }: { onDone?: () => void }) {
                     {TRACE.map((s, i) => (
                       <div key={s.name}>
                         <div className={`node ${s.ok ? 'ok' : 'fail'}`}>
-                          <span className="emoji">{s.emoji}</span>
                           <span className="grow">
                             <span style={{ display: 'block' }}>{s.name}</span>
                             <span className="tiny" style={{ display: 'block', fontWeight: 500 }}>

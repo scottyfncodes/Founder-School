@@ -112,7 +112,7 @@ export function VulnCase({ name, intended, happened, fixName, fixText, blocked, 
       {stage >= 2 && (
         <div className="card tight flat row nowrap pop" style={{ alignItems: 'flex-start', borderColor: fixOn ? 'var(--good)' : undefined }}>
           <div className="grow stack sm">
-            <div style={{ fontWeight: 700 }}>🛠️ Fix: {fixName}</div>
+            <div style={{ fontWeight: 700 }}>Fix: {fixName}</div>
             <p className="tiny ink2">{fixText}</p>
           </div>
           <button
@@ -132,9 +132,6 @@ export function VulnCase({ name, intended, happened, fixName, fixText, blocked, 
 
       <div className="card tight stack sm" style={{ padding: 0, overflow: 'hidden' }}>
         <div className="row nowrap" style={{ gap: 6, padding: '8px 10px', background: 'var(--surface-2)', borderBottom: '1px solid var(--line)' }}>
-          <span aria-hidden="true" className="tiny">
-            🪁
-          </span>
           <span className="mono tiny grow" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {url(api)}
           </span>

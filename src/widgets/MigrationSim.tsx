@@ -142,16 +142,14 @@ export function MigrationSim({ onDone }: { onDone?: () => void }) {
 
       <div className="row nowrap" style={{ gap: 8 }}>
         <div className={`node grow ${db.broken ? 'fail' : 'ok'}`} style={{ minHeight: 48, padding: '8px 12px' }}>
-          <span className="emoji">📱</span>
           <div className="grow small">
             <div>Live app v{db.app}</div>
             <div className="tiny" style={{ fontWeight: 500 }}>
-              {db.broken ? '💥 column “name” does not exist' : db.app === 1 ? 'reads “name” · working' : 'reads first/last · working'}
+              {db.broken ? 'column “name” does not exist' : db.app === 1 ? 'reads “name” · working' : 'reads first/last · working'}
             </div>
           </div>
         </div>
         <div className={`node ${db.backup ? 'ok' : ''}`} style={{ minHeight: 48, padding: '8px 10px', flex: 'none' }}>
-          <span className="emoji">💾</span>
           <span className="tiny">{db.backup ? 'Backup ✓' : 'No backup'}</span>
         </div>
       </div>
@@ -180,8 +178,8 @@ export function MigrationSim({ onDone }: { onDone?: () => void }) {
                     <>
                       <td style={warn ? { background: 'var(--warn-soft)' } : undefined}>{db.filled ? first : <span className="muted">{lost ? "''" : '-'}</span>}</td>
                       <td style={warn ? { background: 'var(--warn-soft)' } : undefined}>
-                        {db.filled ? last || <span className="warn-text">⚠ empty</span> : <span className="muted">{lost ? "''" : '-'}</span>}
-                        {warn && last ? ' ⚠' : ''}
+                        {db.filled ? last || <span className="warn-text">empty</span> : <span className="muted">{lost ? "''" : '-'}</span>}
+                        {warn && last ? ' !' : ''}
                       </td>
                     </>
                   )}
@@ -211,7 +209,7 @@ export function MigrationSim({ onDone }: { onDone?: () => void }) {
           <ol className="stack sm" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
             {SAFE_STEPS.map((s, i) => (
               <li key={s.label} className={`small ${i < step ? 'good-text' : i === step ? '' : 'muted'}`}>
-                {i < step ? '✅' : i === step ? '👉' : '⬜'} {s.label}
+                {i < step ? '✓' : i === step ? '→' : '○'} {s.label}
               </li>
             ))}
           </ol>

@@ -14,40 +14,36 @@ type DimId = (typeof DIMS)[number]['id']
 
 const STYLES: Record<
   StyleId,
-  { emoji: string; name: string; what: string; boxes: string[]; scores: Record<DimId, number>; best: string; watch: string }
+  { name: string; what: string; boxes: string[]; scores: Record<DimId, number>; best: string; watch: string }
 > = {
   clientserver: {
-    emoji: '📱↔️🖥️',
     name: 'Client / server',
     what: 'The basic shape of every web app: a client (browser or phone) asks; a server answers. The other three are ways to build the server half.',
-    boxes: ['📱 Client', '🖥️ One server', '🗄️ Database'],
+    boxes: ['Client', 'One server', 'Database'],
     scores: { simple: 5, cost: 5, scale: 2, reliable: 2, ops: 1 },
     best: 'Every app starts here. A single server is perfect for prototypes and early products.',
     watch: 'One server is one point of failure. Grow it into a proper monolith with a managed database.',
   },
   monolith: {
-    emoji: '🏛️',
     name: 'Monolith',
     what: 'One app, one codebase, deployed as one unit (often on a few identical servers). Everything (users, billing, search) lives together.',
-    boxes: ['📱 Client', '🏛️ The app (all features)', '🗄️ Database'],
+    boxes: ['Client', 'The app (all features)', 'Database'],
     scores: { simple: 5, cost: 4, scale: 3, reliable: 3, ops: 2 },
     best: 'Most startups, from day one to well past 10,000 users. Shopify and GitHub grew huge on monoliths.',
     watch: 'As the team grows past ~30 engineers, everyone shipping one app starts to step on each other.',
   },
   services: {
-    emoji: '🧩',
     name: 'Services (microservices)',
     what: 'Many small apps (users, billing, search, notifications) each deployed separately and talking over the network.',
-    boxes: ['📱 Client', '🚪 Gateway', '👤 Users', '💳 Billing', '🔎 Search', '🗄️ DB per service'],
+    boxes: ['Client', 'Gateway', 'Users', 'Billing', 'Search', 'DB per service'],
     scores: { simple: 1, cost: 2, scale: 5, reliable: 4, ops: 5 },
     best: 'Large companies with many teams, or parts with wildly different load. Each team owns and ships its piece.',
     watch: 'Every call is now a network call that can fail. You need serious monitoring, tooling and people to run it.',
   },
   serverless: {
-    emoji: '⚡',
     name: 'Serverless',
     what: 'You upload functions; the cloud runs them only when requests arrive and bills per request. No servers to manage.',
-    boxes: ['📱 Client', '⚡ Function per task', '☁️ Managed database'],
+    boxes: ['Client', 'Function per task', 'Managed database'],
     scores: { simple: 4, cost: 5, scale: 4, reliable: 4, ops: 1 },
     best: 'Spiky or unpredictable traffic, background jobs, small teams that don’t want to manage servers.',
     watch: 'Slow “cold starts”, time limits, costs that climb under constant heavy load, and tight ties to one cloud.',
@@ -56,7 +52,6 @@ const STYLES: Record<
 
 interface Scenario {
   id: string
-  emoji: string
   title: string
   detail: string
   verdict: Record<Exclude<StyleId, 'clientserver'>, { tone: 'good' | 'warn' | 'bad'; text: string }>
@@ -65,7 +60,6 @@ interface Scenario {
 const SCENARIOS: Scenario[] = [
   {
     id: 's50',
-    emoji: '🌱',
     title: '50 users',
     detail: 'You and an AI agent. Launching next month. Still figuring out what customers want.',
     verdict: {
@@ -76,7 +70,6 @@ const SCENARIOS: Scenario[] = [
   },
   {
     id: 's10k',
-    emoji: '📈',
     title: '10,000 users',
     detail: 'Steady growth, 4 engineers, paying customers who expect it to just work.',
     verdict: {
@@ -87,7 +80,6 @@ const SCENARIOS: Scenario[] = [
   },
   {
     id: 's10m',
-    emoji: '🦄',
     title: '10 million users',
     detail: '300 engineers in 30 teams. Search gets 50× more traffic than billing.',
     verdict: {
@@ -98,7 +90,6 @@ const SCENARIOS: Scenario[] = [
   },
   {
     id: 'spike',
-    emoji: '🎟️',
     title: 'Spiky ticket sales',
     detail: 'Quiet all week. Then 200,000 people arrive at 10:00 on Friday for concert tickets.',
     verdict: {
@@ -147,9 +138,6 @@ export function ArchCompare({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat stack sm pop" key={sel} role="tabpanel">
-        <div style={{ fontSize: 26 }} aria-hidden="true">
-          {s.emoji}
-        </div>
         <p className="small">{s.what}</p>
         <div className="row" style={{ gap: 4 }} aria-label="Shape">
           {s.boxes.map((b, i) => (
@@ -227,9 +215,6 @@ export function ArchScenarios({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="card tight flat stack sm pop" key={sc.id}>
-        <div style={{ fontSize: 30 }} aria-hidden="true">
-          {sc.emoji}
-        </div>
         <b>{sc.title}</b>
         <p className="small ink2">{sc.detail}</p>
         <div className="kicker">How would you build the backend?</div>

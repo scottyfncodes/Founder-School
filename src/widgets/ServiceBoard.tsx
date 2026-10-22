@@ -143,7 +143,8 @@ export function ServiceBoard({ onDone }: Props) {
 
   const statuses = FEATURES.map((f) => ({ f, st: statusOf(f) }))
   const count = (s: Status) => statuses.filter((x) => x.st === s).length
-  const icon: Record<Status, string> = { ok: '✅', degraded: '🟠', delayed: '⏳', broken: '❌' }
+  const word: Record<Status, string> = { ok: 'Working', degraded: 'Degraded', delayed: 'Delayed', broken: 'Broken' }
+  const wordTone: Record<Status, string> = { ok: 'good-text', degraded: 'warn-text', delayed: 'warn-text', broken: 'bad-text' }
   const cls: Record<Status, string> = { ok: 'ok', degraded: 'warn', delayed: 'warn', broken: 'fail' }
   const fb = FALLBACKS.find((x) => x.id === fallback)
 
@@ -212,7 +213,9 @@ export function ServiceBoard({ onDone }: Props) {
                 </span>
               )}
             </span>
-            <span aria-label={st}>{icon[st]}</span>
+            <span className={`tiny ${wordTone[st]}`} style={{ fontWeight: 700, flex: 'none' }}>
+              {word[st]}
+            </span>
           </button>
         ))}
         <p className="tiny muted">Tap a feature to see which services it depends on.</p>

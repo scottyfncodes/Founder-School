@@ -152,7 +152,7 @@ export function Sorter({ items, explain, topLabel = 'First', bottomLabel = 'Last
             need to move.
           </div>
         )}
-        {solved && <div className="callout good pop">✅ Exactly right. {explain}</div>}
+        {solved && <div className="callout good pop">Exactly right. {explain}</div>}
       </div>
     </div>
   )

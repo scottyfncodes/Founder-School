@@ -200,9 +200,9 @@ export function DebtSim({ onDone }: { onDone?: () => void }) {
         <div className="stack sm pop">
           <div className="callout info small">
             <b>Final: {f1(total)} features, {f1(debt)} debt left.</b> Compare:
-            <br />🧱 Always proper: {f1(allProper.total)} features, but only {f1(allProper.atDemo)} at the demo.
-            <br />⚡ Always shortcuts: {f1(allShort.total)} features, ending with {f1(allShort.debt)} debt and a crawling team.
-            <br />🧹 Borrow, then repay (2 shortcuts, 1 proper, 2 pay-downs, then proper): {f1(smart.total)} features and {f1(smart.atDemo)} at
+            <br />Always proper: {f1(allProper.total)} features, but only {f1(allProper.atDemo)} at the demo.
+            <br />Always shortcuts: {f1(allShort.total)} features, ending with {f1(allShort.debt)} debt and a crawling team.
+            <br />Borrow, then repay (2 shortcuts, 1 proper, 2 pay-downs, then proper): {f1(smart.total)} features and {f1(smart.atDemo)} at
             the demo.
           </div>
           <button type="button" className="btn small" onClick={() => setLog([])}>

@@ -141,7 +141,7 @@ const world: World = {
           kind: 'points',
           title: 'At a glance',
           points: [
-            { term: '🇪🇺 GDPR', text: 'EU privacy law. It gives people rights over their data (see it, export it, delete it) and requires you to protect it. It’s a law you follow, not a badge you buy.' },
+            { term: 'GDPR', text: 'EU privacy law. It gives people rights over their data (see it, export it, delete it) and requires you to protect it. It’s a law you follow, not a badge you buy.' },
             { term: 'SOC 2', text: 'An independent audit of your security practices, common in US B2B sales. Type I checks your controls at one moment; Type II checks they worked over months.' },
             { term: 'DPA', text: 'Data processing agreement: a contract saying how you’ll handle a customer’s personal data.' },
             { term: 'Subprocessors', text: 'Vendors that touch customer data for you: hosting, email, error tracking, AI providers. Keep a public list.' },

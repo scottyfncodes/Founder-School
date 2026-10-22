@@ -62,7 +62,7 @@ export function CodeReader({ onDone }: { onDone?: () => void }) {
       </div>
       <p className="tiny muted" aria-live="polite">
         {seen.size === total
-          ? '✅ That’s it: code is just precise instructions, and some of it is borrowed.'
+          ? 'That’s it: code is just precise instructions, and some of it is borrowed.'
           : `${seen.size}/${total} lines translated`}
       </p>
     </div>
@@ -214,7 +214,7 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
             </div>
             {affected.length > 0 ? (
               <button type="button" className="btn primary" onClick={patch}>
-                ⬆️ Update the affected packages
+                Update the affected packages
               </button>
             ) : (
               <button type="button" className="btn" onClick={patch}>

@@ -70,7 +70,7 @@ export function WeakPasswordCase({ onDone }: CaseProps) {
         <>
           <div className="row between">
             <span className="small" style={{ fontWeight: 650 }}>
-              👩 Maya’s account
+              Maya’s account
             </span>
             <span className="pill">
               {account === null ? 'not created' : account === 'weak' ? 'password: password1' : 'passphrase + 2FA'}
@@ -108,7 +108,7 @@ export function WeakPasswordCase({ onDone }: CaseProps) {
                   void bot(api)
                 }}
               >
-                🤖 Run the “top 8 passwords” bot
+                Run the “top 8 passwords” bot
               </button>
               {tried.length > 0 && (
                 <div className="row" style={{ gap: 6 }}>
@@ -183,7 +183,7 @@ export function StolenSessionCase({ onDone }: CaseProps) {
       sandbox={(api) => (
         <>
           <div className="well stack sm" style={{ padding: 10 }}>
-            <div className="tiny muted">👩 Maya’s browser</div>
+            <div className="tiny muted">Maya’s browser</div>
             {loggedIn ? (
               <>
                 <div className="small" style={{ fontWeight: 650 }}>
@@ -218,7 +218,7 @@ export function StolenSessionCase({ onDone }: CaseProps) {
               ))}
               {attacker && (
                 <div className="well stack sm pop" style={{ padding: 10, background: attacker === 'in' ? 'var(--bad-soft)' : 'var(--good-soft)' }}>
-                  <div className="tiny muted">🕵️ Attacker’s browser (pasted the cookie)</div>
+                  <div className="tiny muted">Attacker’s browser (pasted the cookie)</div>
                   <div className="small" style={{ fontWeight: 650 }}>
                     {attacker === 'in' ? 'Welcome back, Maya. No password asked.' : '401 · Please log in.'}
                   </div>
@@ -273,7 +273,7 @@ export function MissingAuthzCase({ onDone }: CaseProps) {
       onDone={onDone}
       sandbox={(api) => (
         <>
-          <div className="tiny muted">Logged in as 🧑‍🍳 Alex (Alex’s Bakery)</div>
+          <div className="tiny muted">Logged in as Alex (Alex’s Bakery)</div>
           <button type="button" className="btn small block" onClick={() => view(1041, api)}>
             Open my invoice #1041
           </button>
@@ -313,7 +313,7 @@ export function MissingAuthzCase({ onDone }: CaseProps) {
                   <div className="tiny">
                     Billed to: {INVOICES[open].company} ({INVOICES[open].owner})
                   </div>
-                  {!INVOICES[open].mine && <div className="tiny bad-text">⚠️ This is not Alex’s data.</div>}
+                  {!INVOICES[open].mine && <div className="tiny bad-text">This is not Alex’s data.</div>}
                 </>
               )}
             </div>
@@ -390,7 +390,7 @@ export function ExposedSecretCase({ onDone }: CaseProps) {
                   setLog([])
                 }}
               >
-                🔍 View page source
+                View page source
               </button>
               {source && (
                 <div className="code pop" key={String(api.fixOn)}>

@@ -188,7 +188,7 @@ export function KeyAudit({ onDone }: { onDone?: () => void }) {
   return (
     <AuditBoard
       items={ACCOUNTS}
-      meterLabel="🔑 Accounts the company truly controls"
+      meterLabel="Accounts the company truly controls"
       riskLabel="At risk"
       fixedLabel="Owned"
       onDone={onDone}

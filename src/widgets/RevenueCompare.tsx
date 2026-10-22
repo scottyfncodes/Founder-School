@@ -8,7 +8,6 @@ import { money, num } from '../lib/util'
 interface Item {
   id: string
   label: string
-  emoji: string
   customers: number
   mrr: number
   cash: number
@@ -16,12 +15,11 @@ interface Item {
 }
 
 const ITEMS: Item[] = [
-  { id: 'basic', emoji: '🙂', label: 'Basic · $10/mo', customers: 1, mrr: 10, cash: 10, explain: 'A monthly subscriber adds exactly their monthly price to MRR.' },
-  { id: 'pro', emoji: '💼', label: 'Pro · $50/mo', customers: 1, mrr: 50, cash: 50, explain: 'A pricier plan raises MRR faster, and pulls ARPU (average revenue per customer) up.' },
-  { id: 'team', emoji: '🏢', label: 'Team · $200/mo', customers: 1, mrr: 200, cash: 200, explain: 'One Team customer is worth 20 Basic customers in MRR.' },
+  { id: 'basic', label: 'Basic · $10/mo', customers: 1, mrr: 10, cash: 10, explain: 'A monthly subscriber adds exactly their monthly price to MRR.' },
+  { id: 'pro', label: 'Pro · $50/mo', customers: 1, mrr: 50, cash: 50, explain: 'A pricier plan raises MRR faster, and pulls ARPU (average revenue per customer) up.' },
+  { id: 'team', label: 'Team · $200/mo', customers: 1, mrr: 200, cash: 200, explain: 'One Team customer is worth 20 Basic customers in MRR.' },
   {
     id: 'annual',
-    emoji: '📅',
     label: 'Annual · $1,200/yr upfront',
     customers: 1,
     mrr: 100,
@@ -30,7 +28,6 @@ const ITEMS: Item[] = [
   },
   {
     id: 'setup',
-    emoji: '🧾',
     label: 'One-time $500 setup fee',
     customers: 0,
     mrr: 0,
@@ -121,7 +118,6 @@ export function MrrBuilder({ onDone }: { onDone?: () => void }) {
 interface Test {
   id: string
   label: string
-  emoji: string
   a: { head: string; text: string; tone: 'good' | 'bad' | 'warn' }
   b: { head: string; text: string; tone: 'good' | 'bad' | 'warn' }
   lesson: string
@@ -130,7 +126,6 @@ interface Test {
 const TESTS: Test[] = [
   {
     id: 'biggest',
-    emoji: '🚪',
     label: 'Your biggest customer leaves',
     a: { head: '−$10 MRR (−0.1%)', text: 'Nobody notices. No customer is more than 0.1% of revenue.', tone: 'good' },
     b: { head: '−$1,000 MRR (−10%)', text: 'A tenth of the company walks out in one email. That’s concentration risk.', tone: 'bad' },
@@ -138,7 +133,6 @@ const TESTS: Test[] = [
   },
   {
     id: 'support',
-    emoji: '🎧',
     label: 'A month of support',
     a: { head: '~250 tickets', text: 'Lots of small “how do I…?” questions. You need help docs and automation, fast.', tone: 'warn' },
     b: { head: '~15 tickets', text: 'Few tickets, but each one expects a reply within hours and a named person.', tone: 'warn' },
@@ -146,7 +140,6 @@ const TESTS: Test[] = [
   },
   {
     id: 'sale',
-    emoji: '🤝',
     label: 'Win one more customer',
     a: { head: 'Minutes, +$10', text: 'They sign up and pay by card on their own. Growth comes from marketing, not meetings.', tone: 'good' },
     b: { head: '1–3 months, +$1,000', text: 'Demos, a security questionnaire, a contract, procurement. You need a sales motion.', tone: 'warn' },
@@ -154,7 +147,6 @@ const TESTS: Test[] = [
   },
   {
     id: 'churn',
-    emoji: '📉',
     label: 'A normal 5% churn month',
     a: { head: '−50 customers, −$500', text: 'Smooth and predictable. You can forecast it almost to the dollar.', tone: 'warn' },
     b: { head: '$0 or −$1,000', text: '5% of 10 is half a customer, so really you lose one or none. Revenue is lumpy and hard to forecast.', tone: 'bad' },
@@ -174,8 +166,8 @@ export function RevenueCompare({ onDone }: { onDone?: () => void }) {
   }
 
   const biz = [
-    { id: 'a', emoji: '🐜', name: 'Many small', line: '1,000 customers × $10/mo' },
-    { id: 'b', emoji: '🐘', name: 'Few big', line: '10 customers × $1,000/mo' },
+    { id: 'a', name: 'Many small', line: '1,000 customers × $10/mo' },
+    { id: 'b', name: 'Few big', line: '10 customers × $1,000/mo' },
   ] as const
 
   return (
@@ -183,9 +175,6 @@ export function RevenueCompare({ onDone }: { onDone?: () => void }) {
       <div className="grid2">
         {biz.map((b) => (
           <div key={b.id} className="card tight flat stack sm">
-            <div style={{ fontSize: 26, lineHeight: 1 }} aria-hidden="true">
-              {b.emoji}
-            </div>
             <div style={{ fontWeight: 700 }}>{b.name}</div>
             <div className="tiny muted">{b.line}</div>
             <div className="pill" style={{ alignSelf: 'flex-start' }}>

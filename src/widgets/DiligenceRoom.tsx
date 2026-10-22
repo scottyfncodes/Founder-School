@@ -165,7 +165,7 @@ export function DiligenceRoom({ onDone }: { onDone?: () => void }) {
   return (
     <AuditBoard
       items={REQUESTS}
-      meterLabel="🗄️ Data room ready"
+      meterLabel="Data room ready"
       riskLabel="Missing"
       fixedLabel="Filed"
       onDone={onDone}

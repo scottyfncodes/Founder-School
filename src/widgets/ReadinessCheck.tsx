@@ -3,15 +3,15 @@ import { wait } from '../lib/motion'
 
 type Sev = 'critical' | 'serious' | 'annoying'
 
-const ITEMS: { id: string; emoji: string; label: string; sev: Sev; day: number; incident: string }[] = [
-  { id: 'secrets', emoji: '🔐', label: 'Move secrets out of the code', sev: 'critical', day: 1, incident: 'A live payment key in the repo gets scraped. Fraudulent refunds start within the hour.' },
-  { id: 'errors', emoji: '🧯', label: 'Handle errors & timeouts', sev: 'serious', day: 1, incident: 'Payment provider is slow. Users see a blank screen, tap “Pay” again, and get charged twice.' },
-  { id: 'authz', emoji: '🛂', label: 'Server-side permission checks', sev: 'critical', day: 2, incident: 'A customer changes a number in the URL and sees another company’s invoices.' },
-  { id: 'edge', emoji: '🧩', label: 'Edge cases (empty, huge, weird input)', sev: 'annoying', day: 2, incident: 'New users with zero projects hit a crash on their very first screen.' },
-  { id: 'limits', emoji: '🚦', label: 'Rate limits on signup & login', sev: 'annoying', day: 3, incident: 'A bot creates 30,000 fake accounts. Your email bill jumps by $900.' },
-  { id: 'monitoring', emoji: '📟', label: 'Monitoring & alerts', sev: 'serious', day: 4, incident: 'The site is down for 6 hours overnight. You find out from a customer’s angry post.' },
-  { id: 'scale', emoji: '🐘', label: 'Test with realistic data volume', sev: 'annoying', day: 6, incident: 'Your biggest customer’s dashboard takes 40 seconds to load. They start a trial elsewhere.' },
-  { id: 'backups', emoji: '🛟', label: 'Backups + a tested restore', sev: 'critical', day: 9, incident: 'A bad migration wipes the notes table. There is no restore. The data is gone.' },
+const ITEMS: { id: string; label: string; sev: Sev; day: number; incident: string }[] = [
+  { id: 'secrets', label: 'Move secrets out of the code', sev: 'critical', day: 1, incident: 'A live payment key in the repo gets scraped. Fraudulent refunds start within the hour.' },
+  { id: 'errors', label: 'Handle errors & timeouts', sev: 'serious', day: 1, incident: 'Payment provider is slow. Users see a blank screen, tap “Pay” again, and get charged twice.' },
+  { id: 'authz', label: 'Server-side permission checks', sev: 'critical', day: 2, incident: 'A customer changes a number in the URL and sees another company’s invoices.' },
+  { id: 'edge', label: 'Edge cases (empty, huge, weird input)', sev: 'annoying', day: 2, incident: 'New users with zero projects hit a crash on their very first screen.' },
+  { id: 'limits', label: 'Rate limits on signup & login', sev: 'annoying', day: 3, incident: 'A bot creates 30,000 fake accounts. Your email bill jumps by $900.' },
+  { id: 'monitoring', label: 'Monitoring & alerts', sev: 'serious', day: 4, incident: 'The site is down for 6 hours overnight. You find out from a customer’s angry post.' },
+  { id: 'scale', label: 'Test with realistic data volume', sev: 'annoying', day: 6, incident: 'Your biggest customer’s dashboard takes 40 seconds to load. They start a trial elsewhere.' },
+  { id: 'backups', label: 'Backups + a tested restore', sev: 'critical', day: 9, incident: 'A bad migration wipes the notes table. There is no restore. The data is gone.' },
 ]
 
 const DAYS = 5
@@ -81,7 +81,7 @@ export function ReadinessCheck({ onDone }: Props) {
         <div className="screen" style={{ minHeight: 0 }}>
           <div className="tiny muted">The demo, on your laptop</div>
           <div className="callout good" style={{ fontSize: 14 }}>
-            ✅ Sign up, create a project, invite a teammate, pay. Everything works.
+            Sign up, create a project, invite a teammate, pay. Everything works.
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export function ReadinessCheck({ onDone }: Props) {
               onClick={() => toggle(i.id)}
               style={{ display: 'flex', gap: 8, alignItems: 'center', opacity: phase === 'plan' && !on && picked.size >= DAYS ? 0.55 : 1 }}
             >
-              <span aria-hidden="true">{on ? '☑️' : '⬜️'}</span>
+              <span aria-hidden="true" style={{ width: 12, fontWeight: 800 }}>{on ? '✓' : '○'}</span>
               <span className="grow">
                 {i.label}
               </span>
@@ -127,7 +127,6 @@ export function ReadinessCheck({ onDone }: Props) {
           <div className="kicker">The first two weeks in production</div>
           {incidents.map((i) => (
             <div key={i.id} className={`node ${SEV[i.sev].tone} pop`} style={{ alignItems: 'flex-start', animation: 'none' }}>
-              <span className="emoji">{i.emoji}</span>
               <span className="grow stack" style={{ gap: 2 }}>
                 <span className="tiny" style={{ fontWeight: 700 }}>
                   Day {i.day} · {SEV[i.sev].label}

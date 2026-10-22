@@ -234,7 +234,7 @@ function Verdict({ s, total, done, runs, best }: { s: Settings; total: number; d
   if (done && s.far && !s.cached && total <= GOAL)
     return (
       <div className="callout good pop">
-        🎉 {fmt(total)} from Sydney. You didn’t buy a faster server: you sent less, asked fewer times, and moved files closer.
+        {fmt(total)} from Sydney. You didn’t buy a faster server: you sent less, asked fewer times, and moved files closer.
         Those are the real speed levers.
       </div>
     )
