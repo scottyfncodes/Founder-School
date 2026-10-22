@@ -5,11 +5,11 @@ import { wait } from '../lib/motion'
    outdated dependencies. Then simulate a realistic attack and see which doors hold. */
 
 const ACCOUNTS = [
-  { id: 'email', emoji: '📧', label: 'Company email' },
-  { id: 'cloud', emoji: '☁️', label: 'Cloud hosting' },
-  { id: 'github', emoji: '🐙', label: 'GitHub' },
-  { id: 'domain', emoji: '🌐', label: 'Domain registrar' },
-  { id: 'payments', emoji: '💳', label: 'Payments dashboard' },
+  { id: 'email', label: 'Company email' },
+  { id: 'cloud', label: 'Cloud hosting' },
+  { id: 'github', label: 'GitHub' },
+  { id: 'domain', label: 'Domain registrar' },
+  { id: 'payments', label: 'Payments dashboard' },
 ]
 
 const PEOPLE = [
@@ -59,25 +59,25 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
     setDoors([])
     const plan: Door[] = [
       ...ACCOUNTS.map((a) => ({
-        label: `${a.emoji} ${a.label}`,
+        label: `${a.label}`,
         open: !mfa[a.id],
         how: mfa[a.id] ? 'Phished password works… but no 2FA code. Blocked.' : 'Phished password works. No 2FA. They’re in.',
       })),
       ...PEOPLE.map((p) => ({
-        label: `👤 ${p.who.split(' · ')[0]}`,
+        label: `${p.who.split(' · ')[0]}`,
         open: !people[p.id],
         how: people[p.id]
           ? p.id === 'jordan'
-            ? 'Access removed — the stolen laptop opens nothing.'
+            ? 'Access removed: the stolen laptop opens nothing.'
             : 'Sam clicked the phishing link, but read-only access can’t change anything.'
           : p.id === 'jordan'
-            ? 'Jordan’s old laptop was stolen — still logged in as Admin.'
+            ? 'Jordan’s old laptop was stolen: still logged in as Admin.'
             : 'Sam clicked a phishing link. Sam had Admin, so the attacker does too.',
       })),
       ...DEPS.map((d) => ({
-        label: `📦 ${d.name}`,
+        label: `${d.name}`,
         open: deps[d.id] !== 'new',
-        how: deps[d.id] === 'new' ? 'Patched — the known flaw is gone.' : 'Automated scanner finds the publicly known flaw within hours.',
+        how: deps[d.id] === 'new' ? 'Patched: the known flaw is gone.' : 'Automated scanner finds the publicly known flaw within hours.',
       })),
     ]
     for (const door of plan) {
@@ -113,7 +113,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
         {ACCOUNTS.map((a) => (
           <div key={a.id} className="row nowrap between">
             <span className="small">
-              {a.emoji} {a.label}
+              {a.label}
             </span>
             <span className="row nowrap" style={{ gap: 8 }}>
               <span className={`tiny ${mfa[a.id] ? 'good-text' : 'bad-text'}`} style={{ whiteSpace: 'nowrap' }}>{mfa[a.id] ? '2FA on' : 'password only'}</span>
@@ -172,7 +172,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
       </section>
 
       <button type="button" className="btn danger block" disabled={running} onClick={() => void attack()}>
-        🎣 Simulate a phishing campaign + scan
+        Simulate a phishing campaign + scan
       </button>
 
       {doors && (
@@ -193,7 +193,7 @@ export function SecurityCheckup({ onDone }: { onDone?: () => void }) {
             <div className={`callout ${openDoors ? 'bad' : 'good'} pop`}>
               {openDoors
                 ? `${openDoors} door${openDoors === 1 ? '' : 's'} open. An attacker only needs one. Fix them and run it again.`
-                : 'Every door held. None of this needed a security team — just habits.'}
+                : 'Every door held. None of this needed a security team, just habits.'}
             </div>
           )}
         </div>

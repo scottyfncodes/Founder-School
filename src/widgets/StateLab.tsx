@@ -52,14 +52,14 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
     setFlash('memory')
     if (device === 'phone' && deviceDraft) {
       setDraft(deviceDraft)
-      setMsg({ tone: 'good', text: 'Refresh wiped memory — but the app found your draft in this browser’s storage and put it back.' })
+      setMsg({ tone: 'good', text: 'Refresh wiped memory, but the app found your draft in this browser’s storage and put it back.' })
     } else {
       const lost = draft.trim()
       setDraft('')
       setMsg(
         lost
           ? { tone: 'bad', text: `Gone: “${lost.slice(0, 40)}${lost.length > 40 ? '…' : ''}”. It only lived in memory, and a refresh wipes memory. Saved notes came back from the server.` }
-          : { tone: 'info', text: 'Memory wiped and rebuilt. Saved notes reloaded from the server — nothing lost because nothing was unsaved.' },
+          : { tone: 'info', text: 'Memory wiped and rebuilt. Saved notes reloaded from the server, nothing lost because nothing was unsaved.' },
       )
     }
     mark('refresh')
@@ -75,7 +75,7 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
       setMsg({
         tone: had ? 'warn' : 'info',
         text: had
-          ? 'Your saved notes are here — they came from the server. Your draft isn’t: memory and device storage stay on the phone.'
+          ? 'Your saved notes are here: they came from the server. Your draft isn’t: memory and device storage stay on the phone.'
           : 'Your saved notes are here, loaded fresh from the server. That’s what “synced” means.',
       })
       mark('laptop')
@@ -171,13 +171,13 @@ export function StateLab({ onDone }: { onDone?: () => void }) {
 
       <div className="grid2">
         <button type="button" className="btn small" onClick={refresh}>
-          🔄 Refresh {did.has('refresh') ? '✓' : ''}
+          Refresh {did.has('refresh') ? '✓' : ''}
         </button>
         <button type="button" className="btn small" onClick={switchDevice}>
-          {device === 'phone' ? '💻 Open on laptop' : '📱 Back to phone'} {did.has('laptop') ? '✓' : ''}
+          {device === 'phone' ? 'Open on laptop' : 'Back to phone'} {did.has('laptop') ? '✓' : ''}
         </button>
         <button type="button" className="btn small" onClick={clearData} disabled={device === 'laptop'} style={{ gridColumn: '1 / -1' }}>
-          🧹 Clear browser data
+          Clear browser data
         </button>
       </div>
 
@@ -277,7 +277,7 @@ export function CacheLab({ onDone }: { onDone?: () => void }) {
         </button>
       </div>
       <button type="button" className="btn small" onClick={rename} disabled={loading || !cached}>
-        ✏️ Alex renames her on another device
+        Alex renames her on another device
       </button>
       <div className="grid2">
         <div className="stat">
@@ -285,25 +285,25 @@ export function CacheLab({ onDone }: { onDone?: () => void }) {
           <span className="l">🗄️ Server says</span>
         </div>
         <div className="stat">
-          <span className="v small" style={{ fontSize: 15 }}>{cached ?? '—'}</span>
+          <span className="v small" style={{ fontSize: 15 }}>{cached ?? '-'}</span>
           <span className="l">⚡ Phone’s cached copy</span>
         </div>
       </div>
       <div aria-live="polite">
         {stale && (
           <div className="callout warn pop">
-            Stale! The cache answered instantly — with yesterday’s truth. Caches trade freshness for speed. Pull to refresh to ask
+            Stale! The cache answered instantly, with yesterday’s truth. Caches trade freshness for speed. Pull to refresh to ask
             the server again.
           </div>
         )}
         {!stale && fired && (
           <div className="callout good pop">
-            Fresh again. Real apps set a cache “expiry” and clear it when data changes — and stale caches are behind many “but I
+            Fresh again. Real apps set a cache “expiry” and clear it when data changes, and stale caches are behind many “but I
             already changed it!” bug reports.
           </div>
         )}
         {!stale && !fired && shown?.from === 'cache' && (
-          <div className="callout info pop">Instant — the phone kept a copy, so it didn’t ask the server. Now have Alex rename her.</div>
+          <div className="callout info pop">Instant: the phone kept a copy, so it didn’t ask the server. Now have Alex rename her.</div>
         )}
         {!stale && !fired && shown?.from === 'server' && !cached?.includes('Garcia') && (
           <div className="callout info pop">That took 1.2 s because it went to the server. Open it again.</div>

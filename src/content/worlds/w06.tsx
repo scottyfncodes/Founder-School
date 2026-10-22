@@ -9,7 +9,6 @@ const world: World = {
   num: 6,
   title: 'Deployment + Cloud',
   tagline: 'Hosting, secrets, cloud bills and architecture.',
-  emoji: '☁️',
   color: '#e8590c',
   skill: 'architecture',
   concepts: [
@@ -27,14 +26,13 @@ const world: World = {
     {
       id: 'w6-deploy',
       title: 'Press DEPLOY',
-      subtitle: 'From your laptop to the live website — and reading the logs when it fails.',
+      subtitle: 'From your laptop to the live website, and reading the logs when it fails.',
       minutes: 8,
       concepts: ['deployment', 'build-step', 'hosting-platform'],
       unlocks: ['hosting'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🚀',
           title: 'Deploying: getting code onto the live website',
           what: 'A deploy takes the code in GitHub, checks it, builds it into something runnable, and swaps it onto the hosting servers your customers use.',
           why: 'Code on a laptop helps nobody. Deploys should be automatic and boring, so shipping is safe enough to do every day.',
@@ -42,17 +40,17 @@ const world: World = {
         {
           kind: 'widget',
           title: 'Your deploy console',
-          instruction: 'Press DEPLOY. Then run the next two deploys, read the logs, and find where — and why — each one failed.',
+          instruction: 'Press DEPLOY. Then run the next two deploys, read the logs, and find where (and why) each one failed.',
           render: ({ done }) => <DeployConsole onDone={done} />,
         },
         {
           kind: 'points',
           title: 'The stages, decoded',
           points: [
-            { term: '🏗️ Build', text: 'Turns your source code into the files that actually run: installs packages, bundles, compresses.' },
-            { term: '🏠 Hosting', text: 'The rented computers that run your app, from platforms like Vercel, Render, Fly or AWS.' },
-            { term: '💓 Health check', text: 'The host pings the new version before sending it customers. Not healthy → the old version stays.' },
-            { term: '📜 Deploy log', text: 'A line-by-line diary of the deploy. The first red line is usually the real cause.' },
+            { term: 'Build', text: 'Turns your source code into the files that actually run: installs packages, bundles, compresses.' },
+            { term: 'Hosting', text: 'The rented computers that run your app, from platforms like Vercel, Render, Fly or AWS.' },
+            { term: 'Health check', text: 'The host pings the new version before sending it customers. Not healthy → the old version stays.' },
+            { term: 'Deploy log', text: 'A line-by-line diary of the deploy. The first red line is usually the real cause.' },
           ],
         },
         {
@@ -75,7 +73,7 @@ const world: World = {
           level: 3,
           concepts: ['deployment', 'hosting-platform', 'build-step'],
           options: [
-            { text: '“Try deploying again — maybe it was a glitch.”', why: 'If it fails the same way twice, it’s not a glitch. Retrying wastes time.' },
+            { text: '“Try deploying again: maybe it was a glitch.”', why: 'If it fails the same way twice, it’s not a glitch. Retrying wastes time.' },
             { text: '“Paste the first error line from the deploy log and tell me which stage it’s in.”', correct: true, why: 'The log says exactly what failed. “Works on my machine” usually means the laptop has a package or setting the clean server doesn’t.' },
             { text: '“Switch hosting providers.”', why: 'The same missing package or setting would fail on any provider. Diagnose before you move.' },
           ],
@@ -88,8 +86,8 @@ const world: World = {
           level: 3,
           concepts: ['hosting-platform', 'deployment'],
           options: [
-            { text: 'Raw servers — they’re cheaper per hour', why: 'The hourly price is lower, but you pay in engineering time: security updates, deploy scripts, scaling, 3am restarts.' },
-            { text: 'The managed platform — automatic deploys, rollbacks and scaling, so your time goes into the product', correct: true, why: 'For small teams, engineering hours are the scarcest resource. Revisit when the bill is big enough to justify a dedicated person.' },
+            { text: 'Raw servers: they’re cheaper per hour', why: 'The hourly price is lower, but you pay in engineering time: security updates, deploy scripts, scaling, 3am restarts.' },
+            { text: 'The managed platform: automatic deploys, rollbacks and scaling, so your time goes into the product', correct: true, why: 'For small teams, engineering hours are the scarcest resource. Revisit when the bill is big enough to justify a dedicated person.' },
             { text: 'A server in the office', why: 'One power cut or broken router takes your company offline. Cloud hosting exists so you don’t have to run a data centre.' },
           ],
         },
@@ -97,7 +95,7 @@ const world: World = {
           kind: 'care',
           points: [
             'If deploying is scary or manual, you’ll ship less often and in bigger, riskier chunks. Make it a button.',
-            'You should be able to see your deploy logs and do a rollback yourself — not only through one engineer.',
+            'You should be able to see your deploy logs and do a rollback yourself, not only through one engineer.',
             'Hosting is usually the biggest line of your cloud bill. Know which provider, which plan, and who has the login.',
           ],
         },
@@ -115,10 +113,9 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🎭',
           title: 'Rehearsal, dress rehearsal, opening night',
           what: 'Most apps run in several environments: development (a laptop), staging (a private copy of the real thing) and production (what customers use). Same code, different settings and data.',
-          why: 'You need somewhere to break things that isn’t in front of paying customers — and a final check that matches reality closely.',
+          why: 'You need somewhere to break things that isn’t in front of paying customers, and a final check that matches reality closely.',
         },
         {
           kind: 'widget',
@@ -128,7 +125,6 @@ const world: World = {
         },
         {
           kind: 'concept',
-          emoji: '🔐',
           title: 'Secrets live outside the code',
           what: 'Secrets are passwords and API keys your app needs: the database password, the payments key. They’re stored as environment variables in the hosting platform, never written in the code.',
           why: 'Code gets copied everywhere: laptops, GitHub, AI tools, contractors. Anything in the code should be considered public eventually.',
@@ -147,7 +143,7 @@ const world: World = {
           concepts: ['environments'],
           options: [
             { text: 'To make deploys take longer, for safety', why: 'Slowness isn’t the goal. Realism is.' },
-            { text: 'Because it matches production closely — real settings, real services — without real customers', correct: true, why: 'Laptops differ from servers in a hundred small ways. Staging catches “works on my machine” before customers do.' },
+            { text: 'Because it matches production closely (real settings, real services) without real customers', correct: true, why: 'Laptops differ from servers in a hundred small ways. Staging catches “works on my machine” before customers do.' },
             { text: 'So customers can try features early', why: 'That’s a beta or feature flag. Staging is for your team, not customers.' },
           ],
         },
@@ -159,10 +155,10 @@ const world: World = {
           level: 3,
           concepts: ['secrets-mgmt'],
           options: [
-            { text: 'Nothing — the comment is deleted', why: 'Bots scan GitHub for keys within seconds. Deleting it doesn’t unlearn it from anyone who already copied it.' },
+            { text: 'Nothing: the comment is deleted', why: 'Bots scan GitHub for keys within seconds. Deleting it doesn’t unlearn it from anyone who already copied it.' },
             { text: 'Rotate the key immediately: issue a new one, revoke the old one, update the hosting settings', correct: true, why: 'Once a secret has been visible, treat it as stolen. Rotation makes the leaked copy useless, and takes minutes.' },
             { text: 'Make the repository private', why: 'Good hygiene, but the key has already been seen. Only revoking it stops its use.' },
-            { text: 'Ask the contractor to be more careful', why: 'Worth saying — after the key is rotated. The key is the emergency.' },
+            { text: 'Ask the contractor to be more careful', why: 'Worth saying, after the key is rotated. The key is the emergency.' },
           ],
         },
         {
@@ -173,16 +169,16 @@ const world: World = {
           level: 4,
           concepts: ['environments', 'secrets-mgmt'],
           options: [
-            { text: 'Great idea — the more real the better', why: 'Staging usually has weaker security and more people with access. Real customer data there is a leak waiting to happen, and may break privacy promises.' },
+            { text: 'Great idea: the more real the better', why: 'Staging usually has weaker security and more people with access. Real customer data there is a leak waiting to happen, and may break privacy promises.' },
             { text: 'Copy the shape and volume, but scramble names, emails and payment details first', correct: true, why: 'Realistic size and structure catch the bugs; anonymized contents protect customers. You get most of the benefit with little of the risk.' },
-            { text: 'Never use realistic data — 10 fake rows is enough', why: 'Tiny fake datasets miss real problems: slow queries at scale, odd characters in names, missing fields.' },
+            { text: 'Never use realistic data: 10 fake rows is enough', why: 'Tiny fake datasets miss real problems: slow queries at scale, odd characters in names, missing fields.' },
           ],
         },
         {
           kind: 'care',
           points: [
             'Every “oops, that was production” story starts with environments that look too alike. Make production obviously different.',
-            'Never paste secrets into code, chats, screenshots or AI prompts. If one leaks, rotate it — today.',
+            'Never paste secrets into code, chats, screenshots or AI prompts. If one leaks, rotate it: today.',
             'Know where your secrets live and who can read them. It’s a short list, and it should stay short.',
           ],
         },
@@ -199,10 +195,9 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🧾',
           title: 'A cloud bill is a usage meter',
-          what: 'Each line on a cloud bill is something you rent: servers, a database, storage, data transfer, and third-party services like email and AI — mostly priced by how much you use.',
-          why: 'You don’t buy hardware up front, so it’s cheap to start. But costs grow with success — and with mistakes — automatically.',
+          what: 'Each line on a cloud bill is something you rent: servers, a database, storage, data transfer, and third-party services like email and AI: mostly priced by how much you use.',
+          why: 'You don’t buy hardware up front, so it’s cheap to start. But costs grow with success (and with mistakes) automatically.',
         },
         {
           kind: 'widget',
@@ -231,9 +226,9 @@ const world: World = {
           level: 3,
           concepts: ['cloud-costs'],
           options: [
-            { text: 'Nothing — $0.40 is tiny', why: 'It’s 8% of revenue for one feature, and heavy users might cost 10× the average. It adds up fast.' },
-            { text: 'Whether heavy users could cost more than they pay — and whether you need usage limits or a higher tier', correct: true, why: 'Usage-priced features turn your best customers into your most expensive. Price and limit them on purpose.' },
-            { text: 'Remove the feature immediately', why: 'It may be your best feature. Understand the costs first, then price it — don’t panic.' },
+            { text: 'Nothing: $0.40 is tiny', why: 'It’s 8% of revenue for one feature, and heavy users might cost 10× the average. It adds up fast.' },
+            { text: 'Whether heavy users could cost more than they pay, and whether you need usage limits or a higher tier', correct: true, why: 'Usage-priced features turn your best customers into your most expensive. Price and limit them on purpose.' },
+            { text: 'Remove the feature immediately', why: 'It may be your best feature. Understand the costs first, then price it: don’t panic.' },
           ],
         },
         {
@@ -245,7 +240,7 @@ const world: World = {
           options: [
             { text: 'Managed databases are sold in plan sizes; outgrowing one means paying for the next size up', correct: true, why: 'Unlike per-request pricing, databases come in tiers. Knowing when you’ll hit the next one helps you plan costs.' },
             { text: 'The database charges per user', why: 'Most managed databases charge for size and power, not users. More users just push you into a bigger tier.' },
-            { text: 'It’s a bug in the simulator', why: 'It’s intentional — real database pricing really does jump in steps.' },
+            { text: 'It’s a bug in the simulator', why: 'It’s intentional: real database pricing really does jump in steps.' },
           ],
         },
         {
@@ -263,13 +258,12 @@ const world: World = {
     {
       id: 'w6-architecture',
       title: 'Monolith vs. services vs. serverless',
-      subtitle: 'Four ways to shape an app — and which one fits 50 users or 10 million.',
+      subtitle: 'Four ways to shape an app, and which one fits 50 users or 10 million.',
       minutes: 9,
       concepts: ['arch-styles', 'scale-tradeoffs'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🏗️',
           title: 'Architecture: how the pieces are arranged',
           what: 'Architecture is how your app is split up: one big program, many small services, or functions that run on demand. All of them are client/server underneath.',
           why: 'The choice decides how fast you can ship, what it costs, and what breaks. Choosing the “big company” option too early is one of the most expensive startup mistakes.',
@@ -306,7 +300,7 @@ const world: World = {
           level: 3,
           concepts: ['arch-styles', 'scale-tradeoffs'],
           options: [
-            { text: '“Great — let’s be ready for scale from day one.”', why: 'You’d pay the complexity cost every day for a scale problem you may never have. Most startups die of slowness, not of too many users.' },
+            { text: '“Great: let’s be ready for scale from day one.”', why: 'You’d pay the complexity cost every day for a scale problem you may never have. Most startups die of slowness, not of too many users.' },
             { text: '“Start with one well-organized monolith. We’ll split out pieces if a specific one needs it.”', correct: true, why: 'A monolith with clean internal boundaries is fast to build and easy to change. Splitting later, with real data on what needs scaling, is far cheaper.' },
             { text: '“Use 20 services, to be extra safe.”', why: 'More services means more network calls, deploys and things to monitor. It’s the opposite of safe for a small team.' },
           ],
@@ -319,10 +313,10 @@ const world: World = {
           level: 4,
           concepts: ['scale-tradeoffs', 'arch-styles'],
           options: [
-            { text: 'Approve the rewrite — slowness means the architecture is wrong', why: 'Rewrites take months, freeze features and introduce new bugs. Slowness at this size almost always has a cheaper cause.' },
-            { text: 'First measure where the time goes; fix the slow queries, add indexes and caching, or upgrade the database — then revisit if one part still can’t keep up', correct: true, why: 'Most slowness lives in a few hot spots. Targeted fixes buy years. If one piece really needs separate scaling, split just that piece out.' },
-            { text: 'Switch everything to serverless', why: 'Changing the hosting model doesn’t fix a slow database query — it moves it somewhere else.' },
-            { text: 'Ignore it — users will get used to it', why: 'Slow apps lose customers quietly. It’s worth fixing — just with the cheapest effective fix.' },
+            { text: 'Approve the rewrite: slowness means the architecture is wrong', why: 'Rewrites take months, freeze features and introduce new bugs. Slowness at this size almost always has a cheaper cause.' },
+            { text: 'First measure where the time goes; fix the slow queries, add indexes and caching, or upgrade the database, then revisit if one part still can’t keep up', correct: true, why: 'Most slowness lives in a few hot spots. Targeted fixes buy years. If one piece really needs separate scaling, split just that piece out.' },
+            { text: 'Switch everything to serverless', why: 'Changing the hosting model doesn’t fix a slow database query: it moves it somewhere else.' },
+            { text: 'Ignore it: users will get used to it', why: 'Slow apps lose customers quietly. It’s worth fixing, just with the cheapest effective fix.' },
           ],
         },
         {

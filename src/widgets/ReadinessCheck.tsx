@@ -5,7 +5,7 @@ type Sev = 'critical' | 'serious' | 'annoying'
 
 const ITEMS: { id: string; emoji: string; label: string; sev: Sev; day: number; incident: string }[] = [
   { id: 'secrets', emoji: '🔐', label: 'Move secrets out of the code', sev: 'critical', day: 1, incident: 'A live payment key in the repo gets scraped. Fraudulent refunds start within the hour.' },
-  { id: 'errors', emoji: '🧯', label: 'Handle errors & timeouts', sev: 'serious', day: 1, incident: 'Payment provider is slow. Users see a blank screen, tap “Pay” again — and get charged twice.' },
+  { id: 'errors', emoji: '🧯', label: 'Handle errors & timeouts', sev: 'serious', day: 1, incident: 'Payment provider is slow. Users see a blank screen, tap “Pay” again, and get charged twice.' },
   { id: 'authz', emoji: '🛂', label: 'Server-side permission checks', sev: 'critical', day: 2, incident: 'A customer changes a number in the URL and sees another company’s invoices.' },
   { id: 'edge', emoji: '🧩', label: 'Edge cases (empty, huge, weird input)', sev: 'annoying', day: 2, incident: 'New users with zero projects hit a crash on their very first screen.' },
   { id: 'limits', emoji: '🚦', label: 'Rate limits on signup & login', sev: 'annoying', day: 3, incident: 'A bot creates 30,000 fake accounts. Your email bill jumps by $900.' },
@@ -109,7 +109,7 @@ export function ReadinessCheck({ onDone }: Props) {
             >
               <span aria-hidden="true">{on ? '☑️' : '⬜️'}</span>
               <span className="grow">
-                {i.emoji} {i.label}
+                {i.label}
               </span>
             </button>
           )
@@ -118,7 +118,7 @@ export function ReadinessCheck({ onDone }: Props) {
 
       {phase === 'plan' && (
         <button type="button" className="btn primary block" disabled={picked.size === 0} onClick={launch}>
-          🚀 Launch {picked.size < DAYS ? `(${DAYS - picked.size} day${DAYS - picked.size === 1 ? '' : 's'} unused)` : ''}
+          Launch {picked.size < DAYS ? `(${DAYS - picked.size} day${DAYS - picked.size === 1 ? '' : 's'} unused)` : ''}
         </button>
       )}
 
@@ -143,10 +143,10 @@ export function ReadinessCheck({ onDone }: Props) {
             <div className="stack sm pop">
               <div className={`callout ${crit ? 'bad' : serious ? 'warn' : 'good'}`}>
                 {crit
-                  ? `${crit} critical incident${crit > 1 ? 's' : ''}: data leaked, money lost or data gone. These are the ones that end companies — they come first.`
+                  ? `${crit} critical incident${crit > 1 ? 's' : ''}: data leaked, money lost or data gone. These are the ones that end companies: they come first.`
                   : serious
-                    ? 'No critical incidents — good prioritizing. A serious one still hurt. With limited time, that’s a fair trade.'
-                    : 'Only annoyances. You protected money, data and trust first — exactly the right order.'}
+                    ? 'No critical incidents: good prioritizing. A serious one still hurt. With limited time, that’s a fair trade.'
+                    : 'Only annoyances. You protected money, data and trust first: exactly the right order.'}
               </div>
               <p className="small muted">Every one of these apps “worked”. Production-ready means it keeps working when real people, real data and real failures show up.</p>
               <button type="button" className="btn small" onClick={again}>

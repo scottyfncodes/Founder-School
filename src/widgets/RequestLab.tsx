@@ -9,7 +9,7 @@ const PARTS = [
   { id: 'scheme', text: 'https://', name: 'Scheme', say: 'How to talk: “https” means the secure, encrypted way. Plain “http” is readable by anyone in between.' },
   { id: 'domain', text: 'app.acme.com', name: 'Domain', say: 'Which company’s servers to ask. Your browser looks this name up in DNS to find the real address.' },
   { id: 'path', text: '/contacts/482', name: 'Path', say: 'Which thing you want: the contacts collection, item number 482. Like a street address inside the app.' },
-  { id: 'query', text: '?tab=notes', name: 'Query', say: 'Extra options for this request — here, “open the Notes tab”. Never put secrets here: URLs get logged and shared.' },
+  { id: 'query', text: '?tab=notes', name: 'Query', say: 'Extra options for this request: here, “open the Notes tab”. Never put secrets here: URLs get logged and shared.' },
 ]
 
 export function UrlAnatomy({ onDone }: { onDone?: () => void }) {
@@ -70,9 +70,9 @@ const REQS = [
 ] as const
 
 const WHO = [
-  { id: 'none', label: '🚪 Logged out' },
-  { id: 'alex', label: '🙂 Alex (user)' },
-  { id: 'scott', label: '👑 Scott (admin)' },
+  { id: 'none', label: 'Logged out' },
+  { id: 'alex', label: 'Alex (user)' },
+  { id: 'scott', label: 'Scott (admin)' },
 ] as const
 
 type ReqId = (typeof REQS)[number]['id']
@@ -89,12 +89,12 @@ interface Resp {
 const CODES = [200, 201, 401, 403, 404, 500]
 
 function respond(req: ReqId, who: WhoId, bug: boolean): Resp {
-  if (bug) return { code: 500, name: 'Internal Server Error', plain: 'The server tripped over its own code. Not your fault, user — ours.', screen: '😵 Something went wrong on our end.', tone: 'bad' }
+  if (bug) return { code: 500, name: 'Internal Server Error', plain: 'The server tripped over its own code. Not your fault, user: ours.', screen: '😵 Something went wrong on our end.', tone: 'bad' }
   if (who === 'none') return { code: 401, name: 'Unauthorized', plain: '“I don’t know who you are.” Log in first.', screen: '🔑 Please log in to continue.', tone: 'warn' }
-  if (req === 'admin' && who !== 'scott') return { code: 403, name: 'Forbidden', plain: '“I know who you are, Alex — and you’re not allowed in here.”', screen: '⛔ You don’t have access to this page.', tone: 'warn' }
+  if (req === 'admin' && who !== 'scott') return { code: 403, name: 'Forbidden', plain: '“I know who you are, Alex, and you’re not allowed in here.”', screen: '⛔ You don’t have access to this page.', tone: 'warn' }
   if (req === 'missing') return { code: 404, name: 'Not Found', plain: '“There’s no contact 999.” The address points at nothing.', screen: '🤷 Contact not found.', tone: 'warn' }
   if (req === 'post') return { code: 201, name: 'Created', plain: '“Saved it. The new contact is #483.”', screen: '✅ Contact saved', tone: 'good' }
-  if (req === 'del') return { code: 200, name: 'OK', plain: '“Done — Maria is deleted.”', screen: '🗑️ Maria Lopez deleted', tone: 'good' }
+  if (req === 'del') return { code: 200, name: 'OK', plain: '“Done: Maria is deleted.”', screen: '🗑️ Maria Lopez deleted', tone: 'good' }
   if (req === 'admin') return { code: 200, name: 'OK', plain: '“Here are all 1,204 users.”', screen: '👥 1,204 users', tone: 'good' }
   return { code: 200, name: 'OK', plain: '“Here’s Maria: maria@skyways.aero, Denver.”', screen: '👤 Maria Lopez · Denver', tone: 'good' }
 }
@@ -191,7 +191,7 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
           <button type="button" role="switch" aria-checked={bug} aria-label="Server has a bug" className="switch" disabled={busy} onClick={() => setBug(!bug)} />
         </div>
         <div className="row nowrap between">
-          <span className="small">🔒 Use HTTPS (encrypted)</span>
+          <span className="small">Use HTTPS (encrypted)</span>
           <button type="button" role="switch" aria-checked={https} aria-label="Use HTTPS" className="switch" disabled={busy} onClick={() => setHttps(!https)} />
         </div>
       </div>
@@ -221,7 +221,7 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
               {`${shownReq.method} ${shownReq.path}\nHost: app.acme.com\nCookie: ${cookieFor(resp.who)}\n\n→ ${resp.code} ${resp.name}`}
             </div>
             <div className={`callout ${resp.tone}`}>
-              <b className="mono">{resp.code}</b> — {resp.plain}
+              <b className="mono">{resp.code}</b>: {resp.plain}
             </div>
             <div className="phone">
               <div className="screen" style={{ minHeight: 70 }}>
@@ -230,7 +230,7 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
               </div>
             </div>
             <div className={`callout ${resp.https ? 'good' : 'bad'} small`}>
-              <b>👀 Someone on the same café Wi‑Fi sees:</b>
+              <b>Someone on the same café Wi‑Fi sees:</b>
               <div className="mono tiny" style={{ marginTop: 4, overflowWrap: 'anywhere' }}>
                 {resp.https
                   ? 'app.acme.com · 8f3a 91c0 e27b 4d1f 0a6e … (scrambled)'
@@ -240,8 +240,8 @@ export function RequestLab({ onDone }: { onDone?: () => void }) {
                 {resp.https
                   ? 'Only which site you visited. Everything else is encrypted.'
                   : resp.who === 'none'
-                    ? 'Everything — including any password you type on the login page.'
-                    : 'Everything — including the session cookie, which lets them act as you.'}
+                    ? 'Everything, including any password you type on the login page.'
+                    : 'Everything, including the session cookie, which lets them act as you.'}
               </div>
             </div>
           </div>

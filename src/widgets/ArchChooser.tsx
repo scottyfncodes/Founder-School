@@ -28,7 +28,7 @@ const STYLES: Record<
   monolith: {
     emoji: '🏛️',
     name: 'Monolith',
-    what: 'One app, one codebase, deployed as one unit (often on a few identical servers). Everything — users, billing, search — lives together.',
+    what: 'One app, one codebase, deployed as one unit (often on a few identical servers). Everything (users, billing, search) lives together.',
     boxes: ['📱 Client', '🏛️ The app (all features)', '🗄️ Database'],
     scores: { simple: 5, cost: 4, scale: 3, reliable: 3, ops: 2 },
     best: 'Most startups, from day one to well past 10,000 users. Shopify and GitHub grew huge on monoliths.',
@@ -37,7 +37,7 @@ const STYLES: Record<
   services: {
     emoji: '🧩',
     name: 'Services (microservices)',
-    what: 'Many small apps — users, billing, search, notifications — each deployed separately and talking over the network.',
+    what: 'Many small apps (users, billing, search, notifications) each deployed separately and talking over the network.',
     boxes: ['📱 Client', '🚪 Gateway', '👤 Users', '💳 Billing', '🔎 Search', '🗄️ DB per service'],
     scores: { simple: 1, cost: 2, scale: 5, reliable: 4, ops: 5 },
     best: 'Large companies with many teams, or parts with wildly different load. Each team owns and ships its piece.',
@@ -69,8 +69,8 @@ const SCENARIOS: Scenario[] = [
     title: '50 users',
     detail: 'You and an AI agent. Launching next month. Still figuring out what customers want.',
     verdict: {
-      monolith: { tone: 'good', text: 'Best fit. One codebase, one deploy, one place to look when it breaks. You’ll change direction often — keep it simple.' },
-      serverless: { tone: 'warn', text: 'Also reasonable — near-zero cost at this size. Just watch that features don’t scatter across dozens of functions.' },
+      monolith: { tone: 'good', text: 'Best fit. One codebase, one deploy, one place to look when it breaks. You’ll change direction often: keep it simple.' },
+      serverless: { tone: 'warn', text: 'Also reasonable: near-zero cost at this size. Just watch that features don’t scatter across dozens of functions.' },
       services: { tone: 'bad', text: 'Massive overkill. You’d spend your launch month wiring services together instead of talking to customers.' },
     },
   },
@@ -103,7 +103,7 @@ const SCENARIOS: Scenario[] = [
     detail: 'Quiet all week. Then 200,000 people arrive at 10:00 on Friday for concert tickets.',
     verdict: {
       serverless: { tone: 'good', text: 'Made for this: scales up in seconds for the rush and costs almost nothing during the quiet week.' },
-      monolith: { tone: 'warn', text: 'Works if you pre-scale servers before Friday — but you pay for idle capacity, and guessing wrong means crashing at 10:00.' },
+      monolith: { tone: 'warn', text: 'Works if you pre-scale servers before Friday, but you pay for idle capacity, and guessing wrong means crashing at 10:00.' },
       services: { tone: 'bad', text: 'Doesn’t solve the spike by itself, and adds lots of moving parts that can fail under exactly that pressure.' },
     },
   },
@@ -220,7 +220,7 @@ export function ArchScenarios({ onDone }: { onDone?: () => void }) {
             style={{ padding: '6px 10px' }}
           >
             <span className="small">
-              {x.emoji} {x.title} {answers[x.id] ? '✓' : ''}
+              {x.title} {answers[x.id] ? '✓' : ''}
             </span>
           </button>
         ))}
@@ -245,8 +245,8 @@ export function ArchScenarios({ onDone }: { onDone?: () => void }) {
                   className={`chip ${isPicked ? (v.tone === 'good' ? 'good' : v.tone === 'bad' ? 'bad' : 'on') : reveal && o === bestId ? 'good' : ''}`}
                   onClick={() => choose(o)}
                 >
-                  {STYLES[o].emoji} {STYLES[o].name}
-                  {reveal && o === bestId ? ' — best fit' : ''}
+                  {STYLES[o].name}
+                  {reveal && o === bestId ? ': best fit' : ''}
                 </button>
                 {reveal && (isPicked || o === bestId) && (
                   <div className={`callout ${v.tone} small`}>{v.text}</div>
@@ -264,7 +264,7 @@ export function ArchScenarios({ onDone }: { onDone?: () => void }) {
       )}
       {SCENARIOS.every((x) => answers[x.id]) && (
         <div className="callout info small pop">
-          Pattern: start simple, and split things up only when a specific pain — team size, very uneven load — makes the
+          Pattern: start simple, and split things up only when a specific pain (team size, very uneven load) makes the
           extra complexity worth paying for.
         </div>
       )}

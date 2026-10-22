@@ -49,12 +49,6 @@
   padding: 12px 14px;
 }
 
-.cap .cap-opt .e {
-  font-size: 24px;
-  line-height: 1.1;
-  flex: none;
-}
-
 .cap .cap-hero {
   background: linear-gradient(160deg, var(--accent-soft), var(--surface) 70%);
 }

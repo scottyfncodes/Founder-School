@@ -22,7 +22,6 @@ export interface VulnApi {
 }
 
 interface Props {
-  emoji: string
   name: string
   /** Beat 1 — what the developer meant to happen. */
   intended: string
@@ -41,7 +40,7 @@ interface Props {
 
 const BEATS = ['Intended', 'What happened', 'The fix']
 
-export function VulnCase({ emoji, name, intended, happened, fixName, fixText, blocked, url, sandbox, onDone }: Props) {
+export function VulnCase({ name, intended, happened, fixName, fixText, blocked, url, sandbox, onDone }: Props) {
   const [stage, setStage] = useState<VulnApi['stage']>(0)
   const [fixOn, setFixOn] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -65,11 +64,11 @@ export function VulnCase({ emoji, name, intended, happened, fixName, fixText, bl
   const api: VulnApi = { stage, fixOn, busy, setBusy, report, last }
   const hint =
     stage === 0
-      ? 'Step 1 — use the app the way the developer expected.'
+      ? 'Step 1: use the app the way the developer expected.'
       : stage === 1
-        ? 'Step 2 — now try the attack.'
+        ? 'Step 2: now try the attack.'
         : stage === 2 && !fixOn
-          ? 'Step 3 — switch the fix on, then try the attack again.'
+          ? 'Step 3: switch the fix on, then try the attack again.'
           : stage === 2
             ? 'Fix is on. Run the same attack again.'
             : 'Done. Flip the fix off and on to compare, if you like.'
@@ -101,7 +100,7 @@ export function VulnCase({ emoji, name, intended, happened, fixName, fixText, bl
 
       <div className="callout info small">
         <div className="kicker" style={{ color: 'var(--info)' }}>
-          {emoji} {name} · What the developer intended
+          {name} · What the developer intended
         </div>
         {intended}
       </div>
@@ -151,13 +150,13 @@ export function VulnCase({ emoji, name, intended, happened, fixName, fixText, bl
       <div aria-live="polite">
         {last === 'breach' && (
           <div className="callout bad pop">
-            <b>💥 What actually happened: </b>
+            <b>What actually happened: </b>
             {happened}
           </div>
         )}
         {last === 'blocked' && (
           <div className="callout good pop">
-            <b>🔒 Blocked. </b>
+            <b>Blocked. </b>
             {blocked}
           </div>
         )}

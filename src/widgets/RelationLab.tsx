@@ -75,21 +75,21 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
             after by <b>{owner?.[1]}</b> <span className="mono tiny">(owner_id {contact[4]} → USERS)</span>
           </div>
           {notes.length + docs.length === 0 && (
-            <div className="tiny muted">Nothing points to this contact yet — that’s fine. A contact can have zero notes.</div>
+            <div className="tiny muted">Nothing points to this contact yet: that’s fine. A contact can have zero notes.</div>
           )}
         </div>
       )}
 
       <div className="stack sm">
-        <div className="kicker">📝 NOTES — each note points to one contact</div>
+        <div className="kicker">NOTES: each note points to one contact</div>
         <DbTable compact table={NOTES} caption="Notes" cellStyle={mine('contact_id')} />
       </div>
       <div className="stack sm">
-        <div className="kicker">📄 DOCUMENTS</div>
+        <div className="kicker">DOCUMENTS</div>
         <DbTable compact table={DOCUMENTS} caption="Documents" cellStyle={mine('contact_id')} />
       </div>
       <div className="stack sm">
-        <div className="kicker">🔗 AIRCRAFT_OWNERS — links contacts and planes</div>
+        <div className="kicker">AIRCRAFT_OWNERS: links contacts and planes</div>
         <DbTable compact table={OWNERS} caption="Aircraft owners" cellStyle={(c, r) => (sel === null ? undefined : r[0] !== sel ? dim : c === 'contact_id' ? fk : undefined)} />
       </div>
 
@@ -106,8 +106,8 @@ export function RelationExplorer({ onDone }: { onDone?: () => void }) {
             ✈️ {planes.map((p) => `${p[1]} (${p[2]})`).join(', ')}
             {shared.length > 0 && (
               <>
-                {' '}
-                — and {shared.map((s) => `${s.plane[1]} also belongs to ${s.others.map((o) => nameOf(o[0])).join(', ')}`).join('; ')}. People
+                {', and '}
+                {shared.map((s) => `${s.plane[1]} also belongs to ${s.others.map((o) => nameOf(o[0])).join(', ')}`).join('; ')}. People
                 own many planes, planes have many owners: <b>many-to-many</b>, which needs the link table.
               </>
             )}
@@ -179,7 +179,7 @@ export function DeleteRules({ onDone }: { onDone?: () => void }) {
         </div>
       </div>
       <button type="button" className="btn danger" onClick={del}>
-        🗑 Delete Maria Lopez (id 101)
+        Delete Maria Lopez (id 101)
       </button>
 
       <DbTable compact
@@ -195,19 +195,19 @@ export function DeleteRules({ onDone }: { onDone?: () => void }) {
       <div aria-live="polite">
         {ran === 'none' && (
           <div className="callout bad pop">
-            Maria is gone, but 2 notes and 2 documents still say <span className="mono">contact_id = 101</span> — pointing at nobody. These
+            Maria is gone, but 2 notes and 2 documents still say <span className="mono">contact_id = 101</span>: pointing at nobody. These
             “orphans” cause blank screens and errors, and her files linger.
           </div>
         )}
         {ran === 'block' && (
           <div className="callout good pop">
-            Refused: “2 notes and 2 documents still point to contact 101.” Nothing deleted. Safe — the app must ask the user what to do with
+            Refused: “2 notes and 2 documents still point to contact 101.” Nothing deleted. Safe: the app must ask the user what to do with
             them first.
           </div>
         )}
         {ran === 'cascade' && (
           <div className="callout warn pop">
-            5 rows gone in one tap: Maria, her 2 notes and 2 documents. Tidy and consistent — and permanent. Great for drafts, frightening
+            5 rows gone in one tap: Maria, her 2 notes and 2 documents. Tidy and consistent, and permanent. Great for drafts, frightening
             for invoices.
           </div>
         )}

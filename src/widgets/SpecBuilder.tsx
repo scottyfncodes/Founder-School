@@ -15,7 +15,7 @@ interface Addition {
 const ADDITIONS: Addition[] = [
   { id: 'a1', kind: 'accept', text: 'Invite links expire after 7 days and work only once.', fixes: 'expire' },
   { id: 'a2', kind: 'accept', text: 'Include tests for: expired link, existing account, seat limit.', fixes: 'tests' },
-  { id: 'e1', kind: 'edge', text: 'If the email already has an account, add them to the team — don’t create a second account.', fixes: 'dupe' },
+  { id: 'e1', kind: 'edge', text: 'If the email already has an account, add them to the team: don’t create a second account.', fixes: 'dupe' },
   { id: 'c1', kind: 'constraint', text: 'Only team admins can send invites. Check this on the server.', fixes: 'perm' },
   { id: 'c2', kind: 'constraint', text: 'Starter plan: max 5 seats. At the limit, show an upgrade prompt.', fixes: 'seats' },
   { id: 'c3', kind: 'constraint', text: 'Only change the Team settings screen. Don’t touch other pages.', fixes: 'scope' },
@@ -25,7 +25,7 @@ const ADDITIONS: Addition[] = [
 ]
 
 const PROBLEMS: { id: string; bad: string; good: string }[] = [
-  { id: 'perm', bad: 'Any member — even a guest — can invite people.', good: 'Only admins can invite; the server rejects anyone else.' },
+  { id: 'perm', bad: 'Any member (even a guest) can invite people.', good: 'Only admins can invite; the server rejects anyone else.' },
   { id: 'expire', bad: 'Invite links never expire. A forwarded link works forever.', good: 'Links expire after 7 days and are single-use.' },
   { id: 'dupe', bad: 'Inviting an existing user creates a duplicate account.', good: 'Existing users are added to the team.' },
   { id: 'seats', bad: 'No seat limit: a $9 Starter team invited 140 people.', good: 'Starter teams stop at 5 seats with an upgrade prompt.' },
@@ -33,11 +33,11 @@ const PROBLEMS: { id: string; bad: string; good: string }[] = [
   { id: 'tests', bad: 'No tests. You’ll find out in production.', good: 'Tests cover expiry, existing accounts and seat limits.' },
 ]
 
-const KIND: Record<Kind, { label: string; emoji: string }> = {
-  accept: { label: 'Acceptance criteria', emoji: '✅' },
-  edge: { label: 'Edge cases', emoji: '🧩' },
-  constraint: { label: 'Constraints', emoji: '🚧' },
-  vague: { label: 'Vague wishes', emoji: '☁️' },
+const KIND: Record<Kind, { label: string; }> = {
+  accept: { label: 'Acceptance criteria' },
+  edge: { label: 'Edge cases' },
+  constraint: { label: 'Constraints' },
+  vague: { label: 'Vague wishes' },
 }
 
 interface Props {
@@ -70,7 +70,7 @@ export function SpecBuilder({ onDone }: Props) {
       setSpec([...spec, a.id])
       setNote(
         a.kind === 'vague'
-          ? '☁️ The agent will happily agree — but this changes nothing. What does “secure” or “intuitive” mean here? Say the specific rule instead.'
+          ? '☁️ The agent will happily agree, but this changes nothing. What does “secure” or “intuitive” mean here? Say the specific rule instead.'
           : null,
       )
     }
@@ -97,14 +97,14 @@ export function SpecBuilder({ onDone }: Props) {
   return (
     <div className="stack">
       <div className="card tight flat stack sm">
-        <div className="kicker">📝 Your spec</div>
+        <div className="kicker">Your spec</div>
         <p style={{ fontWeight: 650 }}>“Let users invite teammates.”</p>
         {spec.map((id) => {
           const a = ADDITIONS.find((x) => x.id === id)
           if (!a) return null
           return (
             <p key={id} className={`small pop ${a.kind === 'vague' ? 'muted' : ''}`}>
-              {KIND[a.kind].emoji} {a.text}
+              {a.text}
             </p>
           )
         })}
@@ -121,11 +121,11 @@ export function SpecBuilder({ onDone }: Props) {
           {(['accept', 'edge', 'constraint', 'vague'] as Kind[]).map((k) => (
             <div key={k} className="stack sm">
               <div className="tiny" style={{ fontWeight: 700 }}>
-                {KIND[k].emoji} {KIND[k].label}
+                {KIND[k].label}
               </div>
               {ADDITIONS.filter((a) => a.kind === k).map((a) => (
                 <button key={a.id} type="button" className="chip" aria-pressed={spec.includes(a.id)} onClick={() => toggle(a)} style={{ fontSize: 14 }}>
-                  {spec.includes(a.id) ? '✓ ' : '+ '}
+                  {spec.includes(a.id) ? '' : '+ '}
                   {a.text}
                 </button>
               ))}
@@ -135,7 +135,7 @@ export function SpecBuilder({ onDone }: Props) {
         </div>
       )}
       <button type="button" className="btn primary block" disabled={building} onClick={build}>
-        {building ? '🤖 Agent is building…' : builds === 0 ? '🤖 Ask the agent to build it' : '🤖 Build again with this spec'}
+        {building ? 'Agent is building…' : builds === 0 ? 'Ask the agent to build it' : 'Build again with this spec'}
       </button>
 
       {built && !building && (
@@ -151,7 +151,7 @@ export function SpecBuilder({ onDone }: Props) {
             )
           })}
           <div className="tiny muted">🤖 Agent’s message: “Done! Team invites are fully implemented.”</div>
-          {builtFixed.size >= 5 && builds >= 2 && <div className="callout good pop">Same agent, same model — a much better result. The difference was entirely in what you asked for.</div>}
+          {builtFixed.size >= 5 && builds >= 2 && <div className="callout good pop">Same agent, same model: a much better result. The difference was entirely in what you asked for.</div>}
         </div>
       )}
     </div>

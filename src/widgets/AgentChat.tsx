@@ -83,10 +83,10 @@ export function AgentChat({ claim, setup, questions, budget, onDone }: Props) {
 
   const grade =
     found.length === gaps.length
-      ? { tone: 'good', text: '🏅 Every gap exposed. This is exactly how a strong technical lead questions an agent.' }
+      ? { tone: 'good', text: 'Every gap exposed. This is exactly how a strong technical lead questions an agent.' }
       : found.length >= Math.ceil(gaps.length / 2)
-        ? { tone: 'warn', text: '👍 Good digging — but some gaps would have shipped. Look at what you missed below.' }
-        : { tone: 'bad', text: '😬 The agent sounded sure, and most of the problems would have shipped. Specific questions get specific answers.' }
+        ? { tone: 'warn', text: 'Good digging, but some gaps would have shipped. Look at what you missed below.' }
+        : { tone: 'bad', text: 'The agent sounded sure, and most of the problems would have shipped. Specific questions get specific answers.' }
 
   return (
     <div className="stack">

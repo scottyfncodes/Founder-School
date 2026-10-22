@@ -10,7 +10,7 @@ type Sort = 'id' | 'name'
 
 const CHALLENGES: { ask: string; want: number[]; win: string }[] = [
   { ask: 'Which of Alex’s contacts are in Denver?', want: [103, 108], win: 'Two filters combined with AND: both must be true.' },
-  { ask: 'Which Boston contacts own an aircraft?', want: [104], win: 'The aircraft filter quietly checks another table — queries can combine tables.' },
+  { ask: 'Which Boston contacts own an aircraft?', want: [104], win: 'The aircraft filter quietly checks another table. Queries can combine tables.' },
   { ask: 'Sales leads: who in Denver doesn’t own a plane yet?', want: [106], win: 'You just turned data into a sales list. That’s what queries are for.' },
 ]
 
@@ -180,7 +180,7 @@ export function QueryBuilder({ onDone }: { onDone?: () => void }) {
         rowClass={(_, i) => (match(rows[i]) ? 'hl-good' : '')}
         cellStyle={(_, v) => (match(rows.find((r) => r[0] === v[0])!) ? undefined : { opacity: 0.3 })}
       />
-      <p className="tiny muted">“plane” is worked out from the AIRCRAFT_OWNERS table — it isn’t stored on the contact.</p>
+      <p className="tiny muted">“plane” is worked out from the AIRCRAFT_OWNERS table: it isn’t stored on the contact.</p>
     </div>
   )
 }

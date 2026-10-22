@@ -4,13 +4,12 @@ import { AuditBoard, type AuditItem } from './AuditBoard'
 const QUESTIONS: AuditItem[] = [
   {
     id: 'own',
-    emoji: '🗂️',
     title: '“Who owns our data?”',
     before: [
       { k: 'From', v: 'Dr. Lee, Riverside Clinic' },
       { k: 'Asks', v: 'If we put our patients’ appointments in ClinicBook, whose data is it?' },
     ],
-    after: [{ k: 'You replied', v: 'It’s yours. We only process it to run the service for you — our terms say so in writing.' }],
+    after: [{ k: 'You replied', v: 'It’s yours. We only process it to run the service for you: our terms say so in writing.' }],
     ask: 'Pick the best reply:',
     options: [
       {
@@ -23,14 +22,13 @@ const QUESTIONS: AuditItem[] = [
         why: 'Clear, specific and backed by your terms. In privacy-law language, the clinic is the “controller” and you are their “processor”.',
       },
       {
-        text: 'Hard to say — it’s in the cloud.',
+        text: 'Hard to say: it’s in the cloud.',
         why: 'Vague answers sound like you don’t know, which is worse than any specific answer. Where data is stored doesn’t change who owns it.',
       },
     ],
   },
   {
     id: 'export',
-    emoji: '📦',
     title: '“Can we take everything with us?”',
     before: [
       { k: 'From', v: 'Riverside Clinic office manager' },
@@ -44,11 +42,11 @@ const QUESTIONS: AuditItem[] = [
         why: '“We’ll see” makes buyers nervous. A self-serve export is cheap to build and is often a must-have on procurement checklists.',
       },
       {
-        text: 'No — that’s how we keep customers.',
+        text: 'No: that’s how we keep customers.',
         why: 'Holding data hostage creates angry churn and, in many places, legal trouble. Customers stay because the product is good, not because they’re trapped.',
       },
       {
-        text: 'Yes — one-click export of everything, anytime, in standard formats.',
+        text: 'Yes: one-click export of everything, anytime, in standard formats.',
         correct: true,
         why: 'Easy exit makes it easier to say yes in the first place. Privacy laws like GDPR also give people a right to get their data.',
       },
@@ -56,7 +54,6 @@ const QUESTIONS: AuditItem[] = [
   },
   {
     id: 'delete',
-    emoji: '🗑️',
     title: '“If we cancel, is it deleted?”',
     before: [
       { k: 'From', v: 'Dr. Lee' },
@@ -66,7 +63,7 @@ const QUESTIONS: AuditItem[] = [
     ask: 'Pick the most honest, accurate reply:',
     options: [
       {
-        text: 'Yes — instantly, from everywhere, including backups.',
+        text: 'Yes: instantly, from everywhere, including backups.',
         why: 'An over-promise. Backups usually can’t be edited one customer at a time; they expire on a schedule. Promising “instantly everywhere” sets you up to break your word.',
       },
       {
@@ -82,13 +79,12 @@ const QUESTIONS: AuditItem[] = [
   },
   {
     id: 'sub',
-    emoji: '🔗',
     title: '“Who else sees our data?”',
     before: [
       { k: 'From', v: 'Riverside Clinic IT consultant' },
       { k: 'Asks', v: 'Which other companies process our data?' },
     ],
-    after: [{ k: 'You replied', v: 'Our subprocessor list: cloud hosting (EU), email, payments, error tracking — each under a data agreement.' }],
+    after: [{ k: 'You replied', v: 'Our subprocessor list: cloud hosting (EU), email, payments, error tracking. Each under a data agreement.' }],
     ask: 'Pick the best reply:',
     options: [
       {
@@ -101,28 +97,27 @@ const QUESTIONS: AuditItem[] = [
         why: 'A “subprocessor” is any vendor that handles customer data for you. A public list plus a promise to give notice is standard practice and builds trust.',
       },
       {
-        text: 'Lots of vendors — too many to list.',
+        text: 'Lots of vendors: too many to list.',
         why: 'If you can’t list them, you can’t protect the data. Keeping this list current is a basic compliance habit.',
       },
     ],
   },
   {
     id: 'cert',
-    emoji: '🛡️',
     title: '“Are you GDPR / SOC 2 compliant?”',
     before: [
       { k: 'From', v: 'A large clinic group’s procurement team' },
       { k: 'Asks', v: 'Please confirm GDPR compliance and send your SOC 2 report.' },
     ],
-    after: [{ k: 'You replied', v: 'GDPR: yes, with a data agreement. SOC 2: not yet — here’s our security overview and timeline.' }],
+    after: [{ k: 'You replied', v: 'GDPR: yes, with a data agreement. SOC 2: not yet. Here’s our security overview and timeline.' }],
     ask: 'You follow GDPR but have no SOC 2 audit yet. Reply:',
     options: [
       {
         text: 'Yes, we’re fully certified for everything.',
-        why: 'Never claim an audit you haven’t had — it’s easy to check and can void a contract. (GDPR also isn’t a certificate; it’s a law you follow.)',
+        why: 'Never claim an audit you haven’t had: it’s easy to check and can void a contract. (GDPR also isn’t a certificate; it’s a law you follow.)',
       },
       {
-        text: 'We follow GDPR and can sign a data processing agreement. We don’t have SOC 2 yet — here’s our security overview and our timeline.',
+        text: 'We follow GDPR and can sign a data processing agreement. We don’t have SOC 2 yet: here’s our security overview and our timeline.',
         correct: true,
         why: 'Honest and useful. Many buyers accept a security overview from a young company, and the timeline shows you take it seriously.',
       },
@@ -143,7 +138,7 @@ export function TrustInbox({ onDone }: { onDone?: () => void }) {
       fixedLabel="Sent"
       onDone={onDone}
       finale={(ok, n) =>
-        `All ${n} replies sent — specific, honest, and nothing you can’t deliver. That’s what trust sounds like in B2B. ${ok}/${n} right on the first try.`
+        `All ${n} replies sent: specific, honest, and nothing you can’t deliver. That’s what trust sounds like in B2B. ${ok}/${n} right on the first try.`
       }
     />
   )

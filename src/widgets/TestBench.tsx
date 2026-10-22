@@ -15,14 +15,14 @@ const BASE: Test[] = [
 ]
 
 const CANDIDATES = [
-  { id: 'c1', name: 'SAVE10 works on a $50 order too', right: false, why: 'Good to have — but it uses “SAVE10” in capitals again, so it passes and still misses Cleo’s bug.' },
-  { id: 'c2', name: 'Lowercase “save10” also takes 10% off', right: true, why: 'Exactly what Cleo typed. This test fails against today’s code — which is the point: it proves the bug exists.' },
+  { id: 'c1', name: 'SAVE10 works on a $50 order too', right: false, why: 'Good to have, but it uses “SAVE10” in capitals again, so it passes and still misses Cleo’s bug.' },
+  { id: 'c2', name: 'Lowercase “save10” also takes 10% off', right: true, why: 'Exactly what Cleo typed. This test fails against today’s code, which is the point: it proves the bug exists.' },
   { id: 'c3', name: 'The price is always a number', right: false, why: 'True and harmless, but it says nothing about discount codes. It would pass.' },
 ]
 
 const ORDERS = [
   { who: 'Ana', code: 'SAVE10', charged: 90, expected: 90 },
-  { who: 'Ben', code: '—', charged: 100, expected: 100 },
+  { who: 'Ben', code: 'none', charged: 100, expected: 100 },
   { who: 'Cleo', code: 'save10', charged: 100, expected: 90 },
   { who: 'Dev', code: 'SAVE10', charged: 90, expected: 90 },
 ]
@@ -97,7 +97,7 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
 
       <div className="card tight flat stack sm">
         <div className="row between">
-          <span className="kicker">🧪 Automated tests</span>
+          <span className="kicker">Automated tests</span>
           {finishedRun && (
             <span className={`pill ${failed ? 'bad-text' : 'good-text'}`}>
               {failed ? `${failed} failed` : `${passed} passed`}
@@ -127,14 +127,14 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
         <div className="stack sm pop">
           <div className="callout good small">All 3 tests pass. The AI agent says: “Discount codes are done and fully tested.”</div>
           <button type="button" className="btn primary" onClick={ship}>
-            🚀 Ship to customers
+            Ship to customers
           </button>
         </div>
       )}
 
       {(phase === 'prod' || phase === 'pick' || phase === 'red') && (
         <div className="card tight flat stack sm">
-          <span className="kicker">🌍 Real orders, first hour</span>
+          <span className="kicker">Real orders, first hour</span>
           {ORDERS.slice(0, phase === 'prod' ? shown : ORDERS.length).map((o) => {
             const bad = o.charged !== o.expected
             return (
@@ -149,7 +149,7 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
           })}
           {phase !== 'prod' && (
             <div className="callout bad small">
-              📨 Cleo: “I typed your code save10 and got charged full price!” — every test was green.
+              📨 Cleo: “I typed your code save10 and got charged full price!”. Every test was green.
             </div>
           )}
         </div>
@@ -171,7 +171,7 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
           {pick && <div className="small">{CANDIDATES.find((c) => c.id === pick)?.why}</div>}
           {pick === 'c2' && (
             <button type="button" className="btn primary" onClick={() => setPhase('red')}>
-              ➕ Add this test
+              Add this test
             </button>
           )}
         </div>
@@ -187,11 +187,11 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
           {finishedRun && failed > 0 && (
             <>
               <div className="callout warn small">
-                Red! A failing test is good news here: it reproduces the bug, so you’ll know for sure when it’s fixed — and
+                Red! A failing test is good news here: it reproduces the bug, so you’ll know for sure when it’s fixed, and
                 it can never sneak back.
               </div>
               <button type="button" className="btn primary" onClick={() => setPhase('fixed')}>
-                🔧 Fix: ignore upper/lower case
+                Fix: ignore upper/lower case
               </button>
             </>
           )}
@@ -206,7 +206,7 @@ export function TestBench({ onDone }: { onDone?: () => void }) {
 
       {phase === 'done' && (
         <div className="callout good small pop">
-          4 of 4 pass — and this time “pass” means more, because a test now covers what real customers actually type. Tests
+          4 of 4 pass, and this time “pass” means more, because a test now covers what real customers actually type. Tests
           only prove what someone thought to check.
         </div>
       )}

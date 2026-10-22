@@ -83,13 +83,13 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
     if (!registered) {
       await step('dns', 'example.com is not registered to anyone', 'fail', 1100)
       await step('hosting', 'Your app is still running perfectly on its server…', 'warn', 900)
-      return end({ ok: false, tone: 'bad', text: 'The domain expired. Your app is fine, your server is fine — but nobody can find it by name. Customers see “site can’t be reached”.' })
+      return end({ ok: false, tone: 'bad', text: 'The domain expired. Your app is fine, your server is fine, but nobody can find it by name. Customers see “site can’t be reached”.' })
     }
     if (!(await step('dns', `Looks up the record: example.com → ${HOSTS[record].ip}`, 'ok', 1000))) return
     if (!(await step('ip', HOSTS[record].ip))) return
     if (record === 'typo') {
       await step('hosting', 'Nobody is listening at that address', 'fail', 1100)
-      return end({ ok: false, tone: 'bad', text: 'One wrong digit in a DNS record and your site is “down” — while your app runs happily at the right address. DNS edits deserve a second pair of eyes.' })
+      return end({ ok: false, tone: 'bad', text: 'One wrong digit in a DNS record and your site is “down”, while your app runs happily at the right address. DNS edits deserve a second pair of eyes.' })
     }
     if (!(await step('hosting', `${HOSTS[record].name} server receives the request`))) return
     if (!(await step('site', 'Acme CRM, version 3', 'ok', 600))) return
@@ -101,8 +101,8 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
       tone: 'good',
       text:
         seen.size > 1
-          ? `Same app, same version — now served from ${HOSTS[record].name}. Changing DNS re-points the name; it doesn’t change your app.`
-          : `Found it. Every visit starts with this lookup — usually in a few milliseconds, and remembered for a while.`,
+          ? `Same app, same version: now served from ${HOSTS[record].name}. Changing DNS re-points the name; it doesn’t change your app.`
+          : `Found it. Every visit starts with this lookup, usually in a few milliseconds, and remembered for a while.`,
     })
     if (seen.size > 1 && !fired) {
       setFired(true)
@@ -216,7 +216,7 @@ export function DnsLab({ onDone }: { onDone?: () => void }) {
               ))}
             </div>
             <button type="button" className="btn small" onClick={() => setStale(0)}>
-              ⏩ Wait out the TTL
+              Wait out the TTL
             </button>
           </div>
         )}

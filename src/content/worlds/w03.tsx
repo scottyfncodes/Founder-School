@@ -13,7 +13,6 @@ const world: World = {
   num: 3,
   title: 'Data',
   tagline: 'Tables, relationships, queries and files.',
-  emoji: '🗄️',
   color: '#0c8599',
   skill: 'data',
   concepts: [
@@ -37,9 +36,8 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🗃️',
           title: 'A database is a set of very strict spreadsheets',
-          what: 'Each table holds one kind of thing — contacts, aircraft, notes. Each row is one item. Each column is one fact about every item.',
+          what: 'Each table holds one kind of thing: contacts, aircraft, notes. Each row is one item. Each column is one fact about every item.',
           why: 'Strict structure is what lets software find, sort and connect millions of records instantly, without guessing.',
         },
         {
@@ -55,7 +53,7 @@ const world: World = {
             { term: 'Table', text: 'One kind of thing. CONTACTS, AIRCRAFT, NOTES…' },
             { term: 'Row (record)', text: 'One item: one contact, one plane, one note.' },
             { term: 'Column (field)', text: 'One fact, with one type, for every row: “city” is always text, “year” always a number.' },
-            { term: '🔑 Primary key', text: 'A column — usually “id” — that’s unique for every row and never changes. It’s the row’s true name.' },
+            { term: 'Primary key', text: 'A column (usually “id”) that’s unique for every row and never changes. It’s the row’s true name.' },
           ],
         },
         {
@@ -86,9 +84,9 @@ const world: World = {
           concepts: ['primary-keys'],
           options: [
             { text: 'Emails are too long to store', why: 'Storage isn’t the issue. Databases store long text happily.' },
-            { text: 'People change emails — and a primary key must never change', correct: true, why: 'Every note, document and invoice points at that key. If it changes, all those links break. Use a meaningless id that never changes; store email as a normal column.' },
+            { text: 'People change emails, and a primary key must never change', correct: true, why: 'Every note, document and invoice points at that key. If it changes, all those links break. Use a meaningless id that never changes; store email as a normal column.' },
             { text: 'Emails can’t be searched', why: 'Emails can be searched (and should be indexed). That’s not the concern here.' },
-            { text: 'No problem — emails are unique', why: 'Unique today, but not permanent. Keys must be unique and unchanging.' },
+            { text: 'No problem: emails are unique', why: 'Unique today, but not permanent. Keys must be unique and unchanging.' },
           ],
         },
         {
@@ -101,13 +99,13 @@ const world: World = {
             { text: 'The database had a bug', why: 'The database did exactly what it was told: delete every row with that name.' },
             { text: 'Names aren’t unique; only the id points at exactly one row', correct: true, why: 'Two people can share a name. The primary key is the one thing guaranteed to identify a single row.' },
             { text: 'Deleting should always be done by hand', why: 'Deleting by id is perfectly safe. The mistake was the choice of column.' },
-            { text: 'The name was spelled wrong', why: 'It was spelled right — for both Marias. That’s the problem.' },
+            { text: 'The name was spelled wrong', why: 'It was spelled right, for both Marias. That’s the problem.' },
           ],
         },
         {
           kind: 'care',
           points: [
-            'Your data model is the skeleton of your product. Ask your agent to show you the tables — it’s the fastest way to understand any app.',
+            'Your data model is the skeleton of your product. Ask your agent to show you the tables: it’s the fastest way to understand any app.',
             'Anything destructive (delete, merge, export) should target ids, never names or emails.',
             'Clean, consistent columns now = easy reports, imports and migrations later.',
           ],
@@ -123,7 +121,6 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🔗',
           title: 'Rows point at other rows',
           what: 'A note doesn’t copy the contact’s details. It stores the contact’s id in a column like contact_id. That stored id is a foreign key.',
           why: 'Store each fact once, point to it everywhere. Change Maria’s phone number once and every note, document and invoice is still connected to the right Maria.',
@@ -171,7 +168,7 @@ const world: World = {
           level: 3,
           concepts: ['relationships', 'foreign-keys'],
           options: [
-            { text: 'A team_id column on CONTACTS', why: 'That allows only one team per contact — a one-to-many, not what you described.' },
+            { text: 'A team_id column on CONTACTS', why: 'That allows only one team per contact: a one-to-many, not what you described.' },
             { text: 'A TEAMS table plus a link table (contact_id, team_id)', correct: true, why: 'Many-to-many needs a link table, exactly like AIRCRAFT_OWNERS. One row per “this contact is in that team”.' },
             { text: 'A text column listing team names', why: 'Typos, renames and counting all become painful. Lists in a text column are a classic shortcut that bites later.' },
             { text: 'A separate copy of the contact for each team', why: 'Duplicates drift apart: update one copy and the others are wrong.' },
@@ -185,10 +182,10 @@ const world: World = {
           level: 4,
           concepts: ['relationships', 'foreign-keys'],
           options: [
-            { text: 'Cascade — delete invoices with the account', why: 'You’d silently destroy records you’re legally required to keep.' },
-            { text: 'No rule — leave them pointing at nothing', why: 'Orphaned invoices break reports and point at a customer who no longer exists.' },
-            { text: 'Block (restrict) — and handle it deliberately, e.g. anonymise the account instead', correct: true, why: 'Restrict stops accidental loss, forcing a conscious decision: keep invoices, strip personal details. Cascade suits drafts, not records.' },
-            { text: 'Delete the invoices first, then the account', why: 'Same outcome as cascade, with extra steps — the invoices are gone.' },
+            { text: 'Cascade: delete invoices with the account', why: 'You’d silently destroy records you’re legally required to keep.' },
+            { text: 'No rule: leave them pointing at nothing', why: 'Orphaned invoices break reports and point at a customer who no longer exists.' },
+            { text: 'Block (restrict), and handle it deliberately, e.g. anonymise the account instead', correct: true, why: 'Restrict stops accidental loss, forcing a conscious decision: keep invoices, strip personal details. Cascade suits drafts, not records.' },
+            { text: 'Delete the invoices first, then the account', why: 'Same outcome as cascade, with extra steps: the invoices are gone.' },
           ],
         },
         {
@@ -204,13 +201,12 @@ const world: World = {
     {
       id: 'w3-queries',
       title: 'Queries & indexes',
-      subtitle: 'Asking your data questions — and making the answers fast.',
+      subtitle: 'Asking your data questions, and making the answers fast.',
       minutes: 9,
       concepts: ['queries', 'indexes'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🔎',
           title: 'A query is a precise question',
           what: 'A query asks the database for exactly the rows you want: “Alex’s contacts in Denver, sorted by name.” Most databases speak a language called SQL.',
           why: 'Every screen, search box, report and dashboard is a query. The database does the searching so your app doesn’t have to load everything.',
@@ -223,10 +219,9 @@ const world: World = {
         },
         {
           kind: 'concept',
-          emoji: '📇',
           title: 'Indexes: the back of the book',
           what: 'An index is a sorted lookup list for one column, like the index at the back of a book. The database jumps straight to the right rows instead of reading every one.',
-          why: 'With 1,000 rows, reading everything is instant. With 10 million, it takes seconds — for every search, by every user.',
+          why: 'With 1,000 rows, reading everything is instant. With 10 million, it takes seconds, for every search, by every user.',
         },
         {
           kind: 'widget',
@@ -255,9 +250,9 @@ const world: World = {
           level: 3,
           concepts: ['indexes', 'queries'],
           options: [
-            { text: '“Should we buy a much bigger database server?”', why: 'Maybe later — but a missing index is far more common and almost free to fix.' },
+            { text: '“Should we buy a much bigger database server?”', why: 'Maybe later, but a missing index is far more common and almost free to fix.' },
             { text: '“Is the column we search on indexed?”', correct: true, why: 'Slow-as-it-grows is the classic missing-index symptom. Adding one can turn seconds into milliseconds.' },
-            { text: '“Should we delete old contacts?”', why: 'Deleting customer data to fix speed is drastic — and it only buys time.' },
+            { text: '“Should we delete old contacts?”', why: 'Deleting customer data to fix speed is drastic, and it only buys time.' },
             { text: '“Can we hide the search box?”', why: 'That removes a feature instead of fixing the cause.' },
           ],
         },
@@ -269,17 +264,17 @@ const world: World = {
           level: 4,
           concepts: ['indexes'],
           options: [
-            { text: 'None — indexes only make things faster', why: 'Reads get faster, but every insert and update must also update every index.' },
+            { text: 'None: indexes only make things faster', why: 'Reads get faster, but every insert and update must also update every index.' },
             { text: 'Every save gets slower and storage grows; index the columns you actually search and sort by', correct: true, why: 'Indexes cost write speed and disk. Good teams add them for real query patterns, and check slow-query reports.' },
             { text: 'Indexes delete data', why: 'Indexes never change your data; they’re extra lookup lists alongside it.' },
-            { text: 'Queries stop working', why: 'Queries work the same with or without indexes — just at different speeds.' },
+            { text: 'Queries stop working', why: 'Queries work the same with or without indexes, just at different speeds.' },
           ],
         },
         {
           kind: 'care',
           points: [
             'Apps that are fast in testing and slow with real customers often just need an index. Ask before paying for bigger servers.',
-            'Every report you want — churn, revenue by plan, top customers — is a query. If the data is structured well, it’s a quick ask.',
+            'Every report you want (churn, revenue by plan, top customers) is a query. If the data is structured well, it’s a quick ask.',
             'Ask for a “slow query” report from your database. It’s a free to-do list for speed.',
           ],
         },
@@ -288,15 +283,14 @@ const world: World = {
     {
       id: 'w3-migrations',
       title: 'Migrations',
-      subtitle: 'Changing the shape of live data — without losing any.',
+      subtitle: 'Changing the shape of live data, without losing any.',
       minutes: 7,
       concepts: ['migrations'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🏗️',
           title: 'Renovating while people live in the house',
-          what: 'A migration is a script that changes the database’s structure — adding a column, splitting a field, creating a table — while real data is in it.',
+          what: 'A migration is a script that changes the database’s structure (adding a column, splitting a field, creating a table) while real data is in it.',
           why: 'Products evolve, so the data’s shape must too. But the live app and its customers are using that data at the same moment.',
         },
         {
@@ -314,11 +308,11 @@ const world: World = {
               onDone={done}
               explain="Back up, expand, copy, switch the app, and only then remove the old. Each step can be undone."
               items={[
-                { id: 'backup', emoji: '💾', label: 'Take a backup' },
-                { id: 'add', emoji: '➕', label: 'Add the new columns (optional, empty)' },
-                { id: 'copy', emoji: '📋', label: 'Copy data into them, check the odd rows' },
-                { id: 'release', emoji: '🚀', label: 'Release the app version that uses them' },
-                { id: 'drop', emoji: '🧹', label: 'Later: remove the old column' },
+                { id: 'backup', label: 'Take a backup' },
+                { id: 'add', label: 'Add the new columns (optional, empty)' },
+                { id: 'copy', label: 'Copy data into them, check the odd rows' },
+                { id: 'release', label: 'Release the app version that uses them' },
+                { id: 'drop', label: 'Later: remove the old column' },
               ]}
             />
           ),
@@ -332,7 +326,7 @@ const world: World = {
           options: [
             { text: 'The database ran out of space', why: 'Space wasn’t the issue. The column the app depends on vanished.' },
             { text: 'It removed a column the running app still reads', correct: true, why: 'The app and the data changed at different moments. Safe migrations keep the old shape working until the new app is live.' },
-            { text: 'SQL is unreliable', why: 'SQL did exactly what it was told — which is the danger.' },
+            { text: 'SQL is unreliable', why: 'SQL did exactly what it was told, which is the danger.' },
             { text: 'Too many users were online', why: 'It would have broken with one user too. The order of changes was the problem.' },
           ],
         },
@@ -346,7 +340,7 @@ const world: World = {
           options: [
             { text: '“Great, go ahead.”', why: 'A rename is a remove-plus-add as far as the running app is concerned. Everything reading “company” breaks instantly.' },
             { text: '“Write it as a migration, test it on a copy, back up first, and keep the app working during the switch.”', correct: true, why: 'Migrations should be scripted, tested on staging, reversible and backed up. That turns a risky edit into a routine change.' },
-            { text: '“Do it at 3 a.m. so nobody notices.”', why: 'Fewer users see the break, but data loss or a broken app at 3 a.m. is still broken — with nobody awake to fix it.' },
+            { text: '“Do it at 3 a.m. so nobody notices.”', why: 'Fewer users see the break, but data loss or a broken app at 3 a.m. is still broken, with nobody awake to fix it.' },
             { text: '“Never change the database.”', why: 'Your product has to evolve. The skill is changing it safely, not freezing it.' },
           ],
         },
@@ -359,7 +353,7 @@ const world: World = {
           options: [
             { text: 'Deleting columns is slow', why: 'Dropping a column is usually quick. The reason is safety, not speed.' },
             { text: 'So you can roll back to v1 if v2 has a bug', correct: true, why: 'If v2 misbehaves, v1 still works because its column still exists. Removing it too soon burns your escape route.' },
-            { text: 'Databases require a waiting period', why: 'There’s no such rule — it’s a deliberate choice teams make.' },
+            { text: 'Databases require a waiting period', why: 'There’s no such rule: it’s a deliberate choice teams make.' },
             { text: 'To save storage costs', why: 'Keeping an extra column costs a little more storage, not less.' },
           ],
         },
@@ -367,7 +361,7 @@ const world: World = {
           kind: 'care',
           points: [
             'Most scary data-loss stories are careless migrations. Ask: “Is there a backup, and has this run on a copy of real data?”',
-            'Real data is messy — single names, odd formats, blanks. Budget time for the 2% of rows that don’t fit.',
+            'Real data is messy: single names, odd formats, blanks. Budget time for the 2% of rows that don’t fit.',
             'Ask for migrations in small, reversible steps. “Can we undo this?” should always have a yes.',
           ],
         },
@@ -376,17 +370,16 @@ const world: World = {
     {
       id: 'w3-files',
       title: 'Files vs. data',
-      subtitle: 'Where uploads really live — and how they leak.',
+      subtitle: 'Where uploads really live, and how they leak.',
       minutes: 6,
       concepts: ['file-storage', 'bucket-access'],
       unlocks: ['storage'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🗂️',
           title: 'Big files go in a bucket',
-          what: 'Photos, PDFs and videos live in file storage — a “bucket” built for large files. The database keeps a small row that says who the file belongs to and where it is.',
-          why: 'Databases are great at small, structured facts and expensive for big blobs. Buckets are cheap and huge — but have none of the database’s structure.',
+          what: 'Photos, PDFs and videos live in file storage: a “bucket” built for large files. The database keeps a small row that says who the file belongs to and where it is.',
+          why: 'Databases are great at small, structured facts and expensive for big blobs. Buckets are cheap and huge, but have none of the database’s structure.',
         },
         {
           kind: 'widget',
@@ -402,8 +395,8 @@ const world: World = {
             <Categorize
               onDone={done}
               buckets={[
-                { id: 'db', label: 'Database', emoji: '🗄️' },
-                { id: 'files', label: 'File storage', emoji: '🗂️' },
+                { id: 'db', label: 'Database', },
+                { id: 'files', label: 'File storage', },
               ]}
               items={[
                 { id: 'photo', label: 'A profile photo', bucket: 'files', why: 'A big binary file. The database stores only its location.' },
@@ -425,7 +418,7 @@ const world: World = {
           options: [
             { text: 'The photo itself', why: 'Possible, but slow and expensive. Big files belong in file storage.' },
             { text: 'A pointer: who it belongs to and where the file lives', correct: true, why: 'The database keeps a small row (owner, file key, size). The bytes sit in the bucket.' },
-            { text: 'Nothing — files and data are unrelated', why: 'Without a database row, the app wouldn’t know which photo belongs to whom.' },
+            { text: 'Nothing: files and data are unrelated', why: 'Without a database row, the app wouldn’t know which photo belongs to whom.' },
             { text: 'A description of the photo', why: 'Some apps store a caption, but the key thing stored is where the file is.' },
           ],
         },
@@ -437,7 +430,7 @@ const world: World = {
           level: 3,
           concepts: ['bucket-access', 'file-storage'],
           options: [
-            { text: 'Nothing — the links are long and random', why: 'Random links still leak: forwarded emails, logs, browser history. Public means anyone holding the link.' },
+            { text: 'Nothing: the links are long and random', why: 'Random links still leak: forwarded emails, logs, browser history. Public means anyone holding the link.' },
             { text: 'A private bucket, with the app handing out short-lived signed links after checking permission', correct: true, why: 'The app checks who’s asking, then gives a link that expires in minutes. A leaked link quickly becomes useless.' },
             { text: 'Rename the files to something boring', why: 'Obscure names don’t stop someone who has the link.' },
             { text: 'Stop accepting uploads', why: 'You can store sensitive files safely. Private buckets with signed links are the standard pattern.' },
@@ -451,7 +444,7 @@ const world: World = {
           level: 3,
           concepts: ['file-storage', 'bucket-access'],
           options: [
-            { text: 'Nothing — deleting rows deletes everything', why: 'Rows and files live in different systems. Deleting the pointer leaves the file behind.' },
+            { text: 'Nothing: deleting rows deletes everything', why: 'Rows and files live in different systems. Deleting the pointer leaves the file behind.' },
             { text: 'Their uploaded files are still in the bucket', correct: true, why: 'Orphaned files keep costing money, and may still be reachable. Privacy laws expect them gone too.' },
             { text: 'Their DNS records', why: 'Customers don’t have DNS records in your app. Their files, though…' },
             { text: 'Their password must be emailed to them', why: 'Never email passwords. The forgotten piece here is their files.' },

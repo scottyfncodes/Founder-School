@@ -90,7 +90,7 @@ export function IndexRace({ onDone }: { onDone?: () => void }) {
       </div>
 
       <button type="button" className="btn primary" onClick={race} disabled={busy}>
-        {busy ? 'Searching…' : `🏁 Race on ${S.label} rows`}
+        {busy ? 'Searching…' : `Race on ${S.label} rows`}
       </button>
 
       <div className="card tight flat stack sm">
@@ -131,8 +131,8 @@ export function IndexRace({ onDone }: { onDone?: () => void }) {
       <div aria-live="polite" className="stack sm">
         {result && (
           <div className={`callout ${result.size === 2 ? 'bad' : result.size === 1 ? 'warn' : 'info'} pop`}>
-            {result.size === 0 && 'With 1,000 rows, both feel instant. This is why apps are fast in testing — and slow down as they grow.'}
-            {result.size === 1 && 'Already 450× slower without the index. Users won’t notice once — but your database does this for every search, every user.'}
+            {result.size === 0 && 'With 1,000 rows, both feel instant. This is why apps are fast in testing, and slow down as they grow.'}
+            {result.size === 1 && 'Already 450× slower without the index. Users won’t notice once, but your database does this for every search, every user.'}
             {result.size === 2 &&
               '4.2 seconds vs. 0.1 ms. Same data, same question. Without the index, the search box times out and the database gets hammered.'}
           </div>

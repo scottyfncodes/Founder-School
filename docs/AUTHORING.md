@@ -14,7 +14,7 @@ A `World` has `concepts` (id + name) and `lessons`. A `Lesson` is a list of `ste
 
 | kind | purpose |
 |---|---|
-| `concept` | WHAT IS IT + WHY DOES IT EXIST (title, emoji, what, why) |
+| `concept` | WHAT IS IT + WHY DOES IT EXIST (title, what, why) |
 | `widget` | WHAT DOES IT LOOK LIKE / HOW DOES IT WORK — an interactive component. `render: ({done}) => <X onDone={done} />`. Call `done()` when the learner has done the key interaction (unlocks Continue). |
 | `points` | compact term → 1–2 sentence explanations (use for vocab like rows/columns/PK/FK) |
 | `care` | WHY SHOULD A FOUNDER CARE — 2–4 punchy bullets tied to real business decisions |
@@ -37,7 +37,7 @@ Look at `src/content/worlds/w01.tsx` → lesson `w1-machine` for the reference p
 - `Matcher` — tap a term, tap its meaning.
 - `Categorize` — tap item, tap bucket; wrong answers explain.
 - `RevealCards` — tap cards to reveal.
-- `StageExplorer` — vertical pipeline; tap each stage; optional "💥 What can go wrong here?".
+- `StageExplorer` — vertical pipeline; tap each stage; optional "What can go wrong here?".
 - `ArchMap` (`src/components/ArchMap.tsx`) — the architecture diagram. In lessons pass `revealAll`
   and `only={[...ids]}` and `onExplored={(n) => n >= K && done()}`.
 - `Quiz` (`src/components/Quiz.tsx`) — reusable inside custom widgets/sims if needed.
@@ -131,3 +131,8 @@ W12 Running a Software Company (`w12.tsx`, business; lessons may set `skill`)
 
 Architecture box ids: user phone browser frontend internet dns cdn api backend auth authz database
 storage backups email push thirdparty payments analytics github cicd hosting secrets logging monitoring security
+
+## Copy & visual rules
+Follow the "Design guardrails" in `CLAUDE.md`. In short: no em dashes in learner-facing copy (use a colon,
+comma, period or parentheses), and no emoji in headings, kickers, cards or button labels. Emoji may still
+appear as glyphs inside non-interactive simulation diagrams (e.g. `FlowSim` nodes) and simulated chat/log lines.

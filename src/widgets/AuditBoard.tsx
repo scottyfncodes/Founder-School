@@ -3,7 +3,6 @@ import type { QuizOption } from '../lib/types'
 
 export interface AuditItem {
   id: string
-  emoji: string
   title: string
   /** Facts shown before the fix, e.g. "Owner: jordan@freelance.dev". */
   before: { k: string; v: string }[]
@@ -82,12 +81,9 @@ export function AuditBoard({ items, meterLabel, riskLabel = 'At risk', fixedLabe
                 style={{ background: 'none', border: 0, padding: 0, minHeight: 44, cursor: 'pointer', textAlign: 'left', width: '100%' }}
               >
                 <span className="row nowrap" style={{ gap: 10, minWidth: 0 }}>
-                  <span style={{ fontSize: 22 }} aria-hidden="true">
-                    {item.emoji}
-                  </span>
                   <b style={{ fontSize: 15 }}>{item.title}</b>
                 </span>
-                <span className={`pill ${isFixed ? 'good-text' : 'warn-text'}`}>{isFixed ? `✅ ${fixedLabel}` : `⚠️ ${riskLabel}`}</span>
+                <span className={`pill ${isFixed ? 'good-text' : 'warn-text'}`}>{isFixed ? fixedLabel : riskLabel}</span>
               </button>
               {isOpen && (
                 <div className="stack sm pop">
@@ -131,7 +127,7 @@ export function AuditBoard({ items, meterLabel, riskLabel = 'At risk', fixedLabe
                       const nextItem = items.find((x) => !fixed.has(x.id))
                       return nextItem ? (
                         <button type="button" className="btn small" onClick={() => setOpen(nextItem.id)}>
-                          Next: {nextItem.emoji} {nextItem.title} →
+                          Next: {nextItem.title} →
                         </button>
                       ) : null
                     })()

@@ -11,7 +11,6 @@ const world: World = {
   num: 4,
   title: 'Users + Authentication',
   tagline: 'Who are you, and what are you allowed to do?',
-  emoji: '🔑',
   color: '#7048e8',
   skill: 'security',
   concepts: [
@@ -36,24 +35,23 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🪪',
           title: 'Authentication: proving who you are',
-          what: 'Authentication is the front desk checking your ID badge. You prove you’re you — with a password, a code, a fingerprint — and the app remembers it.',
+          what: 'Authentication is the front desk checking your ID badge. You prove you’re you (with a password, a code, a fingerprint) and the app remembers it.',
           why: 'Every account holds someone’s data or money. If the app can’t tell Scott from a stranger who knows Scott’s email, nothing else about security matters.',
         },
         {
           kind: 'widget',
           title: 'Log in to the simulated app',
-          instruction: 'Log in as Scott (try a wrong password first if you like). Then switch to the Stranger and try with 2FA on — and off.',
+          instruction: 'Log in as Scott (try a wrong password first if you like). Then switch to the Stranger and try with 2FA on, and off.',
           render: ({ done }) => <AuthLab onDone={done} />,
         },
         {
           kind: 'points',
           title: 'What just happened',
           points: [
-            { term: '🔑 Password', text: 'Something you KNOW. Easy to steal: leaks, reuse, phishing, guessing.' },
-            { term: '📱 Second factor (2FA)', text: 'Something you HAVE (your phone, a security key) or ARE (a fingerprint). A stolen password alone isn’t enough.' },
-            { term: '🎟️ Session', text: 'After you prove who you are, the server gives your browser a pass so you don’t log in on every tap.' },
+            { term: 'Password', text: 'Something you KNOW. Easy to steal: leaks, reuse, phishing, guessing.' },
+            { term: 'Second factor (2FA)', text: 'Something you HAVE (your phone, a security key) or ARE (a fingerprint). A stolen password alone isn’t enough.' },
+            { term: 'Session', text: 'After you prove who you are, the server gives your browser a pass so you don’t log in on every tap.' },
           ],
         },
         {
@@ -71,7 +69,7 @@ const world: World = {
           options: [
             { text: 'The password was hashed', why: 'Hashing protects passwords if the database is stolen. The stranger already had the correct password, so hashing didn’t matter here.' },
             { text: 'They didn’t have Scott’s phone for the 2FA code', correct: true, why: 'The password is one factor; the phone is a second, independent one. An attacker needs to steal both, which is much harder.' },
-            { text: 'The app noticed they were a stranger by their name', why: 'The app can’t see faces or names — it only sees what’s typed. That’s exactly why it needs proof like a second factor.' },
+            { text: 'The app noticed they were a stranger by their name', why: 'The app can’t see faces or names: it only sees what’s typed. That’s exactly why it needs proof like a second factor.' },
             { text: 'The password was too weak', why: 'Strength matters for guessing, but here the attacker already knew it. A strong password that leaks is still leaked.' },
           ],
         },
@@ -83,10 +81,10 @@ const world: World = {
           level: 3,
           concepts: ['password-hashing'],
           options: [
-            { text: 'Great feature — users love convenience', why: 'Convenient, but it’s only possible if the app can read every password. One database leak exposes all of them.' },
-            { text: 'Passwords are stored readable — they should be hashed, and “forgot password” should send a reset link', correct: true, why: 'A properly hashed password can’t be turned back into text, even by you. Real apps send a one-time reset link instead.' },
+            { text: 'Great feature: users love convenience', why: 'Convenient, but it’s only possible if the app can read every password. One database leak exposes all of them.' },
+            { text: 'Passwords are stored readable: they should be hashed, and “forgot password” should send a reset link', correct: true, why: 'A properly hashed password can’t be turned back into text, even by you. Real apps send a one-time reset link instead.' },
             { text: 'Fine, as long as the email is sent over HTTPS', why: 'HTTPS protects the trip, not the storage. The real problem is the database holding readable passwords.' },
-            { text: 'It’s fine if 2FA is also enabled', why: '2FA helps logins, but readable passwords still leak — and users reuse them on other sites you don’t protect.' },
+            { text: 'It’s fine if 2FA is also enabled', why: '2FA helps logins, but readable passwords still leak, and users reuse them on other sites you don’t protect.' },
           ],
         },
         {
@@ -98,7 +96,7 @@ const world: World = {
           options: [
             { text: 'Have the AI agent write a custom login system from scratch', why: 'Homemade login is where subtle, serious bugs hide: hashing, reset flows, lockouts, 2FA. Few teams get it all right.' },
             { text: 'Use a proven auth provider or framework and turn on 2FA', correct: true, why: 'Auth providers (Clerk, Auth0, Supabase Auth, Firebase Auth…) have solved hashing, resets and 2FA, and get attacked and fixed daily. You spend your effort on your product.' },
-            { text: 'Skip passwords: just ask for an email address', why: 'Anyone could type anyone’s email. Without proof of ownership — a password, a code sent to that inbox, a passkey — there’s no authentication at all.' },
+            { text: 'Skip passwords: just ask for an email address', why: 'Anyone could type anyone’s email. Without proof of ownership (a password, a code sent to that inbox, a passkey) there’s no authentication at all.' },
           ],
         },
         {
@@ -123,25 +121,24 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🚪',
           title: 'Authorization: what you’re allowed to do',
-          what: 'Authentication asks “Who are you?” — the ID badge. Authorization asks “What are you allowed to do?” — the keycard that opens some doors and not others.',
+          what: 'Authentication asks “Who are you?”: the ID badge. Authorization asks “What are you allowed to do?”: the keycard that opens some doors and not others.',
           why: 'Logged-in users aren’t all equal. An ADMIN can change settings; a USER can only see their own stuff. Something has to check that on every single request.',
         },
         {
           kind: 'widget',
           title: 'Badge, then keycard',
-          instruction: 'As Alex, try Admin settings. Then flip “Server checks permissions” OFF and try again — also try Scott’s invoices.',
+          instruction: 'As Alex, try Admin settings. Then flip “Server checks permissions” OFF and try again: also try Scott’s invoices.',
           render: ({ done }) => <RoleLab onDone={done} />,
         },
         {
           kind: 'points',
           title: 'Two questions, two checkpoints',
           points: [
-            { term: '🪪 Authentication = “Who are you?”', text: 'The ID badge. Checked when you log in. Failure: 401 — “I don’t know you.”' },
-            { term: '🚪 Authorization = “What are you allowed to do?”', text: 'The keycard. Checked on every request, for every action. Failure: 403 — “I know you, and no.”' },
-            { term: '👑 Roles', text: 'Labels like ADMIN or USER that bundle permissions, so you don’t set rules person by person.' },
-            { term: '🧾 Ownership', text: 'The other half of authorization: “is this record yours?” Changing ?user=alex to ?user=scott must not work.' },
+            { term: 'Authentication = “Who are you?”', text: 'The ID badge. Checked when you log in. Failure: 401. “I don’t know you.”' },
+            { term: 'Authorization = “What are you allowed to do?”', text: 'The keycard. Checked on every request, for every action. Failure: 403. “I know you, and no.”' },
+            { term: 'Roles', text: 'Labels like ADMIN or USER that bundle permissions, so you don’t set rules person by person.' },
+            { term: 'Ownership', text: 'The other half of authorization: “is this record yours?” Changing ?user=alex to ?user=scott must not work.' },
           ],
         },
         {
@@ -152,15 +149,15 @@ const world: World = {
             <Categorize
               onDone={done}
               buckets={[
-                { id: 'authn', label: 'Who are you? (authentication)', emoji: '🪪' },
-                { id: 'authz', label: 'What may you do? (authorization)', emoji: '🚪' },
+                { id: 'authn', label: 'Who are you? (authentication)', },
+                { id: 'authz', label: 'What may you do? (authorization)', },
               ]}
               items={[
-                { id: 'a', label: 'Typing your password', bucket: 'authn', why: 'Proving your identity — the ID badge.' },
+                { id: 'a', label: 'Typing your password', bucket: 'authn', why: 'Proving your identity: the ID badge.' },
                 { id: 'b', label: 'Only admins can delete users', bucket: 'authz', why: 'A rule about what a role may do.' },
                 { id: 'c', label: 'Entering a 2FA code', bucket: 'authn', why: 'A second proof of identity.' },
                 { id: 'd', label: 'Alex can only see his own invoices', bucket: 'authz', why: 'An ownership rule: is this record yours?' },
-                { id: 'e', label: 'Free plan can’t export data', bucket: 'authz', why: 'Plans are permissions too — and must be enforced on the server.' },
+                { id: 'e', label: 'Free plan can’t export data', bucket: 'authz', why: 'Plans are permissions too, and must be enforced on the server.' },
                 { id: 'f', label: '“Sign in with Google”', bucket: 'authn', why: 'Google vouches for who you are. It says nothing about what you may do in your app.' },
                 { id: 'g', label: '403 Forbidden', bucket: 'authz', why: '“I know who you are, and you can’t do this.”' },
               ]}
@@ -174,9 +171,9 @@ const world: World = {
           level: 2,
           concepts: ['authz', 'server-checks'],
           options: [
-            { text: 'Authentication — the app didn’t know who he was', why: 'It knew exactly who he was: Alex, a USER. A “who are you?” failure would be 401 and a login screen.' },
-            { text: 'Authorization — he’s known, but not allowed', correct: true, why: 'He passed the ID-badge check and failed the keycard check. 403 means “I know you, and this door isn’t yours.”' },
-            { text: 'Neither — the page was just broken', why: 'A broken page is usually 500. A 403 is a deliberate, correct “no” from a permission check.' },
+            { text: 'Authentication: the app didn’t know who he was', why: 'It knew exactly who he was: Alex, a USER. A “who are you?” failure would be 401 and a login screen.' },
+            { text: 'Authorization: he’s known, but not allowed', correct: true, why: 'He passed the ID-badge check and failed the keycard check. 403 means “I know you, and this door isn’t yours.”' },
+            { text: 'Neither: the page was just broken', why: 'A broken page is usually 500. A 403 is a deliberate, correct “no” from a permission check.' },
           ],
         },
         {
@@ -201,10 +198,10 @@ const world: World = {
           level: 4,
           concepts: ['server-checks', 'authz'],
           options: [
-            { text: 'More upfront work and occasional “why am I blocked?” bugs — in exchange for forgotten checks failing closed instead of open', correct: true, why: 'Deny-by-default turns the classic bug (a new endpoint with no check) into an annoying error instead of a data leak. That’s almost always worth it.' },
-            { text: 'It makes the app slower for users', why: 'A permission check is a tiny lookup — microseconds. Speed isn’t the real cost here.' },
+            { text: 'More upfront work and occasional “why am I blocked?” bugs: in exchange for forgotten checks failing closed instead of open', correct: true, why: 'Deny-by-default turns the classic bug (a new endpoint with no check) into an annoying error instead of a data leak. That’s almost always worth it.' },
+            { text: 'It makes the app slower for users', why: 'A permission check is a tiny lookup: microseconds. Speed isn’t the real cost here.' },
             { text: 'No tradeoff: frontend checks already cover it', why: 'Frontend checks run on the user’s device and can be bypassed. They improve the experience; they don’t protect anything.' },
-            { text: 'It replaces the need for authentication', why: 'Authorization depends on authentication — you can’t decide what someone may do until you know who they are.' },
+            { text: 'It replaces the need for authentication', why: 'Authorization depends on authentication: you can’t decide what someone may do until you know who they are.' },
           ],
         },
         {
@@ -222,16 +219,15 @@ const world: World = {
     {
       id: 'w4-sessions',
       title: 'Sessions, tokens & “Sign in with Google”',
-      subtitle: 'How the app remembers you — and how that memory gets stolen.',
+      subtitle: 'How the app remembers you, and how that memory gets stolen.',
       minutes: 6,
       concepts: ['sessions', 'sso-passkeys'],
       steps: [
         {
           kind: 'concept',
-          emoji: '🎟️',
           title: 'A session is a festival wristband',
           what: 'After you log in, the server records a session and gives your browser a cookie (or token) with its ID. Every request shows that wristband instead of your password.',
-          why: 'Typing your password on every tap would be unbearable — and sending it constantly would be riskier. The wristband is temporary and can be cut off.',
+          why: 'Typing your password on every tap would be unbearable, and sending it constantly would be riskier. The wristband is temporary and can be cut off.',
         },
         {
           kind: 'widget',
@@ -241,7 +237,6 @@ const world: World = {
         },
         {
           kind: 'concept',
-          emoji: '🔵',
           title: 'Letting someone else check the badge',
           what: '“Sign in with Google” (OAuth / SSO) lets Google vouch for who you are. Passkeys let your phone prove it with a secret that never leaves the device.',
           why: 'Fewer passwords means fewer leaks and less to build. Passkeys also can’t be typed into a fake website, which defeats phishing.',
@@ -273,7 +268,7 @@ const world: World = {
                     { at: 'app', say: 'Trusts Google’s signature, creates a session. It never saw a password.', tone: 'res', hold: 1100 },
                   ],
                   screen: '👋 Welcome, Scott (via Google)',
-                  result: { tone: 'good', text: 'Google did the authentication. Your app still decides what Scott may do — that part is always yours.' },
+                  result: { tone: 'good', text: 'Google did the authentication. Your app still decides what Scott may do: that part is always yours.' },
                 },
                 {
                   id: 'passkey',
@@ -293,7 +288,7 @@ const world: World = {
                   label: 'Phishing email',
                   danger: true,
                   hops: [
-                    { at: 'you', say: 'Clicks “Your account is locked — sign in now” in an email', tone: 'req' },
+                    { at: 'you', say: 'Clicks “Your account is locked: sign in now” in an email', tone: 'req' },
                     { at: 'fake', say: 'A pixel-perfect copy of the login page', tone: 'err', status: 'warn', hold: 1100 },
                     { at: 'device', say: '“No passkey for acme-crm-login.co.” Passkeys are tied to the real address.', tone: 'res', hold: 1300 },
                     { at: 'fake', say: 'Gets nothing usable', tone: 'err', status: 'fail' },
@@ -324,7 +319,7 @@ const world: World = {
           level: 2,
           concepts: ['sso-passkeys'],
           options: [
-            { text: 'Passkeys are longer than passwords', why: 'Length isn’t the point — a long password typed into a fake site is still stolen.' },
+            { text: 'Passkeys are longer than passwords', why: 'Length isn’t the point: a long password typed into a fake site is still stolen.' },
             { text: 'The phone only offers a passkey to the exact site it was made for, and the secret never leaves the device', correct: true, why: 'There’s nothing to type and nothing to hand over. A lookalike address simply gets “no passkey here”.' },
             { text: 'Google blocked the fake site', why: 'Google wasn’t involved in the passkey flow at all. The protection is built into the passkey itself.' },
           ],
@@ -337,9 +332,9 @@ const world: World = {
           level: 3,
           concepts: ['sessions', 'authn'],
           options: [
-            { text: 'Change their password — that logs everything out', why: 'Only if the app is built to kill sessions on password change. Many aren’t. The thief’s session can survive a password change.' },
+            { text: 'Change their password: that logs everything out', why: 'Only if the app is built to kill sessions on password change. Many aren’t. The thief’s session can survive a password change.' },
             { text: '“Log out of all devices”, which deletes their sessions on the server', correct: true, why: 'Killing the sessions server-side makes the laptop’s cookie worthless immediately. It’s a feature worth asking your developer for.' },
-            { text: 'Nothing — sessions expire in 30 days anyway', why: '30 days is a long time for a thief to read and change someone’s account.' },
+            { text: 'Nothing: sessions expire in 30 days anyway', why: '30 days is a long time for a thief to read and change someone’s account.' },
             { text: 'Delete the account and make a new one', why: 'Drastic, loses their data, and unnecessary if sessions can be revoked.' },
           ],
         },
@@ -351,16 +346,16 @@ const world: World = {
           level: 4,
           concepts: ['sessions'],
           options: [
-            { text: '1 hour, always — security beats everything', why: 'Forcing hourly logins pushes users to weak, reused passwords and sticky notes. Security that people route around isn’t security.' },
+            { text: '1 hour, always: security beats everything', why: 'Forcing hourly logins pushes users to weak, reused passwords and sticky notes. Security that people route around isn’t security.' },
             { text: 'Fairly long sessions, plus re-confirming identity for risky actions (changing email, exporting, billing) and “log out everywhere”', correct: true, why: 'Convenience for everyday use, extra proof where damage would be high, and a kill switch for theft. That’s how mature apps balance it.' },
-            { text: 'Never expire — use “Sign in with Google” so it doesn’t matter', why: 'Google vouches for identity at login. After that, your app’s session is still a wristband that can be stolen, so expiry still matters.' },
+            { text: 'Never expire: use “Sign in with Google” so it doesn’t matter', why: 'Google vouches for identity at login. After that, your app’s session is still a wristband that can be stolen, so expiry still matters.' },
           ],
         },
         {
           kind: 'care',
           points: [
             'Session length is a product decision: convenience vs. risk. Decide it on purpose.',
-            '“Log out of all devices” is a must-have once you have paying customers — it’s your answer to every “I lost my laptop” email.',
+            '“Log out of all devices” is a must-have once you have paying customers: it’s your answer to every “I lost my laptop” email.',
             '“Sign in with Google” and passkeys mean fewer passwords to store, leak and reset. Fewer support tickets, too.',
           ],
         },
@@ -377,7 +372,6 @@ const world: World = {
       steps: [
         {
           kind: 'concept',
-          emoji: '🏢',
           title: 'Multi-tenancy: one building, many locked apartments',
           what: 'Most apps keep every customer company in the same database tables. Each row is tagged with its company (its “tenant”), and every query must filter by it.',
           why: 'One shared system is far cheaper and simpler than a separate copy per customer. The price: every query is one forgotten line away from a leak.',
@@ -385,7 +379,7 @@ const world: World = {
         {
           kind: 'widget',
           title: 'Two companies, one table',
-          instruction: 'You’re Maria at Acme. Flip the tenant filter off — then back on.',
+          instruction: 'You’re Maria at Acme. Flip the tenant filter off, then back on.',
           render: ({ done }) => <TenantTable onDone={done} />,
         },
         {
@@ -398,10 +392,10 @@ const world: World = {
           kind: 'points',
           title: 'Words engineers will use',
           points: [
-            { term: '🏠 Tenant', text: 'One customer organization — a company, team or workspace — whose data must stay theirs.' },
-            { term: '🏷️ Tenant ID', text: 'The column on every row saying which tenant owns it. Every query must filter on it.' },
-            { term: '🛡️ Row-level security', text: 'A database feature that applies the tenant filter automatically, even if the code forgets.' },
-            { term: '🏘️ Database per tenant', text: 'Each customer gets their own database. Strong walls, but more to run, upgrade and pay for.' },
+            { term: 'Tenant', text: 'One customer organization (a company, team or workspace) whose data must stay theirs.' },
+            { term: 'Tenant ID', text: 'The column on every row saying which tenant owns it. Every query must filter on it.' },
+            { term: 'Row-level security', text: 'A database feature that applies the tenant filter automatically, even if the code forgets.' },
+            { term: 'Database per tenant', text: 'Each customer gets their own database. Strong walls, but more to run, upgrade and pay for.' },
           ],
         },
         {
@@ -413,7 +407,7 @@ const world: World = {
           concepts: ['multi-tenancy', 'server-checks'],
           options: [
             { text: 'Reply that it must have been a caching glitch on their side', why: 'Never guess away a data leak. If it’s real, every hour it stays open, more data is exposed.' },
-            { text: 'Treat it as a security incident: reproduce it, disable or fix the leaking feature, then find out what was exposed and to whom', correct: true, why: 'Stop the bleeding first, then measure the damage. You may legally have to tell the affected company — and they’ll want details.' },
+            { text: 'Treat it as a security incident: reproduce it, disable or fix the leaking feature, then find out what was exposed and to whom', correct: true, why: 'Stop the bleeding first, then measure the damage. You may legally have to tell the affected company, and they’ll want details.' },
             { text: 'Ask the AI agent to “make it more secure” and move on', why: 'Vague instructions get vague fixes. You need the exact query that leaked and proof it’s fixed.' },
             { text: 'Wait for a second report to be sure', why: 'Most people who see someone else’s data never report it. One report is enough to act.' },
           ],
@@ -440,7 +434,7 @@ const world: World = {
           options: [
             { text: 'Shared tables are insecure; move everyone to separate databases now', why: 'Shared tables with enforced filters are how most successful SaaS works. Moving 300 customers would be costly and risky.' },
             { text: 'Shared + row-level security is cheap and simple to run; a dedicated database gives stronger isolation for a premium price, but adds upgrades, migrations and cost per customer', correct: true, why: 'Many companies offer exactly this: shared by default, dedicated for enterprise plans that pay for the extra operations work.' },
-            { text: 'Tell them yes — it’s basically the same thing', why: 'It isn’t, and enterprise security reviews will check. Being caught misdescribing your architecture kills deals.' },
+            { text: 'Tell them yes: it’s basically the same thing', why: 'It isn’t, and enterprise security reviews will check. Being caught misdescribing your architecture kills deals.' },
           ],
         },
         {

@@ -86,7 +86,7 @@ export function ProgressPage() {
           {WORLDS.map((w) => (
             <details key={w.id} className="card tight">
               <summary style={{ cursor: 'pointer', fontWeight: 700, minHeight: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span aria-hidden="true">{w.emoji}</span>
+                <span className="tiny muted" style={{ minWidth: 18, fontVariantNumeric: 'tabular-nums' }}>{w.num}</span>
                 <span className="grow">{w.title}</span>
                 <span className="row nowrap" style={{ gap: 2 }} aria-hidden="true">
                   {w.concepts.map((c) => (

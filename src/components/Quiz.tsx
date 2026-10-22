@@ -46,8 +46,9 @@ export function Quiz({ prompt, context, options, level, onFirstAnswer, onSolved,
       <div className="row between">
         <span className="kicker">{kicker ?? 'Challenge'}</span>
         {level && (
-          <span className="pill" style={{ color: levelInfo(level).color }}>
-            {levelInfo(level).emoji} proves {levelInfo(level).name}
+          <span className="pill" style={{ gap: 6 }}>
+            <span aria-hidden="true" style={{ width: 9, height: 9, borderRadius: '50%', background: levelInfo(level).color }} />
+            proves {levelInfo(level).name}
           </span>
         )}
       </div>
@@ -100,7 +101,7 @@ export function Quiz({ prompt, context, options, level, onFirstAnswer, onSolved,
             <b>
               {last === correctIdx
                 ? tried.length === 1
-                  ? 'Right — and here’s why. '
+                  ? 'Right, and here’s why. '
                   : 'There it is. '
                 : 'Not quite. '}
             </b>

@@ -38,7 +38,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
   const [forkIdx, setForkIdx] = useState(-1)
   const [used, setUsed] = useState<Record<Branch, number>>({ main: 0, 'new-pricing': 0 })
   const [viewing, setViewing] = useState<string | null>(null)
-  const [msg, setMsg] = useState('You’re on main — the official version of your app. Make a change and commit it.')
+  const [msg, setMsg] = useState('You’re on main: the official version of your app. Make a change and commit it.')
   const fired = useRef(false)
 
   const head = (b: Branch) => {
@@ -67,7 +67,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
     setViewing(null)
     setMsg(
       current === 'main'
-        ? `Committed “${c.msg}” to main. A commit is a save point with a label — you can always come back to it.`
+        ? `Committed “${c.msg}” to main. A commit is a save point with a label: you can always come back to it.`
         : `Committed “${c.msg}” on new-pricing. Look at main: it doesn’t have this. Branches keep experiments out of the live app.`,
     )
   }
@@ -77,7 +77,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
     setBranchState('open')
     setCurrent('new-pricing')
     setViewing(null)
-    setMsg('Created branch “new-pricing” — a parallel copy to experiment on. Now commit something here.')
+    setMsg('Created branch “new-pricing”: a parallel copy to experiment on. Now commit something here.')
   }
 
   function merge() {
@@ -118,7 +118,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
       <div className="row" role="group" aria-label="Current branch">
         <span className="tiny muted">On branch:</span>
         <button type="button" className="chip" aria-pressed={current === 'main'} onClick={() => setCurrent('main')}>
-          🌳 main
+          main
         </button>
         {branchState === 'open' && (
           <button
@@ -134,15 +134,15 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
 
       <div className="grid2">
         <button type="button" className="btn small primary" onClick={commit} disabled={!nextChange}>
-          ✏️ Change & commit
+          Change & commit
         </button>
         {branchState === 'open' ? (
           <button type="button" className="btn small ink" onClick={merge} disabled={!branchCommitsUnmerged}>
-            🔀 Merge into main
+            Merge into main
           </button>
         ) : (
           <button type="button" className="btn small" onClick={branch} disabled={branchState === 'merged'}>
-            🌿 New branch
+            New branch
           </button>
         )}
       </div>
@@ -232,7 +232,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
       {viewed ? (
         <div className="card tight flat stack sm pop" style={{ borderColor: 'var(--warn)' }}>
           <div className="row between">
-            <span className="kicker">⏪ The app at {viewed.id}</span>
+            <span className="kicker">The app at {viewed.id}</span>
             <button type="button" className="btn small ghost" onClick={() => setViewing(null)}>
               Back to now
             </button>
@@ -250,7 +250,7 @@ export function CommitGraph({ onDone }: { onDone?: () => void }) {
         <div className={branchState === 'open' ? 'grid2' : 'stack'}>
           {(['main', ...(branchState === 'open' ? ['new-pricing'] : [])] as Branch[]).map((b) => (
             <div key={b} className="card tight flat stack sm" style={b === current ? { borderColor: 'var(--accent)' } : undefined}>
-              <span className="kicker">{b === 'main' ? '🌳 main = live app' : '🌿 new-pricing'}</span>
+              <span className="kicker">{b === 'main' ? 'main = live app' : 'new-pricing'}</span>
               <div className="row" style={{ gap: 4 }}>
                 {head(b).snap.map((s) => (
                   <span key={s} className="pill">

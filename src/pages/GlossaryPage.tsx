@@ -27,7 +27,7 @@ export function GlossaryPage({ openId }: { openId?: string }) {
         <header className="stack sm">
           <div className="kicker">Glossary</div>
           <h1>Jargon, translated</h1>
-          <p className="lead">{GLOSSARY.length} terms in plain English. Technical words aren’t intelligence — they’re just labels.</p>
+          <p className="lead">{GLOSSARY.length} terms in plain English. Technical words aren’t intelligence: they’re just labels.</p>
         </header>
         <div
           style={{

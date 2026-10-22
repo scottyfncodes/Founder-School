@@ -4,9 +4,8 @@ import { AuditBoard, type AuditItem } from './AuditBoard'
 const REQUESTS: AuditItem[] = [
   {
     id: 'ip',
-    emoji: '📜',
     title: 'Who owns the code?',
-    before: [{ k: 'Buyer asks', v: 'Show that the company — not individuals — owns all the code and designs.' }],
+    before: [{ k: 'Buyer asks', v: 'Show that the company (not individuals) owns all the code and designs.' }],
     after: [{ k: 'In the data room', v: 'Signed IP assignment agreements from every founder, employee and contractor.' }],
     ask: 'What goes in the data room?',
     options: [
@@ -17,7 +16,7 @@ const REQUESTS: AuditItem[] = [
       {
         text: 'Signed IP assignment agreements from every founder, employee and contractor.',
         correct: true,
-        why: 'This is the proof a buyer’s lawyer needs. Missing ones are a classic deal-delayer — collect them early, while people are easy to reach.',
+        why: 'This is the proof a buyer’s lawyer needs. Missing ones are a classic deal-delayer: collect them early, while people are easy to reach.',
       },
       {
         text: '“We paid the contractors, so it’s ours.”',
@@ -27,14 +26,13 @@ const REQUESTS: AuditItem[] = [
   },
   {
     id: 'oss',
-    emoji: '🧩',
     title: 'Open-source licenses',
     before: [{ k: 'Buyer asks', v: 'List the open-source packages you use and their licenses.' }],
     after: [{ k: 'In the data room', v: 'An automated license report, with the one copyleft package flagged and a plan to replace it.' }],
     ask: 'What goes in the data room?',
     options: [
       {
-        text: '“We use lots of open source — it’s free.”',
+        text: '“We use lots of open source: it’s free.”',
         why: 'Free to use isn’t the same as free of rules. Some licenses (like AGPL) can require you to publish your own code in certain situations.',
       },
       {
@@ -44,13 +42,12 @@ const REQUESTS: AuditItem[] = [
       {
         text: 'An automated license report of every dependency, with risky licenses flagged and a plan for each.',
         correct: true,
-        why: 'Tools can generate this in minutes. Flagging problems yourself — with a plan — builds far more trust than a buyer finding them.',
+        why: 'Tools can generate this in minutes. Flagging problems yourself (with a plan) builds far more trust than a buyer finding them.',
       },
     ],
   },
   {
     id: 'incidents',
-    emoji: '🚨',
     title: 'Security incidents',
     before: [
       { k: 'Buyer asks', v: 'Have you had any security incidents?' },
@@ -66,7 +63,7 @@ const REQUESTS: AuditItem[] = [
       },
       {
         text: '“No incidents.” It was fixed quickly, so it doesn’t count.',
-        why: 'If it comes out later, a false statement in a sale contract can cost you money after closing — and the buyer’s trust immediately.',
+        why: 'If it comes out later, a false statement in a sale contract can cost you money after closing, and the buyer’s trust immediately.',
       },
       {
         text: 'A penetration test report from three years ago.',
@@ -76,7 +73,6 @@ const REQUESTS: AuditItem[] = [
   },
   {
     id: 'arch',
-    emoji: '🗺️',
     title: 'Architecture',
     before: [{ k: 'Buyer asks', v: 'How does the system work, and how do changes reach production?' }],
     after: [{ k: 'In the data room', v: 'Current architecture diagram, list of services and vendors, and how deploys and backups work.' }],
@@ -99,7 +95,6 @@ const REQUESTS: AuditItem[] = [
   },
   {
     id: 'people',
-    emoji: '🧑‍💻',
     title: 'Key-person risk',
     before: [{ k: 'Buyer asks', v: 'What happens if your lead engineer leaves after the sale?' }],
     after: [{ k: 'In the data room', v: 'Runbooks and docs; an access list showing at least two people can deploy, restore and administer every system.' }],
@@ -122,7 +117,6 @@ const REQUESTS: AuditItem[] = [
   },
   {
     id: 'data',
-    emoji: '🔐',
     title: 'Data handling',
     before: [{ k: 'Buyer asks', v: 'What personal data do you hold, where, and who can access it?' }],
     after: [{ k: 'In the data room', v: 'Data map, subprocessor list, retention & deletion policy, signed customer data agreements.' }],
@@ -145,7 +139,6 @@ const REQUESTS: AuditItem[] = [
   },
   {
     id: 'costs',
-    emoji: '🧾',
     title: 'Infrastructure costs',
     before: [{ k: 'Buyer asks', v: 'What does it cost to run the product, and how does that grow with customers?' }],
     after: [{ k: 'In the data room', v: '12 months of cloud and vendor bills, cost per customer, and the trend.' }],
@@ -158,7 +151,7 @@ const REQUESTS: AuditItem[] = [
       {
         text: '12 months of cloud and vendor bills, with cost per customer and how it’s trending.',
         correct: true,
-        why: 'Real bills plus cost per customer prove your gross margin — one of the numbers that most affects what you’re worth.',
+        why: 'Real bills plus cost per customer prove your gross margin: one of the numbers that most affects what you’re worth.',
       },
       {
         text: 'The cloud provider’s public pricing page.',
@@ -177,7 +170,7 @@ export function DiligenceRoom({ onDone }: { onDone?: () => void }) {
       fixedLabel="Filed"
       onDone={onDone}
       finale={(ok, n) =>
-        `All ${n} requests answered with evidence, not reassurance. ${ok}/${n} right on the first try. A tidy data room shortens the deal and protects the price — and almost everything in it is worth doing years before anyone wants to buy you.`
+        `All ${n} requests answered with evidence, not reassurance. ${ok}/${n} right on the first try. A tidy data room shortens the deal and protects the price, and almost everything in it is worth doing years before anyone wants to buy you.`
       }
     />
   )

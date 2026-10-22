@@ -99,7 +99,7 @@ export function DbTable({
                     ...cellStyle?.(c, r),
                   }}
                 >
-                  {r[k] === null || r[k] === '' ? <span className="muted">—</span> : r[k]}
+                  {r[k] === null || r[k] === '' ? <span className="muted">-</span> : r[k]}
                 </td>
               ))}
             </tr>
@@ -159,7 +159,7 @@ export function TableBrowser({ onDone }: { onDone?: () => void }) {
       <div className="row" style={{ gap: 6 }} role="group" aria-label="Tables">
         {TABLES.map((x) => (
           <button key={x.id} type="button" className="chip small" aria-pressed={tab === x.id} onClick={() => open(x.id)} style={{ padding: '6px 10px', fontSize: 13 }}>
-            {x.emoji} {x.name}
+            {x.name}
           </button>
         ))}
       </div>
@@ -178,7 +178,7 @@ export function TableBrowser({ onDone }: { onDone?: () => void }) {
           setCol(c)
           setRow(null)
           if (c === 'id') {
-            setMsg(`🔑 The primary key. Every ${t.name} row gets a unique id that never changes and is never reused — so the app can always point at exactly one row.`)
+            setMsg(`🔑 The primary key. Every ${t.name} row gets a unique id that never changes and is never reused, so the app can always point at exactly one row.`)
             tick('pk')
           } else {
             setMsg(`One column = one kind of fact, for every row. “${c}”: ${t.colInfo[c] ?? ''}`)
@@ -222,7 +222,7 @@ export function TwoMarias({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="well small">
-        📨 <b>Support ticket:</b> “Please delete my contact record — Maria Lopez, Lopez Ag Services, Boston.”
+        <b>Support ticket:</b> “Please delete my contact record: Maria Lopez, Lopez Ag Services, Boston.”
       </div>
       <DbTable compact
         table={CONTACTS}
@@ -242,13 +242,13 @@ export function TwoMarias({ onDone }: { onDone?: () => void }) {
       <div aria-live="polite">
         {mode === 'name' && (
           <div className="callout bad pop">
-            2 rows deleted — including the <b>wrong</b> Maria, a Denver customer with notes and documents. Names aren’t unique. Try the other
+            2 rows deleted, including the <b>wrong</b> Maria, a Denver customer with notes and documents. Names aren’t unique. Try the other
             one.
           </div>
         )}
         {mode === 'id' && (
           <div className="callout good pop">
-            1 row deleted — exactly the right one. That’s the job of a primary key: one id, one row, no guessing.
+            1 row deleted: exactly the right one. That’s the job of a primary key: one id, one row, no guessing.
           </div>
         )}
       </div>

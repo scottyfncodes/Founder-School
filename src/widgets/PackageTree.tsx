@@ -12,7 +12,7 @@ const LINES: { code: string; indent: number; say?: string }[] = [
   { code: "return showError('Check the email')", indent: 2, say: 'If not, stop here and show a friendly message.' },
   { code: '}', indent: 1 },
   { code: "await api.post('/contacts', contact)", indent: 1, say: 'Send the contact to your server, and wait for the answer.' },
-  { code: "showToast('Saved ' + format(new Date(), 'PPP'))", indent: 1, say: 'Show “Saved Oct 8, 2026” — the date formatting comes from the borrowed package.' },
+  { code: "showToast('Saved ' + format(new Date(), 'PPP'))", indent: 1, say: 'Show “Saved Oct 8, 2026”. The date formatting comes from the borrowed package.' },
   { code: '}', indent: 0 },
 ]
 
@@ -75,7 +75,6 @@ export function CodeReader({ onDone }: { onDone?: () => void }) {
 
 interface Pkg {
   id: string
-  emoji: string
   label: string
   does: string
   lines: number
@@ -83,11 +82,11 @@ interface Pkg {
 }
 
 const PKGS: Pkg[] = [
-  { id: 'react', emoji: '⚛️', label: 'react', does: 'Framework for building screens', lines: 120_000, deps: ['scheduler', 'loose-envify'] },
-  { id: 'stripe', emoji: '💳', label: 'stripe-js', does: 'Takes card payments', lines: 40_000, deps: ['qs', 'tiny-color', 'side-channel', 'call-bind'] },
-  { id: 'charts', emoji: '📈', label: 'chart-kit', does: 'Draws charts for dashboards', lines: 210_000, deps: ['tiny-color', 'd3-scale', 'd3-shape', 'd3-array', 'd3-path', 'd3-time', 'internmap'] },
-  { id: 'pdf', emoji: '📄', label: 'pdf-maker', does: 'Exports invoices as PDFs', lines: 160_000, deps: ['fontkit', 'tiny-color', 'png-js', 'brotli', 'unicode-trie', 'restructure', 'dfa', 'base64-js'] },
-  { id: 'dates', emoji: '📅', label: 'date-fns', does: 'Formats dates and times', lines: 75_000, deps: [] },
+  { id: 'react', label: 'react', does: 'Framework for building screens', lines: 120_000, deps: ['scheduler', 'loose-envify'] },
+  { id: 'stripe', label: 'stripe-js', does: 'Takes card payments', lines: 40_000, deps: ['qs', 'tiny-color', 'side-channel', 'call-bind'] },
+  { id: 'charts', label: 'chart-kit', does: 'Draws charts for dashboards', lines: 210_000, deps: ['tiny-color', 'd3-scale', 'd3-shape', 'd3-array', 'd3-path', 'd3-time', 'internmap'] },
+  { id: 'pdf', label: 'pdf-maker', does: 'Exports invoices as PDFs', lines: 160_000, deps: ['fontkit', 'tiny-color', 'png-js', 'brotli', 'unicode-trie', 'restructure', 'dfa', 'base64-js'] },
+  { id: 'dates', label: 'date-fns', does: 'Formats dates and times', lines: 75_000, deps: [] },
 ]
 const YOUR_LINES = 3_200
 const BAD = 'tiny-color'
@@ -152,7 +151,7 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
       </div>
 
       <div className="stack sm">
-        <div className="kicker">Install packages (tap) — pick at least 3</div>
+        <div className="kicker">Install packages (tap): pick at least 3</div>
         {PKGS.map((p) => {
           const on = installed.includes(p.id)
           const hit = alert && on && p.deps.includes(BAD)
@@ -166,9 +165,6 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
               onClick={() => toggle(p.id)}
               style={{ display: 'flex', gap: 10, alignItems: 'flex-start', opacity: 1 }}
             >
-              <span aria-hidden="true" style={{ fontSize: 20 }}>
-                {p.emoji}
-              </span>
               <span className="grow stack" style={{ gap: 2 }}>
                 <span className="mono" style={{ fontWeight: 700 }}>
                   {p.label} {on ? '✓' : ''}
@@ -199,7 +195,7 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
 
       {canAlert && !alert && (
         <button type="button" className="btn danger" onClick={() => setAlert(true)}>
-          🚨 Simulate: security flaw found in “{BAD}”
+          Simulate: security flaw found in “{BAD}”
         </button>
       )}
 
@@ -207,7 +203,7 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
         {alert && !patched && (
           <div className="callout bad pop stack sm">
             <div>
-              <b>Security alert:</b> attackers can abuse <span className="mono">{BAD}</span> 2.1. You never installed it — but{' '}
+              <b>Security alert:</b> attackers can abuse <span className="mono">{BAD}</span> 2.1. You never installed it, but{' '}
               {affected.length > 0 ? (
                 <>
                   <b>{affected.map((a) => a.label).join(' and ')}</b> {affected.length > 1 ? 'do' : 'does'}, so it ships inside your app.
@@ -230,7 +226,7 @@ export function PackageTree({ onDone }: { onDone?: () => void }) {
         {patched && (
           <div className="callout good pop stack sm">
             <div>
-              Updated. Your own code didn’t change at all — the risk lived in borrowed code two levels deep. Updates can also
+              Updated. Your own code didn’t change at all: the risk lived in borrowed code two levels deep. Updates can also
               change behavior, so re-test before shipping.
             </div>
             <button type="button" className="btn small" onClick={reset}>

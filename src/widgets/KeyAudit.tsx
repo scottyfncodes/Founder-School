@@ -4,12 +4,11 @@ import { AuditBoard, type AuditItem } from './AuditBoard'
 const ACCOUNTS: AuditItem[] = [
   {
     id: 'domain',
-    emoji: '🌐',
     title: 'Domain registrar',
     before: [
       { k: 'Domain', v: 'clinicbook.com' },
       { k: 'Login', v: 'sam.rivera.home@gmail.com (Sam’s personal Gmail)' },
-      { k: 'Paid by', v: 'Sam’s personal card — expires next month' },
+      { k: 'Paid by', v: 'Sam’s personal card: expires next month' },
       { k: 'Other admins', v: 'none · Transfer lock: off' },
     ],
     after: [
@@ -20,7 +19,7 @@ const ACCOUNTS: AuditItem[] = [
     ask: 'What’s the right fix?',
     options: [
       {
-        text: 'Leave it — auto-renew is on.',
+        text: 'Leave it: auto-renew is on.',
         why: 'Auto-renew charges a card that expires next month. If renewal fails, the domain lapses: your website and company email go dark, and someone else can register it.',
       },
       {
@@ -30,17 +29,16 @@ const ACCOUNTS: AuditItem[] = [
       },
       {
         text: 'Share Sam’s Gmail password with the team so anyone can log in.',
-        why: 'That spreads the risk instead of fixing it: no MFA, no record of who did what — and the domain still belongs to Sam’s personal account.',
+        why: 'That spreads the risk instead of fixing it: no MFA, no record of who did what, and the domain still belongs to Sam’s personal account.',
       },
     ],
   },
   {
     id: 'github',
-    emoji: '🐙',
     title: 'Code (GitHub organization)',
     before: [
       { k: 'Only owner', v: 'jordan@freelance-dev.io (contractor, left in March)' },
-      { k: 'Founders', v: '“Member” role — can’t change settings or remove anyone' },
+      { k: 'Founders', v: '“Member” role: can’t change settings or remove anyone' },
       { k: 'Jordan’s contract', v: 'No IP (intellectual property) assignment clause' },
     ],
     after: [
@@ -55,22 +53,21 @@ const ACCOUNTS: AuditItem[] = [
         why: 'A copy doesn’t fix ownership. Jordan can still change or delete the original, and without an IP assignment the code may legally still be Jordan’s.',
       },
       {
-        text: 'Ask Jordan, in writing, to make both founders Owners, then remove Jordan — and sign an IP assignment for the code they wrote.',
+        text: 'Ask Jordan, in writing, to make both founders Owners, then remove Jordan, and sign an IP assignment for the code they wrote.',
         correct: true,
-        why: 'This fixes both control (who can change settings) and ownership (who legally owns the code). Do it while the relationship is friendly — it gets much harder later.',
+        why: 'This fixes both control (who can change settings) and ownership (who legally owns the code). Do it while the relationship is friendly: it gets much harder later.',
       },
       {
-        text: 'Nothing — Jordan was great and wouldn’t do anything bad.',
+        text: 'Nothing: Jordan was great and wouldn’t do anything bad.',
         why: 'It isn’t about trust. Jordan’s account could be hacked, or Jordan could be unreachable on the day you need a setting changed. Investors and buyers will also ask who owns the code.',
       },
     ],
   },
   {
     id: 'cloud',
-    emoji: '☁️',
     title: 'Cloud hosting',
     before: [
-      { k: 'Root (master) login', v: 'alex.b@hotmail.com — co-founder who left last year' },
+      { k: 'Root (master) login', v: 'alex.b@hotmail.com: co-founder who left last year' },
       { k: 'MFA', v: 'Off' },
       { k: 'Day to day', v: 'Everyone signs in as root' },
     ],
@@ -83,7 +80,7 @@ const ACCOUNTS: AuditItem[] = [
     options: [
       {
         text: 'Turn on MFA for root using Alex’s phone, and keep sharing the login.',
-        why: 'Better than nothing, but everyone still shares one all-powerful login — and only Alex’s phone can unlock it.',
+        why: 'Better than nothing, but everyone still shares one all-powerful login, and only Alex’s phone can unlock it.',
       },
       {
         text: 'Delete the root account to be safe.',
@@ -98,38 +95,36 @@ const ACCOUNTS: AuditItem[] = [
   },
   {
     id: 'apple',
-    emoji: '🍎',
     title: 'App Store developer account',
     before: [
-      { k: 'Enrolled as', v: 'Individual — “Sam Rivera”' },
+      { k: 'Enrolled as', v: 'Individual: “Sam Rivera”' },
       { k: 'Seller on the App Store', v: 'Sam Rivera (not the company)' },
       { k: 'Team members', v: 'none' },
     ],
     after: [
-      { k: 'Enrolled as', v: 'Organization — ClinicBook Inc.' },
+      { k: 'Enrolled as', v: 'Organization: ClinicBook Inc.' },
       { k: 'Seller on the App Store', v: 'ClinicBook Inc.' },
       { k: 'Admins', v: 'Sam + Priya' },
     ],
     ask: 'The iPhone app is published under Sam’s own name. What should happen?',
     options: [
       {
-        text: 'It’s fine — Sam is the founder.',
-        why: 'The app then belongs to Sam personally, not the company. If Sam leaves, or the company is sold, the app has to be transferred — a slow process at the worst time.',
+        text: 'It’s fine: Sam is the founder.',
+        why: 'The app then belongs to Sam personally, not the company. If Sam leaves, or the company is sold, the app has to be transferred: a slow process at the worst time.',
       },
       {
         text: 'Enroll the company as an Organization, transfer the app to it, and add a second admin.',
         correct: true,
-        why: 'The company becomes the legal seller. Organization enrollment needs a registered company (and a business ID), so start early — it can take a while.',
+        why: 'The company becomes the legal seller. Organization enrollment needs a registered company (and a business ID), so start early: it can take a while.',
       },
       {
         text: 'Open a second Individual account for Priya as a backup.',
-        why: 'An app can only live in one account, so a second personal account doesn’t help — it just means two people personally own pieces of the company.',
+        why: 'An app can only live in one account, so a second personal account doesn’t help: it just means two people personally own pieces of the company.',
       },
     ],
   },
   {
     id: 'payments',
-    emoji: '💳',
     title: 'Payments provider',
     before: [
       { k: 'Business', v: 'ClinicBook Inc. ✓' },
@@ -153,13 +148,12 @@ const ACCOUNTS: AuditItem[] = [
       },
       {
         text: 'Deal with it if Sam ever loses his phone.',
-        why: 'Account recovery on a payments platform can mean days of identity checks — while you can’t issue refunds or see payouts.',
+        why: 'Account recovery on a payments platform can mean days of identity checks, while you can’t issue refunds or see payouts.',
       },
     ],
   },
   {
     id: 'email',
-    emoji: '✉️',
     title: 'Company email & logins',
     before: [
       { k: 'Super admins', v: 'Sam only' },
@@ -175,7 +169,7 @@ const ACCOUNTS: AuditItem[] = [
     options: [
       {
         text: 'Make everyone a super admin so somebody can always help.',
-        why: 'Every extra super admin is another account an attacker can use to take over everything. Give the least access that works — two admins is plenty.',
+        why: 'Every extra super admin is another account an attacker can use to take over everything. Give the least access that works: two admins is plenty.',
       },
       {
         text: 'Keep Jordan’s mailbox active in case customers email it.',
@@ -199,7 +193,7 @@ export function KeyAudit({ onDone }: { onDone?: () => void }) {
       fixedLabel="Owned"
       onDone={onDone}
       finale={(ok, n) =>
-        `All ${n} accounts now belong to the company, with at least two people who can get in. Your bus factor went from 1 to 2 — one person leaving (or losing a phone) no longer stops the business. ${ok}/${n} fixed on the first try.`
+        `All ${n} accounts now belong to the company, with at least two people who can get in. Your bus factor went from 1 to 2: one person leaving (or losing a phone) no longer stops the business. ${ok}/${n} fixed on the first try.`
       }
     />
   )

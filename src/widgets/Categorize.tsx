@@ -4,7 +4,6 @@ import { shuffle } from '../lib/util'
 export interface Bucket {
   id: string
   label: string
-  emoji?: string
 }
 
 export interface CatItem {
@@ -42,7 +41,7 @@ export function Categorize({ buckets, items, onDone }: Props) {
       if (Object.keys(next).length === items.length) onDone?.()
     } else {
       const b = buckets.find((x) => x.id === bucketId)
-      setFeedback({ tone: 'bad', text: `Not quite — "${item.label}" doesn't belong in ${b?.label}. Try another.` })
+      setFeedback({ tone: 'bad', text: `Not quite: "${item.label}" doesn't belong in ${b?.label}. Try another.` })
     }
   }
 
@@ -51,7 +50,7 @@ export function Categorize({ buckets, items, onDone }: Props) {
       {remaining.length > 0 && (
         <div className="stack sm">
           <div className="kicker">
-            Sort these ({remaining.length} left) — tap one, then a bucket
+            Sort these ({remaining.length} left): tap one, then a bucket
           </div>
           <div className="row">
             {remaining.map((i) => (
@@ -80,7 +79,7 @@ export function Categorize({ buckets, items, onDone }: Props) {
             style={{ textAlign: 'left', cursor: remaining.length ? 'pointer' : 'default', minHeight: 96, alignItems: 'stretch' }}
           >
             <div style={{ fontWeight: 700, fontSize: 15 }}>
-              {b.emoji} {b.label}
+              {b.label}
             </div>
             <div className="row" style={{ gap: 4 }}>
               {items

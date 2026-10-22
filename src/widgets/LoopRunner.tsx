@@ -3,11 +3,11 @@ import { wait } from '../lib/motion'
 
 type Gate = 'spec' | 'tests' | 'review' | 'founder'
 
-const GATES: { id: Gate; label: string; emoji: string; cost: string }[] = [
-  { id: 'spec', label: 'Clear spec', emoji: '📝', cost: '10 min' },
-  { id: 'tests', label: 'Tests', emoji: '🧪', cost: '30 min' },
-  { id: 'review', label: 'PR review', emoji: '👀', cost: '1 hour' },
-  { id: 'founder', label: 'Founder testing', emoji: '🙋', cost: '2 hours' },
+const GATES: { id: Gate; label: string; cost: string }[] = [
+  { id: 'spec', label: 'Clear spec', cost: '10 min' },
+  { id: 'tests', label: 'Tests', cost: '30 min' },
+  { id: 'review', label: 'PR review', cost: '1 hour' },
+  { id: 'founder', label: 'Founder testing', cost: '2 hours' },
 ]
 
 const CHANGES: { id: string; label: string; defect: string | null; caughtBy: Gate[] }[] = [
@@ -76,7 +76,7 @@ export function LoopRunner({ onDone }: Props) {
           <div key={g.id} className="row nowrap between">
             <span className="small">
               <b>
-                {g.emoji} {g.label}
+                {g.label}
               </b>{' '}
               <span className="muted">· fixing here costs {g.cost}</span>
             </span>
@@ -94,7 +94,7 @@ export function LoopRunner({ onDone }: Props) {
       </div>
 
       <button type="button" className="btn primary block" disabled={running} onClick={ship}>
-        🤖 Ship 6 AI-built changes
+        Ship 6 AI-built changes
       </button>
 
       <div className="stack sm" aria-live="polite">
@@ -126,7 +126,7 @@ export function LoopRunner({ onDone }: Props) {
         <div className={`callout ${prodCount ? 'bad' : 'good'} pop`} key={configs.size + ':' + prodCount}>
           {prodCount
             ? `${prodCount} defect${prodCount > 1 ? 's' : ''} reached real customers. Each one costs a day of firefighting, plus trust. Every gate you skip moves bugs to the most expensive place to find them.`
-            : 'Nothing reached customers. Notice that each gate catches different kinds of mistakes — none of them catches everything alone.'}
+            : 'Nothing reached customers. Notice that each gate catches different kinds of mistakes: none of them catches everything alone.'}
         </div>
       )}
       {finished && (configs.size < 2 || !escapedOnce) && (

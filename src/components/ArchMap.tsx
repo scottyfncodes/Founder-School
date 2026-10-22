@@ -69,9 +69,6 @@ export function ArchMap({ only, revealAll, onExplored, initial }: Props) {
                         cursor: 'pointer',
                       }}
                     >
-                      <span aria-hidden="true" style={{ fontSize: 18 }}>
-                        {open ? c.emoji : '🔒'}
-                      </span>
                       {c.name}
                     </button>
                   )
@@ -86,14 +83,9 @@ export function ArchMap({ only, revealAll, onExplored, initial }: Props) {
         {selected ? (
           unlocked(selected.lesson) ? (
             <div className="card stack pop" key={selected.id}>
-              <div className="row nowrap">
-                <span style={{ fontSize: 32 }} aria-hidden="true">
-                  {selected.emoji}
-                </span>
-                <div className="grow">
-                  <h3>{selected.name}</h3>
-                  <p className="small ink2">{selected.what}</p>
-                </div>
+              <div className="stack sm">
+                <h3>{selected.name}</h3>
+                <p className="small ink2">{selected.what}</p>
               </div>
               <div className="grid2">
                 <div className="well stack sm">
@@ -108,11 +100,11 @@ export function ArchMap({ only, revealAll, onExplored, initial }: Props) {
                 </div>
               </div>
               <div className="callout bad">
-                <b>💥 If it fails: </b>
+                <b>If it fails: </b>
                 {selected.fails}
               </div>
               <div className="callout info">
-                <b>🧭 Why you care: </b>
+                <b>Why you care: </b>
                 {selected.care}
               </div>
               <a className="btn small" href={href(`/lesson/${selected.lesson}`)}>
@@ -121,7 +113,7 @@ export function ArchMap({ only, revealAll, onExplored, initial }: Props) {
             </div>
           ) : (
             <div className="card stack pop" key={selected.id + '-locked'}>
-              <h3>🔒 {selected.name}</h3>
+              <h3>{selected.name} (locked)</h3>
               <p className="small ink2">
                 You’ll unlock this box in the lesson “{lessonById(selected.lesson)?.title}”.
               </p>

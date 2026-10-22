@@ -72,7 +72,7 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className={`callout ${win ? 'good' : 'info'}`}>
-        <b>{win ? '🎉 Mission complete. ' : '🎯 Mission: '}</b>
+        <b>{win ? 'Mission complete. ' : 'Mission: '}</b>
         {win
           ? 'LTV:CAC is 3 or better and the business makes money every month by month 24. Notice which levers did it.'
           : 'Get LTV:CAC to 3 or more AND monthly profit above $0 by month 24. Team & tools cost a fixed $6,000/mo.'}
@@ -180,7 +180,7 @@ export function SaasModel({ onDone }: { onDone?: () => void }) {
 
       <div className="callout warn small">
         <b>Churn caps your size.</b> At {inp.newPerMonth} new customers a month and {Math.round(inp.churn * 1000) / 10}% churn, you level
-        off around <b>{num(cap)} customers</b> (new ÷ churn) — however long you wait.
+        off around <b>{num(cap)} customers</b> (new ÷ churn): however long you wait.
       </div>
 
       <button

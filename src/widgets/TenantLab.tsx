@@ -11,7 +11,7 @@ const ROWS: Row[] = [
   { id: 1, company: 'acme', name: 'Dana Ruiz', note: 'Renewal in May' },
   { id: 2, company: 'bluesky', name: 'Omar Haddad', note: 'Wants 20% discount' },
   { id: 3, company: 'acme', name: 'Lee Park', note: 'Pilot, 2 aircraft' },
-  { id: 4, company: 'bluesky', name: 'Priya Shah', note: 'VIP — owes $12k' },
+  { id: 4, company: 'bluesky', name: 'Priya Shah', note: 'VIP: owes $12k' },
   { id: 5, company: 'acme', name: 'Tom Becker', note: 'Prefers phone' },
   { id: 6, company: 'bluesky', name: 'Jo King', note: 'Cancelling soon?' },
 ]
@@ -88,7 +88,7 @@ export function TenantTable({ onDone }: { onDone?: () => void }) {
       <div className={`callout ${filter ? 'good' : 'bad'} small pop`} key={String(filter)}>
         {filter
           ? 'Both companies’ contacts live in the same table. One line of the query keeps Maria inside Acme’s “apartment”.'
-          : 'Same table, one forgotten line — and Maria can read Blue Sky’s private notes about their clients. Nothing crashed. Nobody gets an alert.'}
+          : 'Same table, one forgotten line, and Maria can read Blue Sky’s private notes about their clients. Nothing crashed. Nobody gets an alert.'}
       </div>
       <p className="tiny muted">Flip the switch off and back on.</p>
     </div>
@@ -97,22 +97,20 @@ export function TenantTable({ onDone }: { onDone?: () => void }) {
 
 interface Feature {
   id: string
-  emoji: string
   label: string
   query: string
   leaky: boolean
 }
 
 const FEATURES: Feature[] = [
-  { id: 'list', emoji: '📋', label: 'Contacts list', query: "SELECT * FROM contacts\nWHERE company = 'acme'", leaky: false },
+  { id: 'list', label: 'Contacts list', query: "SELECT * FROM contacts\nWHERE company = 'acme'", leaky: false },
   {
     id: 'search',
-    emoji: '🔎',
     label: 'Search “a”',
     query: "SELECT * FROM contacts\nWHERE company = 'acme'\n  AND name LIKE '%a%'",
     leaky: false,
   },
-  { id: 'export', emoji: '📤', label: 'Export CSV', query: 'SELECT * FROM contacts\n-- builds the CSV', leaky: true },
+  { id: 'export', label: 'Export CSV', query: 'SELECT * FROM contacts\n-- builds the CSV', leaky: true },
 ]
 
 /** A customer reports a leak. Run each feature, find the one missing the filter, fix it. */
@@ -131,7 +129,7 @@ export function LeakHunt({ onDone }: { onDone?: () => void }) {
   return (
     <div className="stack">
       <div className="callout warn small">
-        📨 <b>Support ticket from Acme:</b> “I exported our contacts and there are names in here I’ve never seen. Who is
+        <b>Support ticket from Acme:</b> “I exported our contacts and there are names in here I’ve never seen. Who is
         Priya Shah??”
       </div>
       <div className="stack sm">
@@ -149,7 +147,6 @@ export function LeakHunt({ onDone }: { onDone?: () => void }) {
               }}
               style={{ textAlign: 'center', padding: '8px 4px' }}
             >
-              <div aria-hidden="true">{f.emoji}</div>
               <div className="tiny" style={{ fontWeight: 650 }}>
                 {f.label} {ran.has(f.id) ? '✓' : ''}
               </div>
@@ -189,7 +186,7 @@ export function LeakHunt({ onDone }: { onDone?: () => void }) {
             <div className={`callout ${FEATURES.find((f) => f.id === accused)?.leaky ? 'good' : 'bad'} small pop`} key={accused}>
               {FEATURES.find((f) => f.id === accused)?.leaky
                 ? 'Found it. The list and search remembered the company filter; the export endpoint was written later and didn’t. Every new feature is a new chance to forget.'
-                : 'Look at its query again — it has the company filter, so its results only include Acme rows.'}
+                : 'Look at its query again: it has the company filter, so its results only include Acme rows.'}
             </div>
           )}
           {accused === 'export' && (
@@ -210,7 +207,7 @@ export function LeakHunt({ onDone }: { onDone?: () => void }) {
 
       {fixed && (
         <div className="callout good small pop">
-          Fixed — the export now returns only Acme rows. But the leak already happened: a real company must now tell Blue Sky
+          Fixed: the export now returns only Acme rows. But the leak already happened: a real company must now tell Blue Sky
           what was exposed, and work out who else exported.
         </div>
       )}

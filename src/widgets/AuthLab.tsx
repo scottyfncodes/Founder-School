@@ -83,7 +83,7 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
       setError('Incorrect email or password.')
       setResult({
         tone: 'warn',
-        text: 'Notice the message doesn’t say WHICH part was wrong — that would help attackers guess. The password is still: sunflower42.',
+        text: 'Notice the message doesn’t say WHICH part was wrong: that would help attackers guess. The password is still: sunflower42.',
       })
       return
     }
@@ -105,7 +105,7 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
       setScottIn(true)
       setResult({
         tone: 'good',
-        text: 'Scott proved who he is. The server hands his browser a session — a wristband — so he doesn’t retype his password on every tap.',
+        text: 'Scott proved who he is. The server hands his browser a session (a wristband) so he doesn’t retype his password on every tap.',
       })
       check(true, strangerBlocked)
     } else {
@@ -127,7 +127,7 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
       l.push({ text: 'Code matches the one sent to Scott’s phone ✓', tone: 'good' })
       finishLogin(l)
     } else {
-      l.push({ text: 'Wrong code ✕ — login blocked, Scott gets an alert', tone: 'bad' })
+      l.push({ text: 'Wrong code ✕: login blocked, Scott gets an alert', tone: 'bad' })
       setLog([...l])
       setError('That code isn’t right.')
       if (who === 'stranger') {
@@ -147,18 +147,18 @@ export function AuthLab({ onDone }: { onDone?: () => void }) {
         <div className="kicker">Who’s at the keyboard?</div>
         <div className="grid2">
           <button type="button" className="chip" aria-pressed={who === 'scott'} onClick={() => reset('scott')}>
-            🧑 Scott
+            Scott
             <div className="tiny muted">The real owner {scottIn ? '✓' : ''}</div>
           </button>
           <button type="button" className="chip" aria-pressed={who === 'stranger'} onClick={() => reset('stranger')}>
-            🦹 Stranger
+            Stranger
             <div className="tiny muted">Bought a leaked password {strangerBlocked ? '✓' : ''}</div>
           </button>
         </div>
         <div className="row nowrap between well" style={{ padding: '8px 12px' }}>
           <span className="small">
             <b>2FA required</b>
-            <span className="muted"> — a code from Scott’s phone</span>
+            <span className="muted">: a code from Scott’s phone</span>
           </span>
           <button
             type="button"
@@ -323,10 +323,10 @@ export function HashVault({ onDone }: { onDone?: () => void }) {
         <span className="kicker">How the database stores it</span>
         <div className="grid2" role="group" aria-label="Storage method">
           <button type="button" className="chip" aria-pressed={mode === 'plain'} onClick={() => setMode('plain')}>
-            📝 Plain text {leaked.has('plain') ? '✓' : ''}
+            Plain text {leaked.has('plain') ? '✓' : ''}
           </button>
           <button type="button" className="chip" aria-pressed={mode === 'hashed'} onClick={() => setMode('hashed')}>
-            🧂 Hashed {leaked.has('hashed') ? '✓' : ''}
+            Hashed {leaked.has('hashed') ? '✓' : ''}
           </button>
         </div>
       </div>
@@ -347,14 +347,14 @@ export function HashVault({ onDone }: { onDone?: () => void }) {
       </div>
 
       <button type="button" className="btn danger" onClick={leak}>
-        💥 The database gets stolen
+        The database gets stolen
       </button>
 
       {isLeaked && (
         <div className={`callout ${mode === 'plain' ? 'bad' : 'good'} pop small`}>
           {mode === 'plain'
             ? 'Game over: every password is readable. And people reuse passwords, so the attacker now tries them on email and banking too.'
-            : 'The attacker gets scrambled gibberish. A hash is one-way: the server can check a typed password against it, but nobody can turn it back. (Weak ones like “password123” can still be guessed — hashing buys time, not magic.)'}
+            : 'The attacker gets scrambled gibberish. A hash is one-way: the server can check a typed password against it, but nobody can turn it back. (Weak ones like “password123” can still be guessed: hashing buys time, not magic.)'}
         </div>
       )}
       <p className="tiny muted">Leak the database in both modes to compare. Change the password and watch the hash change completely.</p>

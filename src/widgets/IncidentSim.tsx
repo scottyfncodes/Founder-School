@@ -26,7 +26,7 @@ interface Decision {
 const DECISIONS: Decision[] = [
   {
     phase: 'Triage',
-    prompt: '📟 4:12 PM Friday. Alert: login errors at 40% (normally under 1%). You’re on call. What first?',
+    prompt: '4:12 PM Friday. Alert: login errors at 40% (normally under 1%). You’re on call. What first?',
     choices: [
       {
         text: 'Declare an incident and check what changed recently',
@@ -57,7 +57,7 @@ const DECISIONS: Decision[] = [
     prompt: 'Support has 30 new emails: “I can’t log in!” What do you tell customers?',
     choices: [
       {
-        text: 'Status page: “Investigating — some users can’t log in. Next update in 30 min.”',
+        text: 'Status page: “Investigating. Some users can’t log in. Next update in 30 min.”',
         best: true,
         mins: 0,
         trust: 10,
@@ -71,7 +71,7 @@ const DECISIONS: Decision[] = [
         trust: -20,
         status: 'silent',
         log: 'No update. Support inbox hits 120 emails; two customers post on social media.',
-        why: 'Silence makes customers assume the worst — and floods your support team while you’re trying to fix things.',
+        why: 'Silence makes customers assume the worst, and floods your support team while you’re trying to fix things.',
       },
       {
         text: 'Status page: “All systems operational”',
@@ -113,7 +113,7 @@ const DECISIONS: Decision[] = [
         errors: 0.4,
         status: 'monitoring',
         log: 'Restore took 90 minutes and erased today’s data. Errors continued until you also rolled back the code.',
-        why: 'The data was fine — the code was broken. A restore is for data disasters, and it costs you every change since the backup.',
+        why: 'The data was fine. The code was broken. A restore is for data disasters, and it costs you every change since the backup.',
       },
     ],
   },
@@ -127,7 +127,7 @@ const DECISIONS: Decision[] = [
         mins: 0,
         trust: 10,
         status: 'resolved',
-        log: 'Stable for 15 minutes. Status page: “Resolved — logins work again. Sorry for the disruption; details to follow.”',
+        log: 'Stable for 15 minutes. Status page: “Resolved. Logins work again. Sorry for the disruption; details to follow.”',
         why: 'Confirm the fix holds, then close the loop with customers. They saw the problem; let them see the ending.',
       },
       {
@@ -135,7 +135,7 @@ const DECISIONS: Decision[] = [
         mins: 0,
         trust: -5,
         status: 'resolved',
-        log: 'Marked resolved without checking. It held — this time.',
+        log: 'Marked resolved without checking. It held, this time.',
         why: 'You got lucky. A fix that isn’t verified can quietly fail again on a Friday night with nobody watching.',
       },
     ],
@@ -150,7 +150,7 @@ const DECISIONS: Decision[] = [
         mins: 0,
         trust: 10,
         log: 'Postmortem done. Actions: add a login test to CI, deploy Friday changes earlier, alert at 5% not 40%.',
-        why: 'Ask “what in our process allowed this?” — not “who did it?”. That’s how the same incident doesn’t happen twice.',
+        why: 'Ask “what in our process allowed this?”, not “who did it?”. That’s how the same incident doesn’t happen twice.',
       },
       {
         text: 'Find out who wrote the bug and make sure they know',
@@ -160,7 +160,7 @@ const DECISIONS: Decision[] = [
         why: 'Blame teaches people to hide problems. The same gap (no login test) is still there for the next person.',
       },
       {
-        text: 'Move on — it’s fixed',
+        text: 'Move on: it’s fixed',
         mins: 0,
         trust: -5,
         log: 'Nothing changes. Three weeks later, a similar deploy breaks login again.',
@@ -173,7 +173,7 @@ const DECISIONS: Decision[] = [
 const STATUS: Record<Status, { emoji: string; text: string; tone: string }> = {
   ok: { emoji: '🟢', text: 'All systems operational', tone: 'var(--good)' },
   investigating: { emoji: '🟠', text: 'Investigating: some users can’t log in', tone: 'var(--warn)' },
-  monitoring: { emoji: '🔵', text: 'Fix deployed — monitoring', tone: 'var(--info)' },
+  monitoring: { emoji: '🔵', text: 'Fix deployed: monitoring', tone: 'var(--info)' },
   resolved: { emoji: '🟢', text: 'Resolved', tone: 'var(--good)' },
   silent: { emoji: '🟢', text: 'All systems operational (not updated)', tone: 'var(--muted)' },
   lie: { emoji: '🟢', text: 'All systems operational (while broken!)', tone: 'var(--bad)' },
@@ -310,7 +310,7 @@ export function IncidentSim({ onDone }: { onDone?: () => void }) {
         <div className="stack sm">
           <div className="kicker">Incident timeline</div>
           <ol className="small" style={{ margin: 0, paddingLeft: 20 }}>
-            <li className="bad-text">4:05 PM — deploy v142; login errors begin.</li>
+            <li className="bad-text">4:05 PM: deploy v142; login errors begin.</li>
             {history.map((c, i) => (
               <li key={i} className={c.best ? '' : 'warn-text'}>
                 <b>{DECISIONS[i].phase}:</b> {c.log}

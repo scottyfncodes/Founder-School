@@ -1,7 +1,7 @@
 import type { Skill } from '../lib/types'
 
 /* ============================================================
-   FlightLog capstone — decisions, events and the numbers model.
+   FlightLog capstone: decisions, events and the numbers model.
    Pure data + pure functions; the page owns all UI state.
    ============================================================ */
 
@@ -25,7 +25,6 @@ export type Choices = Record<DecisionKey, string>
 export interface Option {
   id: string
   label: string
-  emoji: string
   tradeoff: string
   /** 0–1: how well this fits a brand-new company. */
   q: number
@@ -48,9 +47,9 @@ export const DECISIONS: Decision[] = [
     skills: ['business', 'tech'],
     lesson: 'w10-specs',
     options: [
-      { id: 'everything', emoji: '🧰', label: 'The full suite', tradeoff: 'Logbook, parts store, scheduling, invoicing. Impressive — and months before anyone can use it.', q: 0.2 },
-      { id: 'core', emoji: '📒', label: 'Digital logbook + due-date reminders', tradeoff: 'Solves the painful part fast. Feels small; that’s the point.', q: 1 },
-      { id: 'ai', emoji: '🤖', label: 'AI that reads photos of paper logbooks', tradeoff: 'Magical demo. Adds AI cost per scan and a vendor you depend on.', q: 0.55 },
+      { id: 'everything', label: 'The full suite', tradeoff: 'Logbook, parts store, scheduling, invoicing. Impressive, and months before anyone can use it.', q: 0.2 },
+      { id: 'core', label: 'Digital logbook + due-date reminders', tradeoff: 'Solves the painful part fast. Feels small; that’s the point.', q: 1 },
+      { id: 'ai', label: 'AI that reads photos of paper logbooks', tradeoff: 'Magical demo. Adds AI cost per scan and a vendor you depend on.', q: 0.55 },
     ],
   },
   {
@@ -60,10 +59,10 @@ export const DECISIONS: Decision[] = [
     skills: ['business'],
     lesson: 'w11-funnel',
     options: [
-      { id: 'everyone', emoji: '🌍', label: 'Everyone in aviation', tradeoff: 'Huge market on paper. Fuzzy message that speaks to no one.', q: 0.3 },
-      { id: 'owners', emoji: '🛩️', label: 'Owners of small aircraft', tradeoff: 'Clear, painful problem. Many buyers, each paying a little.', q: 1 },
-      { id: 'shops', emoji: '🔧', label: 'Independent mechanics & small shops', tradeoff: 'Fewer customers, each worth more. They need multi-aircraft views.', q: 0.9 },
-      { id: 'airlines', emoji: '🛫', label: 'Airlines', tradeoff: 'Big contracts — after 18-month sales cycles and heavy compliance.', q: 0.15 },
+      { id: 'everyone', label: 'Everyone in aviation', tradeoff: 'Huge market on paper. Fuzzy message that speaks to no one.', q: 0.3 },
+      { id: 'owners', label: 'Owners of small aircraft', tradeoff: 'Clear, painful problem. Many buyers, each paying a little.', q: 1 },
+      { id: 'shops', label: 'Independent mechanics & small shops', tradeoff: 'Fewer customers, each worth more. They need multi-aircraft views.', q: 0.9 },
+      { id: 'airlines', label: 'Airlines', tradeoff: 'Big contracts, after 18-month sales cycles and heavy compliance.', q: 0.15 },
     ],
   },
   {
@@ -73,10 +72,10 @@ export const DECISIONS: Decision[] = [
     skills: ['business'],
     lesson: 'w11-pricing',
     options: [
-      { id: 'free', emoji: '🆓', label: 'Free, with ads', tradeoff: 'Easy signups. Ads earn pennies; you can’t afford support.', q: 0.15 },
-      { id: 'p4', emoji: '🪙', label: '$4 / month', tradeoff: 'Low friction. Thin margins: one support email eats a year of profit.', q: 0.4 },
-      { id: 'p29', emoji: '💳', label: '$29 / month per aircraft', tradeoff: 'Tiny next to a $3,000 inspection. Fits individual owners.', q: 1 },
-      { id: 'p299', emoji: '💼', label: '$299 / month per shop', tradeoff: 'Great for shops managing many planes. Too much for one owner.', q: 1 },
+      { id: 'free', label: 'Free, with ads', tradeoff: 'Easy signups. Ads earn pennies; you can’t afford support.', q: 0.15 },
+      { id: 'p4', label: '$4 / month', tradeoff: 'Low friction. Thin margins: one support email eats a year of profit.', q: 0.4 },
+      { id: 'p29', label: '$29 / month per aircraft', tradeoff: 'Tiny next to a $3,000 inspection. Fits individual owners.', q: 1 },
+      { id: 'p299', label: '$299 / month per shop', tradeoff: 'Great for shops managing many planes. Too much for one owner.', q: 1 },
     ],
   },
   {
@@ -86,9 +85,9 @@ export const DECISIONS: Decision[] = [
     skills: ['ai', 'tech'],
     lesson: 'w10-loop',
     options: [
-      { id: 'yolo', emoji: '🚀', label: 'Agent pushes straight to production', tradeoff: 'Fastest possible. Nobody checks anything before customers see it.', q: 0.1 },
-      { id: 'reviewed', emoji: '🔍', label: 'Agent opens PRs → CI tests → you review → deploy', tradeoff: 'A few minutes slower per change. Mistakes get caught before users do.', q: 1 },
-      { id: 'manual', emoji: '✍️', label: 'Skip AI; hand-write it, no tests', tradeoff: 'You understand every line — but ship slowly and still miss bugs.', q: 0.5 },
+      { id: 'yolo', label: 'Agent pushes straight to production', tradeoff: 'Fastest possible. Nobody checks anything before customers see it.', q: 0.1 },
+      { id: 'reviewed', label: 'Agent opens PRs → CI tests → you review → deploy', tradeoff: 'A few minutes slower per change. Mistakes get caught before users do.', q: 1 },
+      { id: 'manual', label: 'Skip AI; hand-write it, no tests', tradeoff: 'You understand every line, but ship slowly and still miss bugs.', q: 0.5 },
     ],
   },
   {
@@ -98,9 +97,9 @@ export const DECISIONS: Decision[] = [
     skills: ['architecture', 'tech'],
     lesson: 'w6-architecture',
     options: [
-      { id: 'services', emoji: '🧩', label: 'Microservices from day one', tradeoff: 'Scales teams of 50. For one founder: 9 things to deploy and debug.', q: 0.2 },
-      { id: 'serverless', emoji: '⚡', label: 'Serverless functions', tradeoff: 'Nearly free when quiet. Per-request pricing grows with traffic.', q: 0.65 },
-      { id: 'monolith', emoji: '🏛️', label: 'One well-organized app (monolith)', tradeoff: 'Simple to build, deploy and debug. Can be split later if needed.', q: 1 },
+      { id: 'services', label: 'Microservices from day one', tradeoff: 'Scales teams of 50. For one founder: 9 things to deploy and debug.', q: 0.2 },
+      { id: 'serverless', label: 'Serverless functions', tradeoff: 'Nearly free when quiet. Per-request pricing grows with traffic.', q: 0.65 },
+      { id: 'monolith', label: 'One well-organized app (monolith)', tradeoff: 'Simple to build, deploy and debug. Can be split later if needed.', q: 1 },
     ],
   },
   {
@@ -110,10 +109,10 @@ export const DECISIONS: Decision[] = [
     skills: ['architecture', 'reliability'],
     lesson: 'w6-deploy',
     options: [
-      { id: 'paas', emoji: '☁️', label: 'Managed platform (PaaS)', tradeoff: 'Push code, it runs and scales. Costs a bit more per user.', q: 1 },
-      { id: 'vps', emoji: '🖥️', label: 'One rented server you manage', tradeoff: 'Cheap and flexible. You are the ops team, at 3 a.m. too.', q: 0.55 },
-      { id: 'k8s', emoji: '☸️', label: 'Kubernetes cluster', tradeoff: 'Industrial-strength. ~$450/month and real expertise before user #1.', q: 0.3 },
-      { id: 'laptop', emoji: '💻', label: 'Your laptop, via a tunnel', tradeoff: 'Free! Until it sleeps, updates, or leaves the house.', q: 0 },
+      { id: 'paas', label: 'Managed platform (PaaS)', tradeoff: 'Push code, it runs and scales. Costs a bit more per user.', q: 1 },
+      { id: 'vps', label: 'One rented server you manage', tradeoff: 'Cheap and flexible. You are the ops team, at 3 a.m. too.', q: 0.55 },
+      { id: 'k8s', label: 'Kubernetes cluster', tradeoff: 'Industrial-strength. ~$450/month and real expertise before user #1.', q: 0.3 },
+      { id: 'laptop', label: 'Your laptop, via a tunnel', tradeoff: 'Free! Until it sleeps, updates, or leaves the house.', q: 0 },
     ],
   },
   {
@@ -123,10 +122,10 @@ export const DECISIONS: Decision[] = [
     skills: ['data', 'architecture'],
     lesson: 'w3-tables',
     options: [
-      { id: 'sheet', emoji: '📊', label: 'A spreadsheet service', tradeoff: 'Zero setup. Breaks with rate and row limits as you grow.', q: 0.25 },
-      { id: 'managed', emoji: '🐘', label: 'Managed Postgres', tradeoff: 'Relational (aircraft → logs → parts), with failover and snapshots built in.', q: 1 },
-      { id: 'selfhost', emoji: '🛠️', label: 'Database on your own server', tradeoff: 'Cheapest. Upgrades, disk space and failures are all yours.', q: 0.35 },
-      { id: 'nosql', emoji: '📦', label: 'Hosted document store (NoSQL)', tradeoff: 'Flexible and quick to start. Linked data gets awkward later.', q: 0.6 },
+      { id: 'sheet', label: 'A spreadsheet service', tradeoff: 'Zero setup. Breaks with rate and row limits as you grow.', q: 0.25 },
+      { id: 'managed', label: 'Managed Postgres', tradeoff: 'Relational (aircraft → logs → parts), with failover and snapshots built in.', q: 1 },
+      { id: 'selfhost', label: 'Database on your own server', tradeoff: 'Cheapest. Upgrades, disk space and failures are all yours.', q: 0.35 },
+      { id: 'nosql', label: 'Hosted document store (NoSQL)', tradeoff: 'Flexible and quick to start. Linked data gets awkward later.', q: 0.6 },
     ],
   },
   {
@@ -136,9 +135,9 @@ export const DECISIONS: Decision[] = [
     skills: ['security'],
     lesson: 'w4-authn',
     options: [
-      { id: 'own', emoji: '🔨', label: 'Build your own login', tradeoff: 'Full control. Hashing, resets, rate limits and MFA are all on you.', q: 0.2 },
-      { id: 'provider', emoji: '🛡️', label: 'Proven auth provider (with MFA)', tradeoff: 'Battle-tested, a small monthly cost, and some lock-in.', q: 1 },
-      { id: 'shared', emoji: '🔑', label: 'Simple logins + one shared admin password', tradeoff: 'Easy for your team. One leak opens every customer.', q: 0 },
+      { id: 'own', label: 'Build your own login', tradeoff: 'Full control. Hashing, resets, rate limits and MFA are all on you.', q: 0.2 },
+      { id: 'provider', label: 'Proven auth provider (with MFA)', tradeoff: 'Battle-tested, a small monthly cost, and some lock-in.', q: 1 },
+      { id: 'shared', label: 'Simple logins + one shared admin password', tradeoff: 'Easy for your team. One leak opens every customer.', q: 0 },
     ],
   },
   {
@@ -148,9 +147,9 @@ export const DECISIONS: Decision[] = [
     skills: ['security'],
     lesson: 'w7-habits',
     options: [
-      { id: 'fast', emoji: '🏃', label: 'Ship fast, fix security later', tradeoff: 'No slowdown today. “Later” usually arrives as an incident.', q: 0.1 },
-      { id: 'soc2', emoji: '📋', label: 'Full SOC 2 program now', tradeoff: 'Enterprise-grade. ~$1,200/month and weeks of paperwork pre-revenue.', q: 0.5 },
-      { id: 'basics', emoji: '✅', label: 'Basics: MFA, secrets out of code, logs, updates', tradeoff: 'A few hours a month. Stops most real-world attacks.', q: 1 },
+      { id: 'fast', label: 'Ship fast, fix security later', tradeoff: 'No slowdown today. “Later” usually arrives as an incident.', q: 0.1 },
+      { id: 'soc2', label: 'Full SOC 2 program now', tradeoff: 'Enterprise-grade. ~$1,200/month and weeks of paperwork pre-revenue.', q: 0.5 },
+      { id: 'basics', label: 'Basics: MFA, secrets out of code, logs, updates', tradeoff: 'A few hours a month. Stops most real-world attacks.', q: 1 },
     ],
   },
   {
@@ -160,10 +159,10 @@ export const DECISIONS: Decision[] = [
     skills: ['architecture', 'reliability'],
     lesson: 'w9-services',
     options: [
-      { id: 'single', emoji: '📮', label: 'One provider, send directly', tradeoff: 'Simple. If it’s down, reminders silently fail.', q: 0.6 },
-      { id: 'diy', emoji: '🏗️', label: 'Run your own mail server', tradeoff: 'No vendor bill. Spam filters distrust new servers.', q: 0.15 },
-      { id: 'fallback', emoji: '🔁', label: 'Provider + queue, retries & a backup provider', tradeoff: 'A day more work. Outages become delays, not lost messages.', q: 1 },
-      { id: 'many', emoji: '🧲', label: 'A best-in-class API for everything', tradeoff: 'Maps, SMS, analytics, chat… each one another thing that breaks.', q: 0.3 },
+      { id: 'single', label: 'One provider, send directly', tradeoff: 'Simple. If it’s down, reminders silently fail.', q: 0.6 },
+      { id: 'diy', label: 'Run your own mail server', tradeoff: 'No vendor bill. Spam filters distrust new servers.', q: 0.15 },
+      { id: 'fallback', label: 'Provider + queue, retries & a backup provider', tradeoff: 'A day more work. Outages become delays, not lost messages.', q: 1 },
+      { id: 'many', label: 'A best-in-class API for everything', tradeoff: 'Maps, SMS, analytics, chat… each one another thing that breaks.', q: 0.3 },
     ],
   },
   {
@@ -173,9 +172,9 @@ export const DECISIONS: Decision[] = [
     skills: ['reliability', 'data'],
     lesson: 'w8-backups',
     options: [
-      { id: 'none', emoji: '🙈', label: 'No backups yet', tradeoff: 'Free. One bad command away from losing everything.', q: 0 },
-      { id: 'tested', emoji: '🧪', label: 'Nightly + offsite + tested restores', tradeoff: '~$20/month and an hour a quarter. You know restore works.', q: 1 },
-      { id: 'nightly', emoji: '🌙', label: 'Nightly backups, never tested', tradeoff: 'Cheap comfort. A backup never restored is a theory.', q: 0.5 },
+      { id: 'none', label: 'No backups yet', tradeoff: 'Free. One bad command away from losing everything.', q: 0 },
+      { id: 'tested', label: 'Nightly + offsite + tested restores', tradeoff: '~$20/month and an hour a quarter. You know restore works.', q: 1 },
+      { id: 'nightly', label: 'Nightly backups, never tested', tradeoff: 'Cheap comfort. A backup never restored is a theory.', q: 0.5 },
     ],
   },
   {
@@ -185,9 +184,9 @@ export const DECISIONS: Decision[] = [
     skills: ['reliability'],
     lesson: 'w12-ownership',
     options: [
-      { id: 'none', emoji: '🤞', label: 'We’ll figure it out', tradeoff: 'No effort now. All knowledge lives in one head.', q: 0.1 },
-      { id: 'doc', emoji: '📝', label: 'Written runbook, logins in your name', tradeoff: 'Good start. Accounts still tied to one person.', q: 0.55 },
-      { id: 'drilled', emoji: '🧯', label: 'Runbook + company-owned accounts + a second admin + one drill', tradeoff: 'An afternoon to set up. Anyone can recover, calmly.', q: 1 },
+      { id: 'none', label: 'We’ll figure it out', tradeoff: 'No effort now. All knowledge lives in one head.', q: 0.1 },
+      { id: 'doc', label: 'Written runbook, logins in your name', tradeoff: 'Good start. Accounts still tied to one person.', q: 0.55 },
+      { id: 'drilled', label: 'Runbook + company-owned accounts + a second admin + one drill', tradeoff: 'An afternoon to set up. Anyone can recover, calmly.', q: 1 },
     ],
   },
   {
@@ -197,9 +196,9 @@ export const DECISIONS: Decision[] = [
     skills: ['business', 'architecture'],
     lesson: 'w6-cloud-bill',
     options: [
-      { id: 'upfront', emoji: '🏦', label: 'Reserve big servers upfront “for scale”', tradeoff: '~$1,800/month before you have customers.', q: 0.15 },
-      { id: 'alerts', emoji: '🔔', label: 'Pay as you grow + budget alerts', tradeoff: 'Lean, and you hear about surprises on day 2, not day 30.', q: 1 },
-      { id: 'lean', emoji: '🪶', label: 'Pay as you grow, check the bill monthly', tradeoff: 'Lean. Surprises show up at month-end.', q: 0.6 },
+      { id: 'upfront', label: 'Reserve big servers upfront “for scale”', tradeoff: '~$1,800/month before you have customers.', q: 0.15 },
+      { id: 'alerts', label: 'Pay as you grow + budget alerts', tradeoff: 'Lean, and you hear about surprises on day 2, not day 30.', q: 1 },
+      { id: 'lean', label: 'Pay as you grow, check the bill monthly', tradeoff: 'Lean. Surprises show up at month-end.', q: 0.6 },
     ],
   },
 ]
@@ -401,7 +400,6 @@ export interface Upgrade {
 export interface EventDef {
   id: string
   stage: number
-  emoji: string
   title: string
   skills: Skill[]
   lesson: string
@@ -419,7 +417,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'deploy',
     stage: 0,
-    emoji: '🚧',
     title: 'Friday deploy breaks login',
     skills: ['ai', 'tech'],
     lesson: 'w5-pipeline',
@@ -443,7 +440,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'db-outage',
     stage: 0,
-    emoji: '🛑',
     title: 'The database goes dark',
     skills: ['reliability'],
     lesson: 'w8-incidents',
@@ -462,7 +458,7 @@ export const EVENTS: EventDef[] = [
       { text: 'Fix it quietly and say nothing', why: 'Fixing matters most, but silence makes users assume the worst.', q: 0.3, fx: { trust: -2 } },
       { text: 'Post a short, honest status update with an ETA', why: 'Fast, honest updates keep trust even mid-outage.', q: 1, fx: { trust: 4 } },
       { text: 'Blame your cloud provider publicly', why: 'Customers chose you, not your provider. Own it.', q: 0.05, fx: { trust: -5 } },
-      { text: 'Promise everyone a free year', why: 'Generous, but costly — and it doesn’t answer “when is it back?”', q: 0.4, fx: { trust: 1 } },
+      { text: 'Promise everyone a free year', why: 'Generous, but costly, and it doesn’t answer “when is it back?”', q: 0.4, fx: { trust: 1 } },
     ],
     upgrades: [
       { key: 'backups', from: ['none', 'nightly'], to: 'tested', pitch: 'That was a scare. Set up nightly, offsite backups and test a restore.' },
@@ -472,7 +468,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'api-outage',
     stage: 1,
-    emoji: '📭',
     title: 'Your SMS & email provider is down',
     skills: ['tech', 'architecture'],
     lesson: 'w9-services',
@@ -489,16 +484,15 @@ export const EVENTS: EventDef[] = [
     prompt: 'Some reminders didn’t go out. What now?',
     responses: [
       { text: 'Switch providers tonight, in a rush', why: 'Rushed migrations create new bugs. Close the gap first; plan any switch calmly.', q: 0.35 },
-      { text: 'Nothing — it was the provider’s fault', why: 'To customers, FlightLog failed. Your dependencies are your responsibility.', q: 0.05, fx: { trust: -4 } },
+      { text: 'Nothing: it was the provider’s fault', why: 'To customers, FlightLog failed. Your dependencies are your responsibility.', q: 0.05, fx: { trust: -4 } },
       { text: 'Re-send what failed and tell affected owners plainly', why: 'Fix the customer impact, then explain. That’s what earns trust back.', q: 1, fx: { trust: 4 } },
-      { text: 'Build your own SMS gateway so it never happens again', why: 'Huge effort and worse delivery. Use providers — add a fallback.', q: 0.15 },
+      { text: 'Build your own SMS gateway so it never happens again', why: 'Huge effort and worse delivery. Use providers: add a fallback.', q: 0.15 },
     ],
     upgrades: [{ key: 'apis', from: ['single', 'diy', 'many'], to: 'fallback', pitch: 'Add a queue with retries and a backup provider.' }],
   },
   {
     id: 'account',
     stage: 1,
-    emoji: '🕵️',
     title: 'Accounts under attack',
     skills: ['security'],
     lesson: 'w7-lab-1',
@@ -520,7 +514,7 @@ export const EVENTS: EventDef[] = [
       { text: 'Reset passwords quietly', why: 'Better than nothing, but affected customers deserve to know.', q: 0.25, fx: { trust: -3 } },
       { text: 'Take FlightLog offline for a week to rebuild login', why: 'An overreaction: a week dark hurts every customer. Contain, then fix.', q: 0.3, fx: { down: 12 } },
       { text: 'Delete the affected accounts', why: 'That destroys customers’ records and punishes the victims.', q: 0, fx: { trust: -8 } },
-      { text: 'Lock affected accounts, force resets, tell those customers what happened', why: 'Contain, fix, communicate — the incident playbook in one line.', q: 1, fx: { trust: 5 } },
+      { text: 'Lock affected accounts, force resets, tell those customers what happened', why: 'Contain, fix, communicate: the incident playbook in one line.', q: 1, fx: { trust: 5 } },
     ],
     upgrades: [
       { key: 'auth', from: ['own', 'shared'], to: 'provider', pitch: 'Switch to a proven auth provider with MFA.' },
@@ -530,7 +524,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'spike',
     stage: 2,
-    emoji: '📈',
     title: 'You went viral',
     skills: ['architecture'],
     lesson: 'w6-architecture',
@@ -539,12 +532,12 @@ export const EVENTS: EventDef[] = [
       const out: Line[] = []
       if (c.hosting === 'laptop') out.push({ key: 'hosting', tone: 'bad', text: 'your laptop couldn’t cope. Down for most of two days.', fx: { down: 40, trust: -15, users: 0.85 } })
       else if (c.hosting === 'vps') out.push({ key: 'hosting', tone: 'warn', text: 'your single server maxed out. Slow for 6 hours while you resized it.', fx: { down: 3, users: 1.08 } })
-      else if (c.hosting === 'k8s') out.push({ key: 'hosting', tone: 'good', text: 'autoscaling worked — and the bill jumped with it.', fx: { users: 1.2, bill: 300 } })
+      else if (c.hosting === 'k8s') out.push({ key: 'hosting', tone: 'good', text: 'autoscaling worked, and the bill jumped with it.', fx: { users: 1.2, bill: 300 } })
       else out.push({ key: 'hosting', tone: 'good', text: 'the platform added more copies of your app automatically.', fx: { users: 1.2 } })
       if (c.db === 'sheet') out.push({ key: 'db', tone: 'bad', text: 'the spreadsheet hit its limits. Signups failed for 12 hours.', fx: { down: 12, trust: -8 } })
       if (c.db === 'selfhost') out.push({ key: 'db', tone: 'warn', text: 'your database needed an emergency upgrade at 3 a.m.', fx: { down: 2 } })
       if (c.arch === 'services') out.push({ key: 'arch', tone: 'warn', text: 'one service scaled but the one it calls didn’t. Cascading timeouts for 4 hours.', fx: { down: 4, trust: -4 } })
-      if (c.arch === 'serverless') out.push({ key: 'arch', tone: 'good', text: 'functions scaled instantly — with per-request costs to match.', fx: { bill: 200 } })
+      if (c.arch === 'serverless') out.push({ key: 'arch', tone: 'good', text: 'functions scaled instantly, with per-request costs to match.', fx: { bill: 200 } })
       if (c.arch === 'monolith' && c.hosting !== 'laptop') out.push({ key: 'arch', tone: 'good', text: 'there was one app to scale and one place to look.' })
       return out
     },
@@ -563,7 +556,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'restore',
     stage: 2,
-    emoji: '🗑️',
     title: 'A migration deletes real data',
     skills: ['data', 'ai', 'reliability'],
     lesson: 'w8-backups',
@@ -582,7 +574,7 @@ export const EVENTS: EventDef[] = [
     prompt: 'What changes for next time?',
     responses: [
       { text: 'Stop using AI for code entirely', why: 'Humans write bad migrations too. The fix is process, not banning a tool.', q: 0.3 },
-      { text: 'Trust the agent more — it said the migration was safe', why: 'An agent saying “safe” is a claim, not evidence. Demand a test on real-shaped data.', q: 0 },
+      { text: 'Trust the agent more: it said the migration was safe', why: 'An agent saying “safe” is a claim, not evidence. Demand a test on real-shaped data.', q: 0 },
       { text: 'Fire whoever ran it', why: 'Blame hides problems. Blameless postmortems fix the system.', q: 0.1, fx: { trust: -2, team: -1 } },
       { text: 'Review migrations, test them on a copy of production, back up right before', why: 'Three cheap habits that make this mistake boring instead of fatal.', q: 1, fx: { trust: 3 } },
     ],
@@ -594,7 +586,6 @@ export const EVENTS: EventDef[] = [
   {
     id: 'bill',
     stage: 3,
-    emoji: '🧾',
     title: 'The cloud bill triples',
     skills: ['business'],
     lesson: 'w6-cloud-bill',
@@ -603,7 +594,7 @@ export const EVENTS: EventDef[] = [
       const out: Line[] = []
       if (c.cost === 'alerts') out.push({ key: 'cost', tone: 'good', text: 'a budget alert fired on day 2 and you stopped the job early.', fx: { bill: 150 } })
       else if (c.cost === 'lean') out.push({ key: 'cost', tone: 'warn', text: 'nothing alerted you. You found out at month-end.', fx: { bill: 2500 } })
-      else out.push({ key: 'cost', tone: 'bad', text: 'you were already paying for idle reserved servers — the spike landed on top.', fx: { bill: 2500 } })
+      else out.push({ key: 'cost', tone: 'bad', text: 'you were already paying for idle reserved servers: the spike landed on top.', fx: { bill: 2500 } })
       if (c.arch === 'services') out.push({ key: 'arch', tone: 'warn', text: 'chatty services added data-transfer fees.', fx: { bill: 600 } })
       if (c.arch === 'serverless') out.push({ key: 'arch', tone: 'warn', text: 'at this volume, per-request pricing costs more than servers would.', fx: { bill: 800 } })
       if (c.scope === 'ai') out.push({ key: 'scope', tone: 'warn', text: 'AI photo scans are now your biggest cost line.' })
@@ -614,14 +605,13 @@ export const EVENTS: EventDef[] = [
       { text: 'Triple prices tomorrow', why: 'Punishes customers for your bug. Some will leave.', q: 0.2, fx: { users: 0.85, trust: -6 } },
       { text: 'Find the top cost lines, fix the biggest, set budget alerts', why: 'Most bills are dominated by 2–3 lines. Fix those, then watch.', q: 1, fx: { bill: -2400 } },
       { text: 'Move to a different cloud this month', why: 'A big, risky migration that doesn’t fix the runaway job.', q: 0.2, fx: { down: 4 } },
-      { text: 'Ignore it — growth will fix margins', why: 'Costs that grow with usage don’t shrink with growth.', q: 0.05 },
+      { text: 'Ignore it: growth will fix margins', why: 'Costs that grow with usage don’t shrink with growth.', q: 0.05 },
     ],
     upgrades: [{ key: 'cost', from: ['lean', 'upfront'], to: 'alerts', pitch: 'Switch to pay-as-you-grow with budget alerts.' }],
   },
   {
     id: 'breach',
     stage: 3,
-    emoji: '🔓',
     title: 'A researcher finds a hole',
     skills: ['security', 'data'],
     lesson: 'w4-authz',
@@ -638,7 +628,7 @@ export const EVENTS: EventDef[] = [
     prompt: 'What’s your first move?',
     responses: [
       { text: 'Thank them, patch, check logs for abuse, notify anyone affected', why: 'Researchers who report quietly are allies. Fix, verify, be honest.', q: 1, fx: { trust: 5 } },
-      { text: 'Threaten the researcher with lawyers', why: 'It scares off the people helping you — and it makes headlines.', q: 0, fx: { trust: -10 } },
+      { text: 'Threaten the researcher with lawyers', why: 'It scares off the people helping you, and it makes headlines.', q: 0, fx: { trust: -10 } },
       { text: 'Patch quietly and tell no one', why: 'Patching is right. Hiding exposure can be illegal and backfires when found.', q: 0.3, fx: { trust: -2 } },
       { text: 'Turn off the API for good', why: 'Breaks your own app and integrations. Fix the missing permission check instead.', q: 0.2, fx: { users: 0.9 } },
     ],
@@ -650,11 +640,10 @@ export const EVENTS: EventDef[] = [
   {
     id: 'departure',
     stage: 3,
-    emoji: '👋',
     title: 'Your first engineer resigns',
     skills: ['business', 'reliability'],
     lesson: 'w12-ownership',
-    story: 'Jordan — who set up the servers and knows where everything is — is leaving for a big-tech job.',
+    story: 'Jordan (who set up the servers and knows where everything is) is leaving for a big-tech job.',
     lines: (c) => {
       const out: Line[] = []
       if (c.dr === 'drilled') out.push({ key: 'dr', tone: 'good', text: 'accounts were company-owned and the runbook was practiced. Handoff took an afternoon.', fx: { team: -1 } })
@@ -667,7 +656,7 @@ export const EVENTS: EventDef[] = [
     prompt: 'Jordan gives two weeks’ notice. Use them how?',
     responses: [
       { text: 'Counter-offer anything; change nothing else', why: 'Keeps Jordan for now. The single point of failure stays.', q: 0.3, fx: { team: 1 } },
-      { text: 'Ask an AI to document the system after Jordan leaves', why: 'AI can read code — not the passwords and know-how in Jordan’s head.', q: 0.3 },
+      { text: 'Ask an AI to document the system after Jordan leaves', why: 'AI can read code, not the passwords and know-how in Jordan’s head.', q: 0.3 },
       { text: 'Pair on a handoff: move accounts to the company, write deploy & restore steps, revoke access when they go', why: 'Turns one person’s memory into company knowledge. Revoking access is part of offboarding.', q: 1, fx: { trust: 2 } },
       { text: 'Throw a nice farewell and wish them well', why: 'Kind, but their access and knowledge walk out the door.', q: 0.15 },
     ],
